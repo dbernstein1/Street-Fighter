@@ -5,14 +5,13 @@ import acm.graphics.*;
 
 public class GamePane extends GraphicsPane implements ActionListener {
 	/*
-	 	
 	private Referee ref;
 	private Player pOne;
 	private Player pTwo;
 	private Background background;
 	private GRect healthbarP1;
 	private GRect healthbarP2;
-	
+
 	public GamePane(Referee ref, Player pOne, Player pTwo, Background background, GRect healthbarP1, GRect healthbarP2, MainApplication app) {
 		super();
 		this.program = program;
@@ -23,7 +22,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		this.healthbarP1 = healthbarP1;
 		this.healthbarP2 = healthbarP2;
 	}
-	*/
+	 */
 	public GamePane(MainApplication app)
 	{
 		super();
@@ -45,9 +44,11 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	private MainApplication program;
 	public static final int GROUND = 550;
 	private int jump1,jump2,duck1,duck2,hittime1,hittime2;
-	private int jctr=1,dctr=1;
+	private int jctr=1,dctr=1,speed1=1,speed2=1;
 	private boolean isJumping1=false,isJumping2=false,isDucking1=false,isDucking2=false;
 	private boolean isPunching1=false,isPunching2=false,isKicking1=false,isKicking2=false;
+	private boolean isForward1,isForward2;
+	private boolean isBackward1,isBackward2;
 	private GRect body1,body2,leg1,leg2,arm1,arm2,punch1,punch2,kick1,kick2;
 	private GOval head1,head2;
 	private Timer t;
@@ -56,13 +57,118 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	{
 		program.add(something);
 	}
-	
+
 	public void remove(GObject something)
 	{
 		program.remove(something);
 	}
 	public void actionPerformed(ActionEvent e)
 	{
+		if(isForward1)
+		{
+			if(speed1<10)
+			{
+				speed1++;
+			}
+			head2.move(speed1, 0);
+			body2.move(speed1, 0);
+			leg2.move(speed1, 0);
+			arm2.move(speed1,0);
+			punch2.move(speed1, 0);
+			kick2.move(speed1, 0);
+		}
+		if(!isForward1)
+		{
+			if(speed1>0)
+			{
+				speed1--;
+				head2.move(speed1, 0);
+				body2.move(speed1, 0);
+				leg2.move(speed1, 0);
+				arm2.move(speed1,0);
+				punch2.move(speed1, 0);
+				kick2.move(speed1, 0);
+			}
+		}
+		if(isForward2)
+		{
+			if(speed2<10)
+			{
+				speed2++;
+			}
+			head1.move(speed2, 0);
+			body1.move(speed2, 0);
+			leg1.move(speed2, 0);
+			arm1.move(speed2,0);
+			punch1.move(speed2, 0);
+			kick1.move(speed2, 0);
+		}
+		if(!isForward2)
+		{
+			if(speed2>0)
+			{
+				speed2--;
+				head1.move(speed2, 0);
+				body1.move(speed2, 0);
+				leg1.move(speed2, 0);
+				arm1.move(speed2,0);
+				punch1.move(speed2, 0);
+				kick1.move(speed2, 0);
+			}
+		}
+		if(isBackward1)
+		{
+			if(speed1>-10)
+			{
+				speed1--;
+			}
+			head2.move(speed1, 0);
+			body2.move(speed1, 0);
+			leg2.move(speed1, 0);
+			arm2.move(speed1,0);
+			punch2.move(speed1, 0);
+			kick2.move(speed1, 0);
+		}
+		if(!isBackward1)
+		{
+			if(speed1<0)
+			{
+				speed1++;
+				head2.move(speed1, 0);
+				body2.move(speed1, 0);
+				leg2.move(speed1, 0);
+				arm2.move(speed1,0);
+				punch2.move(speed1, 0);
+				kick2.move(speed1, 0);
+			}
+		}
+		if(isBackward2)
+		{
+			if(speed2>-10)
+			{
+				speed2--;
+			}
+			head1.move(speed2, 0);
+			body1.move(speed2, 0);
+			leg1.move(speed2, 0);
+			arm1.move(speed2,0);
+			punch1.move(speed2, 0);
+			kick1.move(speed2, 0);
+		}
+		if(!isBackward2)
+		{
+			if(speed2<0)
+			{
+				speed2++;
+				head1.move(speed2, 0);
+				body1.move(speed2, 0);
+				leg1.move(speed2, 0);
+				arm1.move(speed2,0);
+				punch1.move(speed2, 0);
+				kick1.move(speed2, 0);
+			}
+		}
+
 		if(isKicking1)
 		{
 			add(kick1);
@@ -141,179 +247,192 @@ public class GamePane extends GraphicsPane implements ActionListener {
 				add(leg2);
 			}
 		}
-			if(isJumping1)
-			{
-				head1.move(0,jump1);
-				body1.move(0,jump1);
-				leg1.move(0,jump1);
-				arm1.move(0,jump1);
-				punch1.move(0, jump1);
-				kick1.move(0, jump1);
-				jump1+=jctr;
-				if(jump1==11)
-				{
-					jump1=-10;
-					isJumping1=false;
-				}	
-			}
-			if(isJumping2)
-			{
-				head2.move(0,jump2);
-				body2.move(0,jump2);
-				leg2.move(0,jump2);
-				arm2.move(0,jump2);
-				punch2.move(0, jump2);
-				kick2.move(0, jump2);
-				jump2+=jctr;
-				if(jump2==11)
-				{
-					jump2=-10;
-					isJumping2=false;
-				}
-			}
-		}
-
-		@Override
-		public void keyPressed(KeyEvent e)
+		if(isJumping1)
 		{
-			if(e.getKeyCode()==KeyEvent.VK_RIGHT)
+			head1.move(0,jump1);
+			body1.move(0,jump1);
+			leg1.move(0,jump1);
+			arm1.move(0,jump1);
+			punch1.move(0, jump1);
+			kick1.move(0, jump1);
+			jump1+=jctr;
+			if(jump1==11)
 			{
-				head2.move(5, 0);
-				body2.move(5, 0);
-				leg2.move(5, 0);
-				arm2.move(5,0);
-				punch2.move(5, 0);
-				kick2.move(5, 0);
-			}
-			if(e.getKeyCode()==KeyEvent.VK_LEFT)
+				jump1=-10;
+				isJumping1=false;
+			}	
+		}
+		if(isJumping2)
+		{
+			head2.move(0,jump2);
+			body2.move(0,jump2);
+			leg2.move(0,jump2);
+			arm2.move(0,jump2);
+			punch2.move(0, jump2);
+			kick2.move(0, jump2);
+			jump2+=jctr;
+			if(jump2==11)
 			{
-				head2.move(-5, 0);
-				body2.move(-5, 0);
-				leg2.move(-5, 0);
-				arm2.move(-5,0);
-				punch2.move(-5, 0);
-				kick2.move(-5, 0);
-			}
-			if(e.getKeyCode()==KeyEvent.VK_D)
-			{
-				head1.move(5, 0);
-				body1.move(5, 0);
-				leg1.move(5, 0);
-				arm1.move(5,0);
-				punch1.move(5, 0);
-				kick1.move(5, 0);
-			}
-			if(e.getKeyCode()==KeyEvent.VK_A)
-			{
-				head1.move(-5, 0);
-				body1.move(-5, 0);
-				leg1.move(-5, 0);
-				arm1.move(-5,0);
-				punch1.move(-5, 0);
-				kick1.move(-5, 0);
-			}
-			if(e.getKeyCode()==KeyEvent.VK_UP)
-			{	
-				if(!isJumping2  && !isDucking2)
-				{
-					jump2=-10;
-					isJumping2=true;
-				}
-			}
-			if(e.getKeyCode()==KeyEvent.VK_W)
-			{
-				if(!isJumping1  && !isDucking1)
-				{
-					jump1=-10;
-					isJumping1=true;
-				}
-			}
-			if(e.getKeyCode()==KeyEvent.VK_DOWN)
-			{	
-				if(!isDucking2  && !isJumping2)
-				{
-					duck2=7;
-					isDucking2=true;
-				}
-			}
-			if(e.getKeyCode()==KeyEvent.VK_S)
-			{	
-				if(!isDucking1 && !isJumping1)
-				{
-					duck1=7;
-					isDucking1=true;
-				}
-			}
-			if(e.getKeyCode()==KeyEvent.VK_P)
-			{
-				if(!isPunching1 && !isKicking1)
-				{
-					hittime1=0;
-					remove(arm1);
-					isPunching1=true;
-				}
-			}
-			if(e.getKeyCode()==KeyEvent.VK_SPACE)
-			{
-				if(!isPunching2 && !isKicking2)
-				{
-					hittime2=0;
-					remove(arm2);
-					isPunching2=true;
-				}
-			}
-			if(e.getKeyCode()==KeyEvent.VK_CONTROL)
-			{
-				if(!isKicking2 && !isPunching2)
-				{
-					hittime2=0;
-					isKicking2=true;
-				}
-			}
-			if(e.getKeyCode()==KeyEvent.VK_K)
-			{
-				if(!isKicking1 && !isPunching1)
-				{
-					hittime1=0;
-					isKicking1=true;
-				}
+				jump2=-10;
+				isJumping2=false;
 			}
 		}
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e)
+	{
+		if(e.getKeyCode()==KeyEvent.VK_RIGHT)
+		{
+			if(!isBackward1)
+			{
+				isForward1=true;
+			}
+		}
+		if(e.getKeyCode()==KeyEvent.VK_LEFT)
+		{
+			if(!isForward1)
+			{
+				isBackward1=true;
+			}
+		}
+		if(e.getKeyCode()==KeyEvent.VK_D)
+		{
+			if(!isBackward2)
+			{
+				isForward2=true;
+			}
+		}
+		if(e.getKeyCode()==KeyEvent.VK_A)
+		{
+			if(!isForward2)
+			{
+				isBackward2=true;
+			}
+		}
+		if(e.getKeyCode()==KeyEvent.VK_UP)
+		{	
+			if(!isJumping2  && !isDucking2)
+			{
+				jump2=-10;
+				isJumping2=true;
+			}
+		}
+		if(e.getKeyCode()==KeyEvent.VK_W)
+		{
+			if(!isJumping1  && !isDucking1)
+			{
+				jump1=-10;
+				isJumping1=true;
+			}
+		}
+		if(e.getKeyCode()==KeyEvent.VK_DOWN)
+		{	
+			if(!isDucking2  && !isJumping2)
+			{
+				duck2=7;
+				isDucking2=true;
+			}
+		}
+		if(e.getKeyCode()==KeyEvent.VK_S)
+		{	
+			if(!isDucking1 && !isJumping1)
+			{
+				duck1=7;
+				isDucking1=true;
+			}
+		}
+		if(e.getKeyCode()==KeyEvent.VK_P)
+		{
+			if(!isPunching1 && !isKicking1)
+			{
+				hittime1=0;
+				remove(arm1);
+				isPunching1=true;
+			}
+		}
+		if(e.getKeyCode()==KeyEvent.VK_SPACE)
+		{
+			if(!isPunching2 && !isKicking2)
+			{
+				hittime2=0;
+				remove(arm2);
+				isPunching2=true;
+			}
+		}
+		if(e.getKeyCode()==KeyEvent.VK_CONTROL)
+		{
+			if(!isKicking2 && !isPunching2)
+			{
+				hittime2=0;
+				isKicking2=true;
+			}
+		}
+		if(e.getKeyCode()==KeyEvent.VK_K)
+		{
+			if(!isKicking1 && !isPunching1)
+			{
+				hittime1=0;
+				isKicking1=true;
+			}
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e)
+	{
+		if(e.getKeyCode()==KeyEvent.VK_RIGHT)
+		{
+			isForward1=false;
+		}
+		if(e.getKeyCode()==KeyEvent.VK_LEFT)
+		{
+			isBackward1=false;
+		}
+		if(e.getKeyCode()==KeyEvent.VK_D)
+		{
+			isForward2=false;
+		}
+		if(e.getKeyCode()==KeyEvent.VK_A)
+		{
+			isBackward2=false;
+		}
+	}
 
 	public void handleCollision()
 	{
-		
+
 	}
-	
+
 	//updates screen on current state, location and health of players
 	public void updateScreen()
 	{
-		
+
 	}
-	
+
 	public boolean gameOver()
 	{
 		return true;
 	}
-	
+
 	@Override
 	public void showContents() {
-			add(head1);
-			add(head2);
-			add(body1);
-			add(body2);
-			add(leg1);
-			add(leg2);
-			add(arm1);
-			add(arm2);
-			t.start();
+		add(head1);
+		add(head2);
+		add(body1);
+		add(body2);
+		add(leg1);
+		add(leg2);
+		add(arm1);
+		add(arm2);
+		t.start();
 		return;
-}
+	}
 
 
 	@Override
 	public void hideContents() {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
