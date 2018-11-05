@@ -13,7 +13,7 @@ public class MenuPane extends GraphicsPane {
 	public MenuPane(MainApplication app) {
 		super();
 		program = app;
-		rect = new GButton("Next", 200, 200, 200, 200);
+		rect = new GButton("Start", 200, 200, 200, 200);
 		rect.setFillColor(Color.RED);
 	}
 
@@ -31,7 +31,7 @@ public class MenuPane extends GraphicsPane {
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
 		if (obj == rect) {
-			program.switchToSome();
+			program.switchToGame();
 		}
 	}
 }

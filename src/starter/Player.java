@@ -1,7 +1,4 @@
 package starter;
-import PlayerName;
-import Space;
-import Stats;
 
 public class Player {
 
