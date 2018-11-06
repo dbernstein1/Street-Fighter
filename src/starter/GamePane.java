@@ -277,6 +277,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 				isJumping2=false;
 			}
 		}
+		handleCollision();
 	}
 
 	@Override
@@ -401,7 +402,28 @@ public class GamePane extends GraphicsPane implements ActionListener {
 
 	public void handleCollision()
 	{
+		if (intersection(body1, body2)) {
+			head2.move(10, 0);
+			body2.move(10, 0);
+			leg2.move(10, 0);
+			arm2.move(10,0);
+			punch2.move(10, 0);
+			kick2.move(10, 0);
 
+			head1.move(-10, 0);
+			body1.move(-10, 0);
+			leg1.move(-10, 0);
+			arm1.move(-10,0);
+			punch1.move(-10, 0);
+			kick1.move(-10, 0);
+		}
+	
+	}
+	
+	public boolean intersection(GObject x1, GObject x2) {
+		
+		return x1.getBounds().intersects(x2.getBounds());
+		
 	}
 
 	//updates screen on current state, location and health of players
