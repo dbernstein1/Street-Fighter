@@ -14,15 +14,30 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 	private GamePane gamePane;
 	private MenuPane menu;
 	private int count;
+	public Background background;
+	//private Background background;
+	
+	/*
+	public Background getBackground() {
+		return background;
+	}
+	*/
+
+	public void setBackground(Background background) {
+		this.background = background;
+	}
+
 
 	public void init() {
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);	
 	}
+	
 
 	public void run() {
 		System.out.println("Hello, world!");
 		somePane = new SomePane(this);
 		menu = new MenuPane(this);
+		background = new Background("example_back.jpg", WINDOW_WIDTH, WINDOW_HEIGHT);
 		gamePane = new GamePane(this);
 		switchToMenu();
 	}

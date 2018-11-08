@@ -39,9 +39,11 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		leg2=new GRect(830,GROUND-30,10,30);
 		arm1=new GRect(240,GROUND-80,10,40);
 		arm2=new GRect(820,GROUND-80,10,40);
+		background = program.background;
 		t=new Timer(50,this);
 	}
 	private MainApplication program;
+	private Background background;
 	public static final int GROUND = 550;
 	private int jump1,jump2,duck1,duck2,hittime1,hittime2;
 	private int jctr=1,dctr=1,speed1=1,speed2=1;
@@ -54,6 +56,11 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	private Timer t;
 
 	public void add(GObject something)
+	{
+		program.add(something);
+	}
+	
+	public void add(GImage something)
 	{
 		program.add(something);
 	}
@@ -438,7 +445,9 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	}
 
 	@Override
-	public void showContents() {
+	public void showContents() 
+	{
+		add(background.getImage());
 		add(head1);
 		add(head2);
 		add(body1);
@@ -450,7 +459,6 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		t.start();
 		return;
 	}
-
 
 	@Override
 	public void hideContents() {
