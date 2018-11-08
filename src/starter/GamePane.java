@@ -1,4 +1,5 @@
 package starter;
+import java.awt.Color;
 import java.awt.event.*;
 import javax.swing.*;
 import acm.graphics.*;
@@ -39,17 +40,50 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		leg2=new GRect(830,GROUND-30,10,30);
 		arm1=new GRect(240,GROUND-80,10,40);
 		arm2=new GRect(820,GROUND-80,10,40);
+		hpbarx1 = (app.getWidth() * 0.05);
+		hpbarx2 = (app.getWidth() * 0.5);
+		hpoutline1 = new GRect(hpbarx1, 25, 500, 15);
+		hpoutline2 = new GRect(hpbarx2, 25, 500, 15);
+		hpoutline1.setFilled(true);
+		hpoutline2.setFilled(true);
+		hpbar1 = new GRect(hpbarx1 * (hp1 / hptotal), 25, 500, 15);
+		hpbar1.setFillColor(new Color(0, 255, 0));
+		hpbar1.setFilled(true);
+		hpbar2 = new GRect(hpbarx2 * (hp2 / hptotal), 25, 500, 15);
+		hpbar2.setFillColor(new Color(0, 255, 0));
+		hpbar2.setFilled(true);
 		t=new Timer(50,this);
+	}
+	public void updateHealthPoints(int pl) {
+		
+		if (pl == 1) {
+			remove(hpbar1);
+			hpbar1 = new GRect(hpbarx1, 25, 500 * (hp1 / hptotal), 15);
+			hpbar1.setFillColor(hp1 > 50 ? new Color(0, 255, 0) : new Color(255,0,0));
+			hpbar1.setFilled(true);
+			add(hpbar1);
+		} else if (pl == 2) {
+			remove(hpbar2);
+			hpbar2 = new GRect(hpbarx2, 25, 500 * (hp2 / hptotal), 15);
+			hpbar2.setFillColor(hp2 > 50 ? new Color(0, 255, 0) : new Color(255,0,0));
+			hpbar2.setFilled(true);
+			add(hpbar2);
+		}
+		
+		gameOver();
 	}
 	private MainApplication program;
 	public static final int GROUND = 550;
 	private int jump1,jump2,duck1,duck2,hittime1,hittime2;
 	private int jctr=1,dctr=1,speed1=1,speed2=1;
+	private double hpbarx1, hpbarx2;
+	private double hp1 = 100, hp2 = 100, hptotal = 100;
 	private boolean isJumping1=false,isJumping2=false,isDucking1=false,isDucking2=false;
 	private boolean isPunching1=false,isPunching2=false,isKicking1=false,isKicking2=false;
 	private boolean isForward1,isForward2;
 	private boolean isBackward1,isBackward2;
 	private GRect body1,body2,leg1,leg2,arm1,arm2,punch1,punch2,kick1,kick2;
+	private GRect hpbar1, hpbar2, hpoutline1, hpoutline2;
 	private GOval head1,head2;
 	private Timer t;
 
@@ -277,6 +311,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 				isJumping2=false;
 			}
 		}
+		
 		handleCollision();
 	}
 
@@ -417,6 +452,32 @@ public class GamePane extends GraphicsPane implements ActionListener {
 			punch1.move(-10, 0);
 			kick1.move(-10, 0);
 		}
+		
+		if ((isKicking1 && intersection(kick1, body2)) || (isPunching1 && intersection(punch1, body2))) {
+
+			hp2 -= 5;
+			updateHealthPoints(2);
+			
+			head2.move(40, 0);
+			body2.move(40, 0);
+			leg2.move(40, 0);
+			arm2.move(40,0);
+			punch2.move(40, 0);
+			kick2.move(40, 0);
+			
+		}
+		if ((isKicking2 && intersection(kick2, body1)) || (isPunching2 && intersection(punch2, body1))) {
+			
+			hp1 -= 5;
+			updateHealthPoints(1);
+			
+			head1.move(-40, 0);
+			body1.move(-40, 0);
+			leg1.move(-40, 0);
+			arm1.move(-40,0);
+			punch1.move(-40, 0);
+			kick1.move(-40, 0);
+		}
 	
 	}
 	
@@ -432,9 +493,19 @@ public class GamePane extends GraphicsPane implements ActionListener {
 
 	}
 
-	public boolean gameOver()
+	public void gameOver()
 	{
-		return true;
+		if (hp1 == 0) {
+			System.out.println("player 2 wins");
+			// add slow motion
+			t.stop();
+		}
+		else if (hp2 == 0) {
+			System.out.println("player 1 wins");
+			// add slow motion
+			t.stop();
+			
+		}
 	}
 
 	@Override
@@ -447,6 +518,10 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		add(leg2);
 		add(arm1);
 		add(arm2);
+		add(hpoutline1);
+		add(hpoutline2);
+		add(hpbar1);
+		add(hpbar2);
 		t.start();
 		return;
 	}
