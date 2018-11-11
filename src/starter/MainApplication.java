@@ -8,13 +8,13 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 	public static final int WINDOW_HEIGHT = 600;
 	public static final int GROUND = 550;
 	public static final String MUSIC_FOLDER = "sounds";
-	private static final String[] SOUND_FILES = { "r2d2.mp3", "somethinlikethis.mp3" };
+	private static final String[] SOUND_FILES = {"megalovania.mp3" , "r2d2.mp3", "somethinlikethis.mp3" };
 
 	private SomePane somePane;
 	private GamePane gamePane;
 	private MenuPane menu;
 	private int count;
-	public Background background;
+	public Background background,menu_Bg;
 	//private Background background;
 	
 	/*
@@ -36,9 +36,11 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 	public void run() {
 		System.out.println("Hello, world!");
 		somePane = new SomePane(this);
-		menu = new MenuPane(this);
 		background = new Background("example_back.jpg", WINDOW_WIDTH, WINDOW_HEIGHT);
+		menu_Bg= new Background("sans.jpg", WINDOW_WIDTH, WINDOW_HEIGHT);
+		menu = new MenuPane(this);
 		gamePane = new GamePane(this);
+		
 		switchToMenu();
 	}
 
@@ -59,6 +61,6 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 
 	private void playRandomSound() {
 		AudioPlayer audio = AudioPlayer.getInstance();
-		audio.playSound(MUSIC_FOLDER, SOUND_FILES[count % SOUND_FILES.length]);
+		audio.playSound(MUSIC_FOLDER, SOUND_FILES[count % SOUND_FILES.length],true);
 	}
 }
