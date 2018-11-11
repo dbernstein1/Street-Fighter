@@ -8,7 +8,7 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 	public static final int WINDOW_HEIGHT = 600;
 	public static final int GROUND = 550;
 	public static final String MUSIC_FOLDER = "sounds";
-	private static final String[] SOUND_FILES = { "r2d2.mp3", "somethinlikethis.mp3" };
+	private static final String[] SOUND_FILES = {"megalovania.mp3" , "r2d2.mp3", "somethinlikethis.mp3" };
 
 	private SomePane somePane;
 	private GamePane gamePane;
@@ -37,7 +37,7 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 		System.out.println("Hello, world!");
 		somePane = new SomePane(this);
 		background = new Background("example_back.jpg", WINDOW_WIDTH, WINDOW_HEIGHT);
-		menu_Bg= new Background("menubg.jpg", WINDOW_WIDTH, WINDOW_HEIGHT+50);
+		menu_Bg= new Background("sans.jpg", WINDOW_WIDTH, WINDOW_HEIGHT);
 		menu = new MenuPane(this);
 		gamePane = new GamePane(this);
 		
@@ -61,6 +61,6 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 
 	private void playRandomSound() {
 		AudioPlayer audio = AudioPlayer.getInstance();
-		audio.playSound(MUSIC_FOLDER, SOUND_FILES[count % SOUND_FILES.length]);
+		audio.playSound(MUSIC_FOLDER, SOUND_FILES[count % SOUND_FILES.length],true);
 	}
 }
