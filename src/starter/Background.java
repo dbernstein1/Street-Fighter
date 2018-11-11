@@ -23,4 +23,5 @@ public class Background{
 	public GImage getImage() {
 		return image;
 	}
+	
 }

@@ -14,7 +14,7 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 	private GamePane gamePane;
 	private MenuPane menu;
 	private int count;
-	public Background background;
+	public Background background,menu_Bg;
 	//private Background background;
 	
 	/*
@@ -36,9 +36,11 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 	public void run() {
 		System.out.println("Hello, world!");
 		somePane = new SomePane(this);
-		menu = new MenuPane(this);
 		background = new Background("example_back.jpg", WINDOW_WIDTH, WINDOW_HEIGHT);
+		menu_Bg= new Background("menubg.jpg", WINDOW_WIDTH, WINDOW_HEIGHT+50);
+		menu = new MenuPane(this);
 		gamePane = new GamePane(this);
+		
 		switchToMenu();
 	}
 
