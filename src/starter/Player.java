@@ -16,7 +16,7 @@ public class Player {
 	
 	public int jump, duck, hittime;
 	public int jctr=1,dctr=1,speed=1;
-	public int stamina = 15, staminatotal = 15;
+	public double stamina = 15, staminatotal = 15;
 	public double strength = 1;
 	public double hpbarx, staminabarx;
 	public double hptotal = 100, hp = 100;
@@ -30,12 +30,12 @@ public class Player {
 	
 	public ArrayList<GObject> arrayList = new ArrayList<GObject>();
 	
-	Player(int player, String n, double Health, double StrengthMultiplier, int AttackStamina){
+	Player(int player, String n, double MaxHealth, double StrengthMultiplier, double MaxStamina){
 		
-		hptotal = Health;
+		hptotal = MaxHealth;
 		hp = hptotal;
 		strength = StrengthMultiplier;
-		staminatotal = AttackStamina;
+		staminatotal = MaxStamina;
 		stamina = staminatotal;
 		name = n;
 		switch (player) {
@@ -90,16 +90,14 @@ public class Player {
 		
 	}
 	
-	public void updateStamina(Player p) { 
+	public void updateStamina() { 
 		
 		
-		if (p == null) return;
-		
-		GamePane.remove(p.staminabar);
-		staminabar = new GRect(p.staminabarx, 42, 260 * (p.stamina / p.staminatotal), 15);
-		staminabar.setFillColor(p.stamina > 10 ? new Color(0,0,255) : new Color(255,255,0));
+		GamePane.remove(staminabar);
+		staminabar = new GRect(staminabarx, 42, 260 * (stamina / staminatotal), 15);
+		staminabar.setFillColor(stamina > 4.5 ? new Color(0,0,255) : new Color(255,255,0));
 		staminabar.setFilled(true);
-		GamePane.add(p.staminabar);
+		GamePane.add(staminabar);
 		
 	}
 		
@@ -129,48 +127,50 @@ public class Player {
 					GamePane.playerMove(this, speed, 0);
 				}
 			}
+			
 			if(isKicking){
 				GamePane.add(kick);
 				hittime++;
+				stamina -= 0.05;
+				updateStamina();
 				if(hittime==10){
 					GamePane.remove(kick);
 					isKicking=false;
 					hittime=0;
-					stamina -= 1;
-					updateStamina(this);
 				}
 			}
 			if(isPunching){
 				GamePane.add(punch);
 				hittime++;
+				stamina -= 0.05;
+				updateStamina();
 				if(hittime==6){
 					GamePane.remove(punch);
 					GamePane.add(arm);
 					isPunching=false;
 					hittime=0;
-					stamina -= 1;
-					updateStamina(this);
 				}
 			}
 			if(isDucking){
 				GamePane.playerMove(this, 0, duck);
 				GamePane.remove(leg);
-				duck-=dctr;{
+				stamina -= 0.1;
+				updateStamina();
+				duck-=dctr;
+				if (duck == -8){
 					duck=7;
 					isDucking=false;
 					GamePane.add(leg);
-					stamina -= 2;
-					updateStamina(this);
 				}
 			}
 			if(isJumping){
 				GamePane.playerMove(this, 0, jump);
 				jump+=jctr;
+				stamina -= 0.1;
+				updateStamina();
 				if(jump==11){
 					jump=-10;
 					isJumping=false;
-					stamina -= 3;
-					updateStamina(this);
 				}	
 			}
 		}
