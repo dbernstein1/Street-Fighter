@@ -3,11 +3,13 @@ package starter;
 import java.awt.Color;
 import java.util.ArrayList;
 
+import acm.graphics.GImage;
 import acm.graphics.GObject;
 import acm.graphics.GOval;
 import acm.graphics.GRect;
+import acm.program.GraphicsProgram;
 
-public class Player {
+public class Player extends GraphicsProgram {
 	public static final int GROUND = 550;
 
 	@SuppressWarnings("unused")
@@ -26,6 +28,7 @@ public class Player {
 	public GRect body,leg,arm,punch,kick;
 	public GRect hpbar, hpoutline, staminabar;
 	public GOval head;
+	public GImage chCody;
 	
 	public ArrayList<GObject> arrayList = new ArrayList<GObject>();
 	

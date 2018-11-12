@@ -33,6 +33,7 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 
 	public void init() {
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);	
+		requestFocus();
 	}
 	
 
