@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 
 import acm.graphics.GImage;
 import acm.graphics.GObject;
-
+//level select
 public class LevelSelectionPane extends GraphicsPane {
 	private MainApplication program;
 	private static final String IMAGES[]= {"example_back.jpg","menu_back_arrow.png","highlight.png"};
