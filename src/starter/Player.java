@@ -2,20 +2,16 @@ package starter;
 
 public class Player {
 
-	public Player(PlayerName name, Space cur, int health) {
+	public Player(PlayerName name, Stats stats) {
 		super();
 		this.name = name;
-		this.cur = cur;
-		this.health = health;
+		this.stats = stats;
 	}
 	
 	//TODO make State classes
 	//private State state
 	private Stats stats;
-	private Space cur;
 	private PlayerName name;
-	private Space start;
-	private int health;
 
 	public PlayerName getPlayerName() {
 		return name;

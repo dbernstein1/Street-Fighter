@@ -1,16 +1,18 @@
 package starter;
 
 public class Stats {
-	public Stats(int powerPunch, int powerKick, int defense) {
+	public Stats(int powerPunch, int powerKick, int defense, int health) {
 		super();
 		this.powerPunch = powerPunch;
 		this.powerKick = powerKick;
 		this.defense = defense;
+		this.health = health;
 	}
 
 	private int powerPunch;
 	private int powerKick;
 	private int defense;
+	private int health;
 	public int getPowerPunch() {
 		return powerPunch;
 	}
