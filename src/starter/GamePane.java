@@ -9,6 +9,8 @@ import javax.swing.*;
 import acm.graphics.*;
 
 public class GamePane extends GraphicsPane implements ActionListener {
+	private Background background;
+	private Background background2;
 
 	public GamePane(MainApplication app)
 	{
@@ -16,6 +18,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		GamePane.program = app;
 		width = app.getWidth();
 		background = program.backgroundPort;
+		background2 = program.backgroundPort2;
 		t=new Timer(50,this);
 	}
 	
@@ -27,7 +30,6 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	public static final int GROUND = 550;
 	public static int width = 1200;
 	private Timer t;
-	private Background background;
 	private int numTimes = 0;
 //	backgroundPort = new Background("portMapMain.png", WINDOW_WIDTH, WINDOW_HEIGHT);
 //  backgroundPort2 = new Background("portMapMain2.png", WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -74,10 +76,10 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		
 		numTimes ++;
 		if (numTimes % 2 == 0) {
-			add(backgroundPort.getImage());
+			add(background.getImage());
 		}
 		else {
-			add(backgroundPort2.getImage());
+			add(background2.getImage());
 		}
 		
 		handleCollision();
@@ -254,7 +256,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	@Override
 	public void showContents() {
 
-		add(background.getImage());
+//		add(background.getImage());
 		
 		PLAYER_ONE.RefreshArray();
 		PLAYER_TWO.RefreshArray();
