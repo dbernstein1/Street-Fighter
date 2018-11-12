@@ -80,4 +80,18 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 		AudioPlayer audio = AudioPlayer.getInstance();
 		audio.stopSound(MUSIC_FOLDER, SOUND_FILES[0]);
 	}
+
+
+	public void remove(Background bgPort) {
+		// TODO Auto-generated method stub
+	
+	}
+
+
+	public void add(Background bgPort) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 }

@@ -9,16 +9,16 @@ import javax.swing.*;
 import acm.graphics.*;
 
 public class GamePane extends GraphicsPane implements ActionListener {
-	private Background background;
-	private Background background2;
+	private Background bgPort;
+	private Background bgPort2;
 
 	public GamePane(MainApplication app)
 	{
 		super();
 		GamePane.program = app;
 		width = app.getWidth();
-		background = program.backgroundPort;
-		background2 = program.backgroundPort2;
+		bgPort = program.backgroundPort;
+		bgPort2 = program.backgroundPort2;
 		t=new Timer(50,this);
 	}
 	
@@ -69,19 +69,33 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		gameOver();
 	}
 	
+	public void add(Background bgPort) {
+		program.add(bgPort);
+		program.add(bgPort2);
+	}
+	
+	public void remove(Background bgPort) {
+		program.remove(bgPort);
+		program.remove(bgPort2);
+	}
+	
 	public void actionPerformed(ActionEvent e)
 	{
 		PLAYER_ONE.HandleMovement();
 		PLAYER_TWO.HandleMovement();
 		
 		numTimes ++;
-		if (numTimes % 2 == 0) {
-			add(background.getImage());
+		if (numTimes % 20 == 0) {
+			add(bgPort.getImage());
+			remove(bgPort2);
+			
+		;
 		}
-		else {
-			add(background2.getImage());
+		else if (numTimes % 20 == 10){
+			add(bgPort2.getImage());
+			remove(bgPort);
 		}
-		
+		showContents();
 		handleCollision();
 		
 	}
