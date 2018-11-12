@@ -1,323 +1,72 @@
 package starter;
 import java.awt.Color;
 import java.awt.event.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
+
+
 import acm.graphics.*;
 
 public class GamePane extends GraphicsPane implements ActionListener {
-	/*
-	private Referee ref;
-	private Player pOne;
-	private Player pTwo;
-	private Background background;
-	private GRect healthbarP1;
-	private GRect healthbarP2;
 
-	public GamePane(Referee ref, Player pOne, Player pTwo, Background background, GRect healthbarP1, GRect healthbarP2, MainApplication app) {
-		super();
-		this.program = program;
-		this.ref = ref;
-		this.pOne = pOne;
-		this.pTwo = pTwo;
-		this.background = background;
-		this.healthbarP1 = healthbarP1;
-		this.healthbarP2 = healthbarP2;
-	}
-	 */
 	public GamePane(MainApplication app)
 	{
 		super();
-		this.program = app;
-		punch1=new GRect(270,GROUND-80,30,10);
-		punch2=new GRect(770,GROUND-80,30,10);
-		kick1=new GRect(270,GROUND-50,30,10);
-		kick2=new GRect(770,GROUND-50,30,10);
-		head1=new GOval(210,GROUND-150,50,50);
-		body1=new GRect(200,GROUND-100,70,70);
-		head2=new GOval(810,GROUND-150,50,50);
-		body2=new GRect(800,GROUND-100,70,70);
-		leg1=new GRect(230,GROUND-30,10,30);
-		leg2=new GRect(830,GROUND-30,10,30);
-		arm1=new GRect(240,GROUND-80,10,40);
-		arm2=new GRect(820,GROUND-80,10,40);
+		GamePane.program = app;
+		width = app.getWidth();
 		background = program.background;
-		hpbarx1 = (app.getWidth() * 0.05);
-		hpbarx2 = (app.getWidth() * 0.5);
-		hpoutline1 = new GRect(hpbarx1, 25, 500, 15);
-		hpoutline2 = new GRect(hpbarx2, 25, 500, 15);
-		hpoutline1.setFilled(true);
-		hpoutline2.setFilled(true);
-		hpbar1 = new GRect(hpbarx1 * (hp1 / hptotal), 25, 500, 15);
-		hpbar1.setFillColor(new Color(0, 255, 0));
-		hpbar1.setFilled(true);
-		hpbar2 = new GRect(hpbarx2 * (hp2 / hptotal), 25, 500, 15);
-		hpbar2.setFillColor(new Color(0, 255, 0));
-		hpbar2.setFilled(true);
 		t=new Timer(50,this);
 	}
-	public void updateHealthPoints(int pl) {
-		
-		if (pl == 1) {
-			remove(hpbar1);
-			hpbar1 = new GRect(hpbarx1, 25, 500 * (hp1 / hptotal), 15);
-			hpbar1.setFillColor(hp1 > 50 ? new Color(0, 255, 0) : new Color(255,0,0));
-			hpbar1.setFilled(true);
-			add(hpbar1);
-		} else if (pl == 2) {
-			remove(hpbar2);
-			hpbar2 = new GRect(hpbarx2, 25, 500 * (hp2 / hptotal), 15);
-			hpbar2.setFillColor(hp2 > 50 ? new Color(0, 255, 0) : new Color(255,0,0));
-			hpbar2.setFilled(true);
-			add(hpbar2);
-		}
-		
-		gameOver();
-	}
-	private MainApplication program;
-	private Background background;
+	
+	
+	private Player PLAYER_ONE = new Player(1, "Playerone", 80, 2, 25); // 80 HP, 200% attack multiplier, 25 stamina 
+	private Player PLAYER_TWO = new Player(2, "player_Two", 150, .8, 15);  // 150 hp, 20% attack reduction, 15 stamina
+	
+	private static MainApplication program;
 	public static final int GROUND = 550;
-	private int jump1,jump2,duck1,duck2,hittime1,hittime2;
-	private int jctr=1,dctr=1,speed1=1,speed2=1;
-	private double hpbarx1, hpbarx2;
-	private double hp1 = 100, hp2 = 100, hptotal = 100;
-	private boolean isJumping1=false,isJumping2=false,isDucking1=false,isDucking2=false;
-	private boolean isPunching1=false,isPunching2=false,isKicking1=false,isKicking2=false;
-	private boolean isForward1,isForward2;
-	private boolean isBackward1,isBackward2;
-	private GRect body1,body2,leg1,leg2,arm1,arm2,punch1,punch2,kick1,kick2;
-	private GRect hpbar1, hpbar2, hpoutline1, hpoutline2;
-	private GOval head1,head2;
+	public static int width = 1200;
 	private Timer t;
-
-	public void add(GObject something)
+	private Background background;
+	
+	public static void add(GObject something)
 	{
 		program.add(something);
 	}
 	
-	public void add(GImage something)
-	{
-		program.add(something);
-	}
-
-	public void remove(GObject something)
+	public static void remove(GObject something)
 	{
 		program.remove(something);
 	}
+	public static void playerMove(Player p, double horizontal, double vertical) { // need 2 remove static
+		
+		if (p == null) return;	
+
+		p.head.move(horizontal, vertical);
+		p.body.move(horizontal, vertical);
+		p.leg.move(horizontal, vertical);
+		p.arm.move(horizontal, vertical);
+		p.punch.move(horizontal, vertical);
+		p.kick.move(horizontal, vertical);
+		
+	}
+	public void updateHealthPoints(Player p) {
+		
+		if (p == null) return;
+		
+		remove(p.hpbar);
+		p.hpbar = new GRect(p.hpbarx, 25, 500 * (p.hp / p.hptotal), 15);
+		p.hpbar.setFillColor(p.hp > 40 ? new Color(0, 255, 0) : new Color(255,0,0));
+		p.hpbar.setFilled(true);
+		add(p.hpbar);
+		
+		gameOver();
+	}
+	
 	public void actionPerformed(ActionEvent e)
 	{
-		if(isForward1)
-		{
-			if(speed1<10)
-			{
-				speed1++;
-			}
-			head2.move(speed1, 0);
-			body2.move(speed1, 0);
-			leg2.move(speed1, 0);
-			arm2.move(speed1,0);
-			punch2.move(speed1, 0);
-			kick2.move(speed1, 0);
-		}
-		if(!isForward1)
-		{
-			if(speed1>0)
-			{
-				speed1--;
-				head2.move(speed1, 0);
-				body2.move(speed1, 0);
-				leg2.move(speed1, 0);
-				arm2.move(speed1,0);
-				punch2.move(speed1, 0);
-				kick2.move(speed1, 0);
-			}
-		}
-		if(isForward2)
-		{
-			if(speed2<10)
-			{
-				speed2++;
-			}
-			head1.move(speed2, 0);
-			body1.move(speed2, 0);
-			leg1.move(speed2, 0);
-			arm1.move(speed2,0);
-			punch1.move(speed2, 0);
-			kick1.move(speed2, 0);
-		}
-		if(!isForward2)
-		{
-			if(speed2>0)
-			{
-				speed2--;
-				head1.move(speed2, 0);
-				body1.move(speed2, 0);
-				leg1.move(speed2, 0);
-				arm1.move(speed2,0);
-				punch1.move(speed2, 0);
-				kick1.move(speed2, 0);
-			}
-		}
-		if(isBackward1)
-		{
-			if(speed1>-10)
-			{
-				speed1--;
-			}
-			head2.move(speed1, 0);
-			body2.move(speed1, 0);
-			leg2.move(speed1, 0);
-			arm2.move(speed1,0);
-			punch2.move(speed1, 0);
-			kick2.move(speed1, 0);
-		}
-		if(!isBackward1)
-		{
-			if(speed1<0)
-			{
-				speed1++;
-				head2.move(speed1, 0);
-				body2.move(speed1, 0);
-				leg2.move(speed1, 0);
-				arm2.move(speed1,0);
-				punch2.move(speed1, 0);
-				kick2.move(speed1, 0);
-			}
-		}
-		if(isBackward2)
-		{
-			if(speed2>-10)
-			{
-				speed2--;
-			}
-			head1.move(speed2, 0);
-			body1.move(speed2, 0);
-			leg1.move(speed2, 0);
-			arm1.move(speed2,0);
-			punch1.move(speed2, 0);
-			kick1.move(speed2, 0);
-		}
-		if(!isBackward2)
-		{
-			if(speed2<0)
-			{
-				speed2++;
-				head1.move(speed2, 0);
-				body1.move(speed2, 0);
-				leg1.move(speed2, 0);
-				arm1.move(speed2,0);
-				punch1.move(speed2, 0);
-				kick1.move(speed2, 0);
-			}
-		}
-
-		if(isKicking1)
-		{
-			add(kick1);
-			hittime1++;
-			if(hittime1==10)
-			{
-				remove(kick1);
-				isKicking1=false;
-				hittime1=0;
-			}
-		}
-		if(isKicking2)
-		{
-			add(kick2);
-			hittime2++;
-			if(hittime2==10)
-			{
-				remove(kick2);
-				isKicking2=false;
-				hittime2=0;
-			}
-		}
-		if(isPunching1)
-		{
-			add(punch1);
-			hittime1++;
-			if(hittime1==6)
-			{
-				remove(punch1);
-				add(arm1);
-				isPunching1=false;
-				hittime1=0;
-			}
-		}
-		if(isPunching2)
-		{
-			add(punch2);
-			hittime2++;
-			if(hittime2==6)
-			{
-				remove(punch2);
-				add(arm2);
-				isPunching2=false;
-				hittime2=0;
-			}
-		}
-		if(isDucking1)
-		{
-			head1.move(0, duck1);
-			body1.move(0,duck1);
-			arm1.move(0, duck1);
-			punch1.move(0, duck1);
-			kick1.move(0, duck1);
-			remove(leg1);
-			duck1-=dctr;
-			if(duck1==-8)
-			{
-				duck1=7;
-				isDucking1=false;
-				add(leg1);
-			}
-		}
-		if(isDucking2)
-		{
-			head2.move(0, duck2);
-			body2.move(0,duck2);
-			arm2.move(0, duck2);
-			punch2.move(0, duck2);
-			kick2.move(0, duck2);
-			remove(leg2);
-			duck2-=dctr;
-			if(duck2==-8)
-			{
-				duck2=7;
-				isDucking2=false;
-				add(leg2);
-			}
-		}
-		if(isJumping1)
-		{
-			head1.move(0,jump1);
-			body1.move(0,jump1);
-			leg1.move(0,jump1);
-			arm1.move(0,jump1);
-			punch1.move(0, jump1);
-			kick1.move(0, jump1);
-			jump1+=jctr;
-			if(jump1==11)
-			{
-				jump1=-10;
-				isJumping1=false;
-			}	
-		}
-		if(isJumping2)
-		{
-			head2.move(0,jump2);
-			body2.move(0,jump2);
-			leg2.move(0,jump2);
-			arm2.move(0,jump2);
-			punch2.move(0, jump2);
-			kick2.move(0, jump2);
-			jump2+=jctr;
-			if(jump2==11)
-			{
-				jump2=-10;
-				isJumping2=false;
-			}
-		}
+		PLAYER_ONE.HandleMovement();
+		PLAYER_TWO.HandleMovement();
 		
 		handleCollision();
 	}
@@ -327,96 +76,96 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	{
 		if(e.getKeyCode()==KeyEvent.VK_RIGHT)
 		{
-			if(!isBackward1)
+			if(!PLAYER_TWO.isBackward)
 			{
-				isForward1=true;
+				PLAYER_TWO.isForward=true;
 			}
 		}
 		if(e.getKeyCode()==KeyEvent.VK_LEFT)
 		{
-			if(!isForward1)
+			if(!PLAYER_TWO.isForward)
 			{
-				isBackward1=true;
+				PLAYER_TWO.isBackward=true;
 			}
 		}
 		if(e.getKeyCode()==KeyEvent.VK_D)
 		{
-			if(!isBackward2)
+			if(!PLAYER_ONE.isBackward)
 			{
-				isForward2=true;
+				PLAYER_ONE.isForward=true;
 			}
 		}
 		if(e.getKeyCode()==KeyEvent.VK_A)
 		{
-			if(!isForward2)
+			if(!PLAYER_ONE.isForward)
 			{
-				isBackward2=true;
+				PLAYER_ONE.isBackward=true;
 			}
 		}
 		if(e.getKeyCode()==KeyEvent.VK_UP)
 		{	
-			if(!isJumping2  && !isDucking2)
+			if(!PLAYER_TWO.isJumping  && !PLAYER_TWO.isDucking)
 			{
-				jump2=-10;
-				isJumping2=true;
+				PLAYER_TWO.jump=-10;
+				PLAYER_TWO.isJumping=true;
 			}
 		}
 		if(e.getKeyCode()==KeyEvent.VK_W)
 		{
-			if(!isJumping1  && !isDucking1)
+			if(!PLAYER_ONE.isJumping  && !PLAYER_ONE.isDucking)
 			{
-				jump1=-10;
-				isJumping1=true;
+				PLAYER_ONE.jump=-10;
+				PLAYER_ONE.isJumping=true;
 			}
 		}
 		if(e.getKeyCode()==KeyEvent.VK_DOWN)
 		{	
-			if(!isDucking2  && !isJumping2)
+			if(!PLAYER_TWO.isDucking  && !PLAYER_TWO.isJumping)
 			{
-				duck2=7;
-				isDucking2=true;
+				PLAYER_TWO.duck=7;
+				PLAYER_TWO.isDucking=true;
 			}
 		}
 		if(e.getKeyCode()==KeyEvent.VK_S)
 		{	
-			if(!isDucking1 && !isJumping1)
+			if(!PLAYER_ONE.isDucking && !PLAYER_ONE.isJumping)
 			{
-				duck1=7;
-				isDucking1=true;
+				PLAYER_ONE.duck=7;
+				PLAYER_ONE.isDucking=true;
 			}
 		}
 		if(e.getKeyCode()==KeyEvent.VK_P)
 		{
-			if(!isPunching1 && !isKicking1)
+			if(!PLAYER_ONE.isPunching && !PLAYER_ONE.isKicking)
 			{
-				hittime1=0;
-				remove(arm1);
-				isPunching1=true;
+				PLAYER_ONE.hittime=0;
+				remove(PLAYER_ONE.arm);
+				PLAYER_ONE.isPunching=true;
 			}
 		}
 		if(e.getKeyCode()==KeyEvent.VK_SPACE)
 		{
-			if(!isPunching2 && !isKicking2)
+			if(!PLAYER_TWO.isPunching && !PLAYER_TWO.isKicking)
 			{
-				hittime2=0;
-				remove(arm2);
-				isPunching2=true;
+				PLAYER_TWO.hittime=0;
+				remove(PLAYER_TWO.arm);
+				PLAYER_TWO.isPunching=true;
 			}
 		}
 		if(e.getKeyCode()==KeyEvent.VK_CONTROL)
 		{
-			if(!isKicking2 && !isPunching2)
+			if(!PLAYER_TWO.isKicking && !PLAYER_TWO.isPunching)
 			{
-				hittime2=0;
-				isKicking2=true;
+				PLAYER_TWO.hittime=0;
+				PLAYER_TWO.isKicking=true;
 			}
 		}
 		if(e.getKeyCode()==KeyEvent.VK_K)
 		{
-			if(!isKicking1 && !isPunching1)
+			if(!PLAYER_ONE.isKicking && !PLAYER_ONE.isPunching)
 			{
-				hittime1=0;
-				isKicking1=true;
+				PLAYER_ONE.hittime=0;
+				PLAYER_ONE.isKicking=true;
 			}
 		}
 	}
@@ -426,64 +175,44 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	{
 		if(e.getKeyCode()==KeyEvent.VK_RIGHT)
 		{
-			isForward1=false;
+			PLAYER_TWO.isForward=false;
 		}
 		if(e.getKeyCode()==KeyEvent.VK_LEFT)
 		{
-			isBackward1=false;
+			PLAYER_TWO.isBackward=false;
 		}
 		if(e.getKeyCode()==KeyEvent.VK_D)
 		{
-			isForward2=false;
+			PLAYER_ONE.isForward=false;
 		}
 		if(e.getKeyCode()==KeyEvent.VK_A)
 		{
-			isBackward2=false;
+			PLAYER_ONE.isBackward=false;
 		}
 	}
 
 	public void handleCollision()
 	{
-		if (intersection(body1, body2)) {
-			head2.move(10, 0);
-			body2.move(10, 0);
-			leg2.move(10, 0);
-			arm2.move(10,0);
-			punch2.move(10, 0);
-			kick2.move(10, 0);
-
-			head1.move(-10, 0);
-			body1.move(-10, 0);
-			leg1.move(-10, 0);
-			arm1.move(-10,0);
-			punch1.move(-10, 0);
-			kick1.move(-10, 0);
+		if (intersection(PLAYER_ONE.body, PLAYER_TWO.body)) {
+			playerMove(PLAYER_TWO, 10, 0);
+			
+			playerMove(PLAYER_ONE, -10, 0);
 		}
 		
-		if ((isKicking1 && intersection(kick1, body2)) || (isPunching1 && intersection(punch1, body2))) {
-
-			hp2 -= 5;
-			updateHealthPoints(2);
+		if ((PLAYER_ONE.isKicking && intersection(PLAYER_ONE.kick, PLAYER_TWO.body)) || (PLAYER_ONE.isPunching && intersection(PLAYER_ONE.punch, PLAYER_TWO.body))) {
 			
-			head2.move(40, 0);
-			body2.move(40, 0);
-			leg2.move(40, 0);
-			arm2.move(40,0);
-			punch2.move(40, 0);
-			kick2.move(40, 0);
+			PLAYER_TWO.hp -= 3 * PLAYER_ONE.strength;
+			updateHealthPoints(PLAYER_TWO);
+			
+			playerMove(PLAYER_TWO, 40, 0);
 			
 		}
-		if ((isKicking2 && intersection(kick2, body1)) || (isPunching2 && intersection(punch2, body1))) {
+		if ((PLAYER_TWO.isKicking && intersection(PLAYER_TWO.kick, PLAYER_ONE.body)) || (PLAYER_TWO.isPunching && intersection(PLAYER_TWO.punch, PLAYER_ONE.body))) {
 			
-			hp1 -= 5;
-			updateHealthPoints(1);
+			PLAYER_ONE.hp -= 3 * PLAYER_TWO.strength;
+			updateHealthPoints(PLAYER_ONE);
 			
-			head1.move(-40, 0);
-			body1.move(-40, 0);
-			leg1.move(-40, 0);
-			arm1.move(-40,0);
-			punch1.move(-40, 0);
-			kick1.move(-40, 0);
+			playerMove(PLAYER_ONE, -40, 0);
 		}
 	
 	}
@@ -494,20 +223,14 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		
 	}
 
-	//updates screen on current state, location and health of players
-	public void updateScreen()
-	{
-
-	}
-
 	public void gameOver()
 	{
-		if (hp1 == 0) {
+		if (PLAYER_ONE.hp <= 0) {
 			System.out.println("player 2 wins");
 			// add slow motion
 			t.stop();
 		}
-		else if (hp2 == 0) {
+		else if (PLAYER_TWO.hp <= 0) {
 			System.out.println("player 1 wins");
 			// add slow motion
 			t.stop();
@@ -516,24 +239,28 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	}
 
 	@Override
-	public void showContents() 
-	{
+	public void showContents() {
+
 		add(background.getImage());
-		add(head1);
-		add(head2);
-		add(body1);
-		add(body2);
-		add(leg1);
-		add(leg2);
-		add(arm1);
-		add(arm2);
-		add(hpoutline1);
-		add(hpoutline2);
-		add(hpbar1);
-		add(hpbar2);
+		
+		PLAYER_ONE.RefreshArray();
+		PLAYER_TWO.RefreshArray();
+		
+		for (int i = 0; i < PLAYER_ONE.arrayList.size(); i++) {
+			add(PLAYER_ONE.arrayList.get(i));
+			
+		}
+		for (int i = 0; i < PLAYER_TWO.arrayList.size(); i++) {
+			add(PLAYER_TWO.arrayList.get(i));
+			
+		}
+	
+		
+		
 		t.start();
 		return;
 	}
+
 
 	@Override
 	public void hideContents() {
