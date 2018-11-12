@@ -16,6 +16,8 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 	private MenuPane menu;
 	private int count;
 	public Background background,menu_Bg;
+	public Background backgroundPort;
+	public Background backgroundPort2;
 	//private Background background;
 	
 	/*
@@ -38,6 +40,8 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 		System.out.println("Hello, world!");
 		somePane = new SomePane(this);
 		background = new Background("example_back.jpg", WINDOW_WIDTH, WINDOW_HEIGHT);
+		backgroundPort = new Background("portMapMain.png", WINDOW_WIDTH, WINDOW_HEIGHT);
+		backgroundPort2 = new Background("portMapMain2.png", WINDOW_WIDTH, WINDOW_HEIGHT);
 		menu_Bg= new Background("sans.jpg", WINDOW_WIDTH, WINDOW_HEIGHT);
 		menu = new MenuPane(this);
 		gamePane = new GamePane(this);

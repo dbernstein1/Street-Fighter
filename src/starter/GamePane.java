@@ -15,7 +15,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		super();
 		GamePane.program = app;
 		width = app.getWidth();
-		background = program.background;
+		background = program.backgroundPort;
 		t=new Timer(50,this);
 	}
 	
@@ -27,7 +27,9 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	public static final int GROUND = 550;
 	public static int width = 1200;
 	private Timer t;
-	private Background background;
+	private Background background, backgroundPort, backgroundPort2;
+	private int numTimes = 0;
+	
 	
 	public static void add(GObject something)
 	{
@@ -68,7 +70,16 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		PLAYER_ONE.HandleMovement();
 		PLAYER_TWO.HandleMovement();
 		
+		numTimes ++;
+		if (numTimes % 2 == 0) {
+			add(backgroundPort.getImage());
+		}
+		else {
+			add(backgroundPort2.getImage());
+		}
+		
 		handleCollision();
+		
 	}
 
 	@Override
