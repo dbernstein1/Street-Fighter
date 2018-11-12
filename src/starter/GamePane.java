@@ -27,9 +27,11 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	public static final int GROUND = 550;
 	public static int width = 1200;
 	private Timer t;
-	private Background background, backgroundPort, backgroundPort2;
+	private Background background;
 	private int numTimes = 0;
-	
+//	backgroundPort = new Background("portMapMain.png", WINDOW_WIDTH, WINDOW_HEIGHT);
+//  backgroundPort2 = new Background("portMapMain2.png", WINDOW_WIDTH, WINDOW_HEIGHT);
+
 	
 	public static void add(GObject something)
 	{
