@@ -47,6 +47,9 @@ public class CharacterPane extends GraphicsPane {
 		GRect r3 = new GRect(program.getWidth() - 800,program.getHeight() -  program.getHeight()/2.5, 200, 200);
 		GRect r4 = new GRect(program.getWidth() - 1000,program.getHeight() -  program.getHeight()/2.5, 200, 200);
 		
+	}
+	@Override
+	public void showContents() {
 		program.add(img);
 		program.add(para);
 		program.add(player1Img);
@@ -57,10 +60,6 @@ public class CharacterPane extends GraphicsPane {
 		program.add(r3);
 		program.add(r4);
 		program.add(r1);
-	}
-	@Override
-	public void showContents() {
-		
 	}
 
 	@Override

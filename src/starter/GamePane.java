@@ -1,10 +1,10 @@
 package starter;
 import java.awt.Color;
 import java.awt.event.*;
+
 import java.util.ArrayList;
 
 import javax.swing.*;
-
 
 import acm.graphics.*;
 

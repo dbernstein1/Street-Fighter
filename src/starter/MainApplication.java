@@ -12,6 +12,7 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 
 	private SomePane somePane;
 	private GamePane gamePane;
+	private LevelSelectionPane levelPane;
 	private MenuPane menu;
 	private CharacterPane characterPane;
 	private int count;
@@ -41,29 +42,38 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 		menu = new MenuPane(this);
 		gamePane = new GamePane(this);
 		characterPane = new CharacterPane(this);
-		switchToGame();
+		levelPane= new LevelSelectionPane(this); 
+		switchToMenu();
 	}
 
 	public void switchToMenu() {
-		playRandomSound();
+		playSound();
 		count++;
 		switchToScreen(menu);
 	}
 
 	public void switchToSome() {
-		playRandomSound();
 		switchToScreen(somePane);
 	}
 	
+	public void switchToLevel() {
+		switchToScreen(levelPane);
+	}
+	
 	public void switchToGame() {
+		stopSound();
 		switchToScreen(gamePane);
 	}
 
 	public void switchToCharacterPane() {
 		switchToScreen(characterPane);
 	}
-	private void playRandomSound() {
+	private void playSound() {
 		AudioPlayer audio = AudioPlayer.getInstance();
-		audio.playSound(MUSIC_FOLDER, SOUND_FILES[count % SOUND_FILES.length],true);
+		audio.playSound(MUSIC_FOLDER, SOUND_FILES[0],true);
+	}
+	private void stopSound() {
+		AudioPlayer audio = AudioPlayer.getInstance();
+		audio.stopSound(MUSIC_FOLDER, SOUND_FILES[0]);
 	}
 }
