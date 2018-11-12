@@ -12,6 +12,7 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 
 	private SomePane somePane;
 	private GamePane gamePane;
+	private LevelSelectionPane levelPane;
 	private MenuPane menu;
 	private int count;
 	public Background background,menu_Bg;
@@ -40,27 +41,35 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 		menu_Bg= new Background("sans.jpg", WINDOW_WIDTH, WINDOW_HEIGHT);
 		menu = new MenuPane(this);
 		gamePane = new GamePane(this);
-		
+		levelPane= new LevelSelectionPane(this); 
 		switchToMenu();
 	}
 
 	public void switchToMenu() {
-		playRandomSound();
+		playSound();
 		count++;
 		switchToScreen(menu);
 	}
 
 	public void switchToSome() {
-		playRandomSound();
 		switchToScreen(somePane);
 	}
 	
+	public void switchToLevel() {
+		switchToScreen(levelPane);
+	}
+	
 	public void switchToGame() {
+		stopSound();
 		switchToScreen(gamePane);
 	}
 
-	private void playRandomSound() {
+	private void playSound() {
 		AudioPlayer audio = AudioPlayer.getInstance();
-		audio.playSound(MUSIC_FOLDER, SOUND_FILES[count % SOUND_FILES.length],true);
+		audio.playSound(MUSIC_FOLDER, SOUND_FILES[0],true);
+	}
+	private void stopSound() {
+		AudioPlayer audio = AudioPlayer.getInstance();
+		audio.stopSound(MUSIC_FOLDER, SOUND_FILES[0]);
 	}
 }
