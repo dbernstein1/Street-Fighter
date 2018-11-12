@@ -8,7 +8,6 @@ import acm.graphics.GOval;
 import acm.graphics.GRect;
 
 public class Player {
-
 	public static final int GROUND = 550;
 
 	@SuppressWarnings("unused")

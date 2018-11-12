@@ -14,6 +14,7 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 	private GamePane gamePane;
 	private LevelSelectionPane levelPane;
 	private MenuPane menu;
+	private CharacterPane characterPane;
 	private int count;
 	public Background background,menu_Bg;
 	public Background backgroundPort;
@@ -21,11 +22,10 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 	//private Background background;
 	
 	/*
-	public Background getBackground() {
+	public Background getBackground(){
 		return background;
 	}
 	*/
-
 	public void setBackground(Background background) {
 		this.background = background;
 	}
@@ -45,6 +45,7 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 		menu_Bg= new Background("sans.jpg", WINDOW_WIDTH, WINDOW_HEIGHT);
 		menu = new MenuPane(this);
 		gamePane = new GamePane(this);
+		characterPane = new CharacterPane(this);
 		levelPane= new LevelSelectionPane(this); 
 		switchToMenu();
 	}
@@ -68,6 +69,9 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 		switchToScreen(gamePane);
 	}
 
+	public void switchToCharacterPane() {
+		switchToScreen(characterPane);
+	}
 	private void playSound() {
 		AudioPlayer audio = AudioPlayer.getInstance();
 		audio.playSound(MUSIC_FOLDER, SOUND_FILES[0],true);

@@ -2,7 +2,7 @@ package starter;
 
 public enum PlayerName {
 	//TODO replace with player names 
-	XXX, YYY,ZZZ;
+	FRED, YYY,ZZZ;
 	/*
 	public String toString() {
 		switch(this) {
