@@ -8,6 +8,7 @@ import acm.graphics.GObject;
 import acm.graphics.GOval;
 import acm.graphics.GRect;
 import acm.program.GraphicsProgram;
+import acm.program.Program;
 
 public class Player extends GraphicsProgram {
 	public static final int GROUND = 550;
@@ -48,7 +49,7 @@ public class Player extends GraphicsProgram {
 			body=new GRect(200,GROUND-100,70,70);
 			leg=new GRect(230,GROUND-30,10,30);
 			arm=new GRect(240,GROUND-80,10,40);
-			hpbarx = (GamePane.width * 0.05);
+			hpbarx = (MainApplication.WINDOW_WIDTH * 0.05);
 			hpoutline = new GRect(hpbarx, 25, 500, 15);
 			hpoutline.setFilled(true);
 			hpbar = new GRect(hpbarx * (hp / hptotal), 25, 500, 15);
@@ -66,7 +67,7 @@ public class Player extends GraphicsProgram {
 			body=new GRect(800,GROUND-100,70,70);
 			leg=new GRect(830,GROUND-30,10,30);
 			arm=new GRect(820,GROUND-80,10,40);
-			hpbarx = (GamePane.width * 0.5);
+			hpbarx = (MainApplication.WINDOW_WIDTH * 0.5);
 			hpoutline = new GRect(hpbarx, 25, 500, 15);
 			hpoutline.setFilled(true);
 			hpbar = new GRect(hpbarx * (hp / hptotal), 25, 500, 15);
@@ -90,6 +91,15 @@ public class Player extends GraphicsProgram {
 		arrayList.add(staminabar);
 		
 		
+	}
+	
+	public void remove() {
+		
+		for (int i = 0; i < arrayList.size(); i++) {
+			GamePane.remove(arrayList.get(i));
+		}
+		GamePane.remove(punch);
+		GamePane.remove(kick);
 	}
 	
 	public void updateStamina() { 

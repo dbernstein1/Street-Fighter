@@ -10,17 +10,12 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 	public static final String MUSIC_FOLDER = "sounds";
 	private static final String[] SOUND_FILES = {"megalovania.mp3" , "r2d2.mp3", "somethinlikethis.mp3" };
 
-	private SomePane somePane;
-	private GamePane gamePane;
-	
-	public GamePane getGamePane() {
-		return gamePane;
-	}
-
 
 	private LevelSelectionPane levelPane;
 	private MenuPane menu;
 	private CharacterPane characterPane;
+	public SomePane somePane;
+	public GamePane gamePane;
 	private int count;
 	private Player PLAYER_ONE;
 
@@ -36,6 +31,10 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 		return background;
 	}
 	*/
+	
+	public GamePane getGamePane() {
+		return gamePane;
+	}
 	public void setBackground(Background background) {
 		this.background = background;
 	}

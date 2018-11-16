@@ -176,6 +176,8 @@ public class CharacterPane extends GraphicsPane {
 		else if(obj==backArrow)
 		{
 			program.switchToLevel();
+			p1selected = false;
+			p2selected = false;
 		}
 		else if(obj==continueArrow)
 		{
