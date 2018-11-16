@@ -12,10 +12,20 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 
 	private SomePane somePane;
 	private GamePane gamePane;
+	
+	public GamePane getGamePane() {
+		return gamePane;
+	}
+
+
 	private LevelSelectionPane levelPane;
 	private MenuPane menu;
 	private CharacterPane characterPane;
 	private int count;
+	private Player PLAYER_ONE;
+
+
+	private Player PLAYER_TWO;
 	public Background background,menu_Bg;
 	public Background backgroundPort;
 	public Background backgroundPort2;

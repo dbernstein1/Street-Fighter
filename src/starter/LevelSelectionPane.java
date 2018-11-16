@@ -61,7 +61,7 @@ public class LevelSelectionPane extends GraphicsPane {
 		switch(choice)
 		{
 		case 1:
-			program.switchToGame();
+			program.switchToCharacterPane();
 		case 2:
 		}
 	}

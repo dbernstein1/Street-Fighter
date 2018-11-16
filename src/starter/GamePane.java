@@ -23,9 +23,8 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	}
 	
 	
-	private Player PLAYER_ONE = new Player(1, "Playerone", 80, 2, 25); // 80 HP, 200% attack multiplier, 25 stamina 
-	private Player PLAYER_TWO = new Player(2, "player_Two", 150, .8, 15);  // 150 hp, 20% attack reduction, 15 stamina
-	
+	private Player PLAYER_ONE;
+	private Player PLAYER_TWO;
 	private static MainApplication program;
 	public static final int GROUND = 550;
 	public static int width = 1200;
@@ -34,6 +33,24 @@ public class GamePane extends GraphicsPane implements ActionListener {
 //	backgroundPort = new Background("portMapMain.png", WINDOW_WIDTH, WINDOW_HEIGHT);
 //  backgroundPort2 = new Background("portMapMain2.png", WINDOW_WIDTH, WINDOW_HEIGHT);
 
+	public Player getPLAYER_ONE() {
+		return PLAYER_ONE;
+	}
+
+
+	public void setPLAYER_ONE(Player pLAYER_ONE) {
+		PLAYER_ONE = pLAYER_ONE;
+	}
+
+
+	public Player getPLAYER_TWO() {
+		return PLAYER_TWO;
+	}
+
+
+	public void setPLAYER_TWO(Player pLAYER_TWO) {
+		PLAYER_TWO = pLAYER_TWO;
+	}
 	
 	public static void add(GObject something)
 	{
@@ -88,8 +105,6 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		if (numTimes % 20 == 0) {
 			add(bgPort.getImage());
 			remove(bgPort2);
-			
-		;
 		}
 		else if (numTimes % 20 == 10){
 			add(bgPort2.getImage());
@@ -271,7 +286,6 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	public void showContents() {
 
 //		add(background.getImage());
-		
 		PLAYER_ONE.RefreshArray();
 		PLAYER_TWO.RefreshArray();
 		
