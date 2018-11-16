@@ -10,11 +10,11 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 	public static final String MUSIC_FOLDER = "sounds";
 	private static final String[] SOUND_FILES = {"megalovania.mp3" , "r2d2.mp3", "somethinlikethis.mp3" };
 
-	private SomePane somePane;
-	private GamePane gamePane;
-	private LevelSelectionPane levelPane;
-	private MenuPane menu;
-	private CharacterPane characterPane;
+	public SomePane somePane;
+	public GamePane gamePane;
+	public LevelSelectionPane levelPane;
+	public MenuPane menu;
+	public CharacterPane characterPane;
 	private int count;
 	public Background background,menu_Bg;
 	public Background backgroundPort;

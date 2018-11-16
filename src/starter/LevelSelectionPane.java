@@ -52,6 +52,9 @@ public class LevelSelectionPane extends GraphicsPane {
 		}
 		if(obj==fight)
 		{
+			if (choice == 0)
+				return;
+			
 			program.remove(highlight);
 			checkChoice();
 		}

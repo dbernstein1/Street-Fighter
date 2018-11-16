@@ -16,19 +16,17 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	{
 		super();
 		GamePane.program = app;
-		width = app.getWidth();
 		bgPort = program.backgroundPort;
 		bgPort2 = program.backgroundPort2;
 		t=new Timer(50,this);
 	}
 	
 	
-	private Player PLAYER_ONE = new Player(1, "Playerone", 80, 2, 25); // 80 HP, 200% attack multiplier, 25 stamina 
-	private Player PLAYER_TWO = new Player(2, "player_Two", 150, .8, 15);  // 150 hp, 20% attack reduction, 15 stamina
+	private Player PLAYER_ONE = new Player(1, "", 80, 2, 18); // 80 HP, 200% attack multiplier, 18 stamina 
+	private Player PLAYER_TWO = new Player(2, "", 110, 1, 15);  // 110 hp 15 stamina
 	
 	private static MainApplication program;
 	public static final int GROUND = 550;
-	public static int width = 1200;
 	private Timer t;
 	private int numTimes = 0;
 //	backgroundPort = new Background("portMapMain.png", WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -257,13 +255,40 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		if (PLAYER_ONE.hp <= 0) {
 			System.out.println("player 2 wins");
 			// add slow motion
+			
+			PLAYER_ONE.remove();
+			PLAYER_TWO.remove();
+
+			GImage img = new GImage("robot head.jpg", MainApplication.WINDOW_WIDTH / 2, MainApplication.WINDOW_HEIGHT / 2);
+			GParagraph para = new GParagraph("Player 1 Wins!", 150, 300);
+			para.setFont("Arial-24");
+			add(img);
+			add(para);
+
 			t.stop();
+			
+		//	MainApplication.switchToMenu();
+			
+			t.start();
 		}
 		else if (PLAYER_TWO.hp <= 0) {
 			System.out.println("player 1 wins");
 			// add slow motion
+			
+			PLAYER_ONE.remove();
+			PLAYER_TWO.remove();
+			
+			GImage img = new GImage("robot head.jpg", MainApplication.WINDOW_WIDTH / 2, MainApplication.WINDOW_HEIGHT / 2);
+			GParagraph para = new GParagraph("Player 1 Wins!", 150, 300);
+			para.setFont("Arial-24");
+			add(img);
+			add(para);
+			
 			t.stop();
 			
+	//		GraphicsApplication.switchToScreen(MainApplication.menu);
+			
+			t.start();
 		}
 	}
 
