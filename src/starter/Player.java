@@ -88,9 +88,7 @@ public class Player extends GraphicsProgram {
 		arrayList.add(arm);
 		arrayList.add(hpoutline);
 		arrayList.add(hpbar);
-		arrayList.add(staminabar);
-		
-		
+		arrayList.add(staminabar);	
 	}
 	
 	public void remove() {
@@ -142,6 +140,7 @@ public class Player extends GraphicsProgram {
 			
 			if(isKicking){
 				GamePane.add(kick);
+				GamePane.remove(leg);
 				hittime++;
 				stamina -= 0.05;
 				updateStamina();
@@ -153,6 +152,7 @@ public class Player extends GraphicsProgram {
 			}
 			if(isPunching){
 				GamePane.add(punch);
+				GamePane.remove(arm);
 				hittime++;
 				stamina -= 0.05;
 				updateStamina();

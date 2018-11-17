@@ -97,8 +97,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	
 	public void actionPerformed(ActionEvent e)
 	{
-		PLAYER_ONE.HandleMovement();
-		PLAYER_TWO.HandleMovement();
+		
 		
 		numTimes ++;
 		if (numTimes % 20 == 0) {
@@ -285,7 +284,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 			
 		//	MainApplication.switchToMenu();
 			
-			t.start();
+		//	t.start();
 		}
 		else if (PLAYER_TWO.hp <= 0) {
 			System.out.println("player 1 wins");
@@ -304,7 +303,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 			
 	//		GraphicsApplication.switchToScreen(MainApplication.menu);
 			
-			t.start();
+			//t.start();
 		}
 	}
 
@@ -323,9 +322,8 @@ public class GamePane extends GraphicsPane implements ActionListener {
 			add(PLAYER_TWO.arrayList.get(i));
 			
 		}
-	
-		
-		
+		PLAYER_ONE.HandleMovement();
+		PLAYER_TWO.HandleMovement();
 		t.start();
 		return;
 	}
