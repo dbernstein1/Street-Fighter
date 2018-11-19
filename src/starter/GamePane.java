@@ -11,26 +11,29 @@ import acm.graphics.*;
 public class GamePane extends GraphicsPane implements ActionListener {
 	private Background bgPort;
 	private Background bgPort2;
+	private Background background;
 
 	public GamePane(MainApplication app)
 	{
 		super();
 		GamePane.program = app;
+		background = program.background;
 		bgPort = program.backgroundPort;
 		bgPort2 = program.backgroundPort2;
 		t=new Timer(50,this);
 	}
-	
-	
+
+
 	private Player PLAYER_ONE;
 	private Player PLAYER_TWO;
+	private Level level; 
 
 	private static MainApplication program;
 	public static final int GROUND = 550;
 	private Timer t;
 	private int numTimes = 0;
-//	backgroundPort = new Background("portMapMain.png", WINDOW_WIDTH, WINDOW_HEIGHT);
-//  backgroundPort2 = new Background("portMapMain2.png", WINDOW_WIDTH, WINDOW_HEIGHT);
+	//	backgroundPort = new Background("portMapMain.png", WINDOW_WIDTH, WINDOW_HEIGHT);
+	//  backgroundPort2 = new Background("portMapMain2.png", WINDOW_WIDTH, WINDOW_HEIGHT);
 
 	public Player getPLAYER_ONE() {
 		return PLAYER_ONE;
@@ -50,18 +53,22 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	public void setPLAYER_TWO(Player pLAYER_TWO) {
 		PLAYER_TWO = pLAYER_TWO;
 	}
+
+	public void set_Choice(Level l) {
+		level=l;
+	}
 	
 	public static void add(GObject something)
 	{
 		program.add(something);
 	}
-	
+
 	public static void remove(GObject something)
 	{
 		program.remove(something);
 	}
 	public static void playerMove(Player p, double horizontal, double vertical) { // need 2 remove static
-		
+
 		if (p == null) return;	
 
 		p.head.move(horizontal, vertical);
@@ -70,47 +77,54 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		p.arm.move(horizontal, vertical);
 		p.punch.move(horizontal, vertical);
 		p.kick.move(horizontal, vertical);
-		
+
 	}
 	public void updateHealthPoints(Player p) {
-		
+
 		if (p == null) return;
-		
+
 		remove(p.hpbar);
 		p.hpbar = new GRect(p.hpbarx, 25, 500 * (p.hp / p.hptotal), 15);
 		p.hpbar.setFillColor(p.hp > 40 ? new Color(0, 255, 0) : new Color(255,0,0));
 		p.hpbar.setFilled(true);
 		add(p.hpbar);
-		
+
 		gameOver();
 	}
-	
+
 	public void add(Background bgPort) {
 		program.add(bgPort);
-		program.add(bgPort2);
 	}
-	
+
 	public void remove(Background bgPort) {
 		program.remove(bgPort);
-		program.remove(bgPort2);
 	}
 	
 	public void actionPerformed(ActionEvent e)
 	{
-		
-		
+
+
 		numTimes ++;
-		if (numTimes % 20 == 0) {
-			add(bgPort.getImage());
-			remove(bgPort2);
+		if(level.get_Choice()==1)
+		{
+			System.out.println(level.get_Choice());
+			add(background.getImage());
 		}
-		else if (numTimes % 20 == 10){
-			add(bgPort2.getImage());
-			remove(bgPort);
+		if(level.get_Choice()==2)
+		{
+			System.out.println(level.get_Choice());
+			if (numTimes % 20 == 0) {
+				add(bgPort.getImage());
+				remove(bgPort2);
+			}
+			else if (numTimes % 20 == 10){
+				add(bgPort2.getImage());
+				remove(bgPort);
+			}
 		}
 		showContents();
 		handleCollision();
-		
+
 	}
 
 	@Override
@@ -237,32 +251,32 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	{
 		if (intersection(PLAYER_ONE.body, PLAYER_TWO.body)) {
 			playerMove(PLAYER_TWO, 10, 0);
-			
+
 			playerMove(PLAYER_ONE, -10, 0);
 		}
-		
+
 		if ((PLAYER_ONE.isKicking && intersection(PLAYER_ONE.kick, PLAYER_TWO.body)) || (PLAYER_ONE.isPunching && intersection(PLAYER_ONE.punch, PLAYER_TWO.body))) {
-			
+
 			PLAYER_TWO.hp -= 3 * PLAYER_ONE.strength;
 			updateHealthPoints(PLAYER_TWO);
-			
+
 			playerMove(PLAYER_TWO, 40, 0);
-			
+
 		}
 		if ((PLAYER_TWO.isKicking && intersection(PLAYER_TWO.kick, PLAYER_ONE.body)) || (PLAYER_TWO.isPunching && intersection(PLAYER_TWO.punch, PLAYER_ONE.body))) {
-			
+
 			PLAYER_ONE.hp -= 3 * PLAYER_TWO.strength;
 			updateHealthPoints(PLAYER_ONE);
-			
+
 			playerMove(PLAYER_ONE, -40, 0);
 		}
-	
+
 	}
-	
+
 	public boolean intersection(GObject x1, GObject x2) {
-		
+
 		return x1.getBounds().intersects(x2.getBounds());
-		
+
 	}
 
 	public void gameOver()
@@ -270,7 +284,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		if (PLAYER_ONE.hp <= 0) {
 			System.out.println("player 2 wins");
 			// add slow motion
-			
+
 			PLAYER_ONE.remove();
 			PLAYER_TWO.remove();
 
@@ -281,46 +295,44 @@ public class GamePane extends GraphicsPane implements ActionListener {
 			add(para);
 
 			t.stop();
-			
-		//	MainApplication.switchToMenu();
-			
-		//	t.start();
+
+			//	MainApplication.switchToMenu();
+
+			//	t.start();
 		}
 		else if (PLAYER_TWO.hp <= 0) {
 			System.out.println("player 1 wins");
 			// add slow motion
-			
+
 			PLAYER_ONE.remove();
 			PLAYER_TWO.remove();
-			
+
 			GImage img = new GImage("robot head.jpg", MainApplication.WINDOW_WIDTH / 2, MainApplication.WINDOW_HEIGHT / 2);
 			GParagraph para = new GParagraph("Player 1 Wins!", 150, 300);
 			para.setFont("Arial-24");
 			add(img);
 			add(para);
-			
+
 			t.stop();
-			
-	//		GraphicsApplication.switchToScreen(MainApplication.menu);
-			
+
+			//		GraphicsApplication.switchToScreen(MainApplication.menu);
+
 			//t.start();
 		}
 	}
 
 	@Override
-	public void showContents() {
-
-//		add(background.getImage());
+	public void showContents() {	
 		PLAYER_ONE.RefreshArray();
 		PLAYER_TWO.RefreshArray();
-		
+
 		for (int i = 0; i < PLAYER_ONE.arrayList.size(); i++) {
 			add(PLAYER_ONE.arrayList.get(i));
-			
+
 		}
 		for (int i = 0; i < PLAYER_TWO.arrayList.size(); i++) {
 			add(PLAYER_TWO.arrayList.get(i));
-			
+
 		}
 		PLAYER_ONE.HandleMovement();
 		PLAYER_TWO.HandleMovement();

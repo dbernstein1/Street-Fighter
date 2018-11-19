@@ -16,6 +16,7 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 	private CharacterPane characterPane;
 	public SomePane somePane;
 	public GamePane gamePane;
+	public LevelSelectionPane level;
 	private int count;
 	private Player PLAYER_ONE;
 
@@ -34,6 +35,10 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 	
 	public GamePane getGamePane() {
 		return gamePane;
+	}
+	
+	public LevelSelectionPane getLevelPane() {
+		return level;
 	}
 	public void setBackground(Background background) {
 		this.background = background;
@@ -61,7 +66,7 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 	}
 
 	public void switchToMenu() {
-		playSound();
+		//playSound();
 		count++;
 		switchToScreen(menu);
 	}
