@@ -20,10 +20,6 @@ public class CharacterPane extends GraphicsPane {
 	highlight,highlight2, img, continueArrow, backArrow;
 	boolean p1selected = false, p2selected = false;
 	
-	private Player PLAYER_ONE = new Player(1, "erik", 80, 2, 25); // 80 HP, 200% attack multiplier, 25 stamina 
-	private Player PLAYER_TWO = new Player(2, "zack", 150, .8, 15);  // 150 hp, 20% attack reduction, 15 stamina
-	private Player PLAYER_THREE = new Player(3, "bob", 80, 2, 25); 
-	private Player PLAYER_FOUR = new Player(4, "fred", 150, .8, 15);  
 	public CharacterPane(MainApplication app) {
 		this.program = app;
 		para = new GButton("Select\nyour character!", 200, 50, 140, 50, Color.WHITE);
@@ -192,19 +188,26 @@ public class CharacterPane extends GraphicsPane {
 	
 	Player getWhichPlayer(GImage img)
 	{
+		boolean player1 = true;
+		if (img.getX() == highlight.getX())
+			player1 = true;
+		else if (img.getX() == highlight2.getX())
+			player1 = false;
+		
+		
 		if(img.getX() == 190)
 		{
-			return PLAYER_ONE;
+			return new Player(player1 ? 1 : 2, "erik", 80, 2, 25);
 		}
 		else if(img.getX() == 390)
 		{
-			return PLAYER_TWO;
+			return new Player(player1 ? 1 : 2, "zack", 150, .8, 15);
 		}
 		else if(img.getX() == 390)
 		{
-			return PLAYER_THREE;
+			return new Player(player1 ? 1 : 2, "bob", 80, 2, 25);
 		}
-		return PLAYER_FOUR;
+		return new Player(player1 ? 1 : 2, "fred", 150, .8, 15);
 	}
 	
 }
