@@ -69,16 +69,28 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	}
 	public static void playerMove(Player p, double horizontal, double vertical) { // need 2 remove static
 
-		if (p == null) return;	
+		if (p == null) return;
+		
+		if (p.body.getX()<0 || p.body.getX()>MainApplication.WINDOW_WIDTH-p.body.getWidth()) { 
 
+		moveBody(p, 4* -horizontal, vertical);
+		
+		return;
+		}		
+		moveBody(p, horizontal, vertical);
+
+		System.out.println("Movement: "+ p.body);
+		
+	}
+	private static void moveBody(Player p, double horizontal, double vertical) {
 		p.head.move(horizontal, vertical);
 		p.body.move(horizontal, vertical);
 		p.leg.move(horizontal, vertical);
 		p.arm.move(horizontal, vertical);
 		p.punch.move(horizontal, vertical);
 		p.kick.move(horizontal, vertical);
-
 	}
+		
 	public void updateHealthPoints(Player p) {
 
 		if (p == null) return;
@@ -107,12 +119,11 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		numTimes ++;
 		if(level.get_Choice()==1)
 		{
-			System.out.println(level.get_Choice());
+//			System.out.println(level.get_Choice());
 			add(background.getImage());
 		}
 		if(level.get_Choice()==2)
 		{
-			System.out.println(level.get_Choice());
 			if (numTimes % 20 == 0) {
 				add(bgPort.getImage());
 				remove(bgPort2);
