@@ -49,6 +49,7 @@ public class Player extends GraphicsProgram {
 			body=new GRect(200,GROUND-100,70,70);
 			leg=new GRect(230,GROUND-30,10,30);
 			arm=new GRect(240,GROUND-80,10,40);
+			chCody = new GImage("sprites/normStance.png",0,0);
 			hpbarx = (MainApplication.WINDOW_WIDTH * 0.05);
 			hpoutline = new GRect(hpbarx, 25, 500, 15);
 			hpoutline.setFilled(true);
@@ -59,6 +60,7 @@ public class Player extends GraphicsProgram {
 			staminabar = new GRect(staminabarx * (stamina / staminatotal), 42, 260, 15);
 			staminabar.setFillColor(new Color(0, 0, 255));
 			staminabar.setFilled(true);
+			
 			break;
 		case 2:
 			punch=new GRect(770,GROUND-80,30,10);
@@ -67,6 +69,7 @@ public class Player extends GraphicsProgram {
 			body=new GRect(800,GROUND-100,70,70);
 			leg=new GRect(830,GROUND-30,10,30);
 			arm=new GRect(820,GROUND-80,10,40);
+			chCody = new GImage("sprites/normStance.png",0,0);
 			hpbarx = (MainApplication.WINDOW_WIDTH * 0.5);
 			hpoutline = new GRect(hpbarx, 25, 500, 15);
 			hpoutline.setFilled(true);
@@ -86,6 +89,7 @@ public class Player extends GraphicsProgram {
 		arrayList.add(body);
 		arrayList.add(leg);
 		arrayList.add(arm);
+		arrayList.add(chCody);
 		arrayList.add(hpoutline);
 		arrayList.add(hpbar);
 		arrayList.add(staminabar);	
