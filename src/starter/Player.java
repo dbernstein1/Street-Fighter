@@ -49,7 +49,7 @@ public class Player extends GraphicsProgram {
 			body=new GRect(200,GROUND-100,70,70);
 			leg=new GRect(230,GROUND-30,10,30);
 			arm=new GRect(240,GROUND-80,10,40);
-			chCody = new GImage("sprites/normStance.png",0,0);
+			chCody = new GImage("sprites/normStance.png",350,GROUND-270);
 			hpbarx = (MainApplication.WINDOW_WIDTH * 0.05);
 			hpoutline = new GRect(hpbarx, 25, 500, 15);
 			hpoutline.setFilled(true);
