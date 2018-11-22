@@ -34,15 +34,15 @@ public class CharacterPane extends GraphicsPane {
 		//Player fred = new Player(PlayerName.FRED,fredStats);
 		player1Img = new GImage("fred.jpg", program.getWidth() - 400,program.getHeight()-  program.getHeight()/2.5);
 		player1Img.setSize(200,200);
-		player2Img = new GImage("fred.jpg", program.getWidth() - 600,program.getHeight() -  program.getHeight()/2.5);
+		player2Img = new GImage("sprites/cody_selection.png", program.getWidth() - 600,program.getHeight() -  program.getHeight()/2.5);
 		player2Img.setSize(200,200);
 		player3Img = new GImage("fred.jpg", program.getWidth() - 800,program.getHeight() -  program.getHeight()/2.5);
 		player3Img.setSize(200,200);
 		player4Img = new GImage("fred.jpg", program.getWidth() - 1000,program.getHeight() -  program.getHeight()/2.5);
 		player4Img.setSize(200,200);
 		r1 = new GRect(program.getWidth() - 400,program.getHeight() -  program.getHeight()/2.5, 200, 200);
-		Color p1Color = new Color(23, 244, 12);
-		r1.setFillColor(p1Color);
+//		Color p1Color = new Color(23, 244, 12);
+//		r1.setFillColor(p1Color);
 		r2 = new GRect(program.getWidth() - 600,program.getHeight() -  program.getHeight()/2.5, 200, 200);
 	    r3 = new GRect(program.getWidth() - 800,program.getHeight() -  program.getHeight()/2.5, 200, 200);
 		r4 = new GRect(program.getWidth() - 1000,program.getHeight() -  program.getHeight()/2.5, 200, 200);
