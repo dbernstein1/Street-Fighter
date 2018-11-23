@@ -90,7 +90,7 @@ public class MenuPane extends GraphicsPane {
 		}
 		if(obj==rect2)
 		{
-			program.switchToSome();
+			program.switchToOptions();
 		}
 	}
 	public GOval makeCircle1() {

@@ -9,14 +9,16 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 	public static final int GROUND = 550;
 	public static final String MUSIC_FOLDER = "sounds";
 	private static final String[] SOUND_FILES = {"megalovania.mp3" , "r2d2.mp3", "somethinlikethis.mp3" };
+	private static final String IMAGES[]= {"sans.jpg","example_back.jpg","portMapMain.png"};
 
 
 	private LevelSelectionPane levelPane;
 	private MenuPane menu;
 	private CharacterPane characterPane;
-	public SomePane somePane;
+	private Options options;
+	public TimeOptions t_Opt;
 	public GamePane gamePane;
-	public LevelSelectionPane level;
+	private LevelSelectionPane level;
 	private int count;
 	private Player PLAYER_ONE;
 
@@ -52,16 +54,16 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 	
 
 	public void run() {
-		System.out.println("Hello, world!");
-		somePane = new SomePane(this);
-		background = new Background("example_back.jpg", WINDOW_WIDTH, WINDOW_HEIGHT);
-		backgroundPort = new Background("portMapMain.png", WINDOW_WIDTH, WINDOW_HEIGHT);
+		background = new Background(IMAGES[1], WINDOW_WIDTH, WINDOW_HEIGHT);
+		backgroundPort = new Background(IMAGES[2], WINDOW_WIDTH, WINDOW_HEIGHT);
 		backgroundPort2 = new Background("portMapMain2.png", WINDOW_WIDTH, WINDOW_HEIGHT);
-		menu_Bg= new Background("sans.jpg", WINDOW_WIDTH, WINDOW_HEIGHT);
+		menu_Bg= new Background(IMAGES[0], WINDOW_WIDTH, WINDOW_HEIGHT);
 		menu = new MenuPane(this);
 		gamePane = new GamePane(this);
 		characterPane = new CharacterPane(this);
 		levelPane= new LevelSelectionPane(this); 
+		options = new Options(this);
+		t_Opt=new TimeOptions(this);
 		switchToMenu();
 	}
 
@@ -71,8 +73,8 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 		switchToScreen(menu);
 	}
 
-	public void switchToSome() {
-		switchToScreen(somePane);
+	public void switchToOptions() {
+		switchToScreen(options);
 	}
 	
 	public void switchToLevel() {
@@ -86,6 +88,9 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 
 	public void switchToCharacterPane() {
 		switchToScreen(characterPane);
+	}
+	public void switchToTimeOptions() {
+		switchToScreen(t_Opt);
 	}
 	private void playSound() {
 		AudioPlayer audio = AudioPlayer.getInstance();
