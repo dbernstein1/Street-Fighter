@@ -16,8 +16,9 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 	private MenuPane menu;
 	private CharacterPane characterPane;
 	private Options options;
-	public TimeOptions t_Opt;
-	public GamePane gamePane;
+	private TimeOptions t_Opt;
+	private SoundOptions s_Opt;
+	private GamePane gamePane;
 	private LevelSelectionPane level;
 	private int count;
 	private Player PLAYER_ONE;
@@ -64,6 +65,7 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 		levelPane= new LevelSelectionPane(this); 
 		options = new Options(this);
 		t_Opt=new TimeOptions(this);
+		s_Opt=new SoundOptions(this);
 		switchToMenu();
 	}
 
@@ -92,6 +94,9 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 	public void switchToTimeOptions() {
 		switchToScreen(t_Opt);
 	}
+	public void switchToSoundOptions(){
+		switchToScreen(s_Opt);
+	}
 	private void playSound() {
 		AudioPlayer audio = AudioPlayer.getInstance();
 		audio.playSound(MUSIC_FOLDER, SOUND_FILES[0],true);
@@ -101,14 +106,12 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 		audio.stopSound(MUSIC_FOLDER, SOUND_FILES[0]);
 	}
 
-
-	public void remove(Background bgPort) {
+	public void add(Background bgPort) {
 		// TODO Auto-generated method stub
-	
+		
 	}
 
-
-	public void add(Background bgPort) {
+	public void remove(Background bgPort) {
 		// TODO Auto-generated method stub
 		
 	}

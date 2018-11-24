@@ -18,7 +18,7 @@ public class Options extends GraphicsPane {
 	private static int SIZE3=750;
 	private static int RADIUS1=20;// height of smallest oval
 	private static int RADIUS2=200;// length of smallest oval
-	private int ctr=0;
+
 
 	private GButton Time,Sound,Timer1,Timer2;
 	private GParagraph t_Instruction,s_Instruction;
@@ -102,7 +102,7 @@ public class Options extends GraphicsPane {
 		}
 		if(obj==Sound)
 		{
-		
+			program.switchToSoundOptions();
 		}
 		if(obj==backArrow)
 		{

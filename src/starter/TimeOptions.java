@@ -14,7 +14,6 @@ public class TimeOptions extends GraphicsPane{
 	private Background background;
 	
 	private ArrayList<GObject> ovals;
-	private int ctr=0;
 	private GButton Timer1;
 	private GButton Timer2;
 	private GImage backArrow;
