@@ -1,11 +1,13 @@
 package starter;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import acm.graphics.GImage;
 import acm.graphics.GObject;
 import acm.graphics.GOval;
+import acm.graphics.GRect;
 
 public class MenuPane extends GraphicsPane {
 	private MainApplication program; // you will use program to get access to
@@ -20,6 +22,10 @@ public class MenuPane extends GraphicsPane {
 	private GButton rect1,rect2;
 	private ArrayList<GObject> ovals;
 	private Background background;
+	private GParagraph Instruction,quit_Prompt;
+	private GRect rect3;
+	private GButton yes_button;
+	private GButton no_button;
 	public MenuPane(MainApplication app) {
 		super();
 		program = app;
@@ -27,6 +33,19 @@ public class MenuPane extends GraphicsPane {
 		rect1.setFillColor(Color.WHITE);
 		rect2 = new GButton("Options", 710, 235, 100, 50);
 		rect2.setFillColor(Color.WHITE);
+		rect3=new GRect(330,200,500,200);
+		rect3.setColor(Color.WHITE);
+		rect3.setFilled(true);
+		yes_button = new GButton("YES",365, 320, 100, 50);
+		yes_button.setFillColor(Color.RED);
+		no_button = new GButton("NO",690, 320, 100, 50);
+		no_button.setFillColor(Color.RED);
+		quit_Prompt = new GParagraph("Do You Really Want to Quit\n  This Awesome Game?",450,250);
+		quit_Prompt.setFont("Arial-24");
+		quit_Prompt.setColor(Color.RED);
+		Instruction = new GParagraph("Press Escape To Quit",470,600);
+		Instruction.setFont("Arial-24");
+		Instruction.setColor(Color.WHITE);
 		ovals = new ArrayList<GObject>();	
 		for(int i=0;i<13;i++)  //Used to add 1st circle
 		{
@@ -68,6 +87,8 @@ public class MenuPane extends GraphicsPane {
 		}
 		program.add(rect1);
 		program.add(rect2);
+		
+		program.add(Instruction);
 		return;
 	}
 
@@ -91,6 +112,30 @@ public class MenuPane extends GraphicsPane {
 		if(obj==rect2)
 		{
 			program.switchToOptions();
+		}
+		if(obj==no_button)
+		{
+			program.remove(no_button);
+			program.remove(yes_button);
+			program.remove(quit_Prompt);
+			program.remove(rect3);
+		}
+		if(obj==yes_button)
+		{
+			System.exit(0);
+		}
+	}
+	
+
+	@Override
+	public void keyPressed(KeyEvent e)
+	{
+		if(e.getKeyCode()==KeyEvent.VK_ESCAPE)
+		{
+			program.add(rect3);
+			program.add(quit_Prompt);
+			program.add(yes_button);
+			program.add(no_button);
 		}
 	}
 	public GOval makeCircle1() {
