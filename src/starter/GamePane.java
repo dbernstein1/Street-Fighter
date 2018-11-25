@@ -12,7 +12,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	private Background bgPort;
 	private Background bgPort2;
 	private Background background;
-
+	public Animation x;
 	public GamePane(MainApplication app)
 	{
 		super();
@@ -21,6 +21,8 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		bgPort = program.backgroundPort;
 		bgPort2 = program.backgroundPort2;
 		t=new Timer(50,this);
+		
+		x = new Animation(program);
 	}
 
 
@@ -115,7 +117,6 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	public void actionPerformed(ActionEvent e)
 	{
 
-
 		numTimes ++;
 		if(level.get_Choice()==1)
 		{
@@ -135,7 +136,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		}
 		showContents();
 		handleCollision();
-
+		x.handleState();
 	}
 
 	@Override
@@ -146,6 +147,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 			if(!PLAYER_TWO.isBackward)
 			{
 				PLAYER_TWO.isForward=true;
+				x.setWalking(true);
 			}
 		}
 		if(e.getKeyCode()==KeyEvent.VK_LEFT)
@@ -153,6 +155,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 			if(!PLAYER_TWO.isForward)
 			{
 				PLAYER_TWO.isBackward=true;
+				x.setWalking(false);
 			}
 		}
 		if(e.getKeyCode()==KeyEvent.VK_D)
@@ -242,6 +245,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	{
 		if(e.getKeyCode()==KeyEvent.VK_RIGHT)
 		{
+			x.setWalking(false);
 			PLAYER_TWO.isForward=false;
 		}
 		if(e.getKeyCode()==KeyEvent.VK_LEFT)
