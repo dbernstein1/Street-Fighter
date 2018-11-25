@@ -29,7 +29,7 @@ public class Player extends GraphicsProgram {
 	public GRect body,leg,arm,punch,kick;
 	public GRect hpbar, hpoutline, staminabar;
 	public GOval head;
-	public GImage chCody;
+	public GImage chCody, chCodyWalk,chCodyWalk1,chCodyWalk2,chCodyWalk3,chCodyWalk4,chCodyWalk5, chCodyWalk6;
 	
 	public ArrayList<GObject> arrayList = new ArrayList<GObject>();
 	
@@ -43,13 +43,19 @@ public class Player extends GraphicsProgram {
 		name = n;
 		switch (player) {
 		case 1:
-			punch=new GRect(270,GROUND-80,30,10);
-			kick=new GRect(270,GROUND-50,30,10);
-			head=new GOval(210,GROUND-150,50,50);
-			body=new GRect(200,GROUND-100,70,70);
-			leg=new GRect(230,GROUND-30,10,30);
-			arm=new GRect(240,GROUND-80,10,40);
+//			punch=new GRect(270,GROUND-80,30,10);
+//			kick=new GRect(270,GROUND-50,30,10);
+//			head=new GOval(210,GROUND-150,50,50);
+//			body=new GRect(200,GROUND-100,70,70);
+//			leg=new GRect(230,GROUND-30,10,30);
+//			arm=new GRect(240,GROUND-80,10,40);
 			chCody = new GImage("sprites/normStance.png",350,GROUND-270);
+			chCodyWalk1 = new GImage("sprites/CodyWalk/walk1.png");
+			chCodyWalk2 = new GImage("sprites/CodyWalk/walk2.png");
+			chCodyWalk3 = new GImage("sprites/CodyWalk/walk3.png");
+			chCodyWalk4 = new GImage("sprites/CodyWalk/walk4.png");
+			chCodyWalk5 = new GImage("sprites/CodyWalk/walk5.png");
+			chCodyWalk6 = new GImage("sprites/CodyWalk/walk6.png");
 			hpbarx = (MainApplication.WINDOW_WIDTH * 0.05);
 			hpoutline = new GRect(hpbarx, 25, 500, 15);
 			hpoutline.setFilled(true);
@@ -69,7 +75,7 @@ public class Player extends GraphicsProgram {
 			body=new GRect(800,GROUND-100,70,70);
 			leg=new GRect(830,GROUND-30,10,30);
 			arm=new GRect(820,GROUND-80,10,40);
-			chCody = new GImage("sprites/normStance.png",0,0);
+		//	chCody = new GImage("sprites/normStance.png");
 			hpbarx = (MainApplication.WINDOW_WIDTH * 0.5);
 			hpoutline = new GRect(hpbarx, 25, 500, 15);
 			hpoutline.setFilled(true);
@@ -90,6 +96,12 @@ public class Player extends GraphicsProgram {
 		arrayList.add(leg);
 		arrayList.add(arm);
 		arrayList.add(chCody);
+		arrayList.add(chCodyWalk1);
+		arrayList.add(chCodyWalk2);
+		arrayList.add(chCodyWalk3);
+		arrayList.add(chCodyWalk4);
+		arrayList.add(chCodyWalk5);
+		arrayList.add(chCodyWalk6);
 		arrayList.add(hpoutline);
 		arrayList.add(hpbar);
 		arrayList.add(staminabar);	
