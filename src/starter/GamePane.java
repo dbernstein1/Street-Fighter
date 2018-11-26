@@ -255,8 +255,10 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		}
 		if(e.getKeyCode()==KeyEvent.VK_ESCAPE)
 		{
-			
+			t.stop();
+			program.switchToPauseMenu();
 		}
+		
 	}
 
 	@Override

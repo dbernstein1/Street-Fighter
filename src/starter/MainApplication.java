@@ -19,6 +19,7 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 	private TimeOptions t_Opt;
 	private SoundOptions s_Opt;
 	private GamePane gamePane;
+	private PauseMenu pause;
 	private LevelSelectionPane level;
 	private int count;
 	private Player PLAYER_ONE;
@@ -68,6 +69,7 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 		options = new Options(this);
 		t_Opt=new TimeOptions(this);
 		s_Opt=new SoundOptions(this);
+		pause=new PauseMenu(this);
 		switchToMenu();
 	}
 
@@ -93,9 +95,15 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 	public void switchToCharacterPane() {
 		switchToScreen(characterPane);
 	}
+	
 	public void switchToTimeOptions() {
 		switchToScreen(t_Opt);
 	}
+	
+	public void switchToPauseMenu() {
+		switchToScreen(pause);
+	}
+	
 	public void switchToSoundOptions(){
 		switchToScreen(s_Opt);
 	}
