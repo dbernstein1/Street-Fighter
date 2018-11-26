@@ -32,9 +32,9 @@ public class Player extends GraphicsProgram {
 	public GImage chCody;
 	
 	public ArrayList<GObject> arrayList = new ArrayList<GObject>();
-	
+	private Animation animation;
 	Player(int player, String n, double MaxHealth, double StrengthMultiplier, double MaxStamina){
-		
+		this.animation = animation;
 		hptotal = MaxHealth;
 		hp = hptotal;
 		strength = StrengthMultiplier;
@@ -215,4 +215,8 @@ public class Player extends GraphicsProgram {
 			}
 		}
 	
+	public Animation getAnimation()
+	{
+		return animation;
+	}
 }

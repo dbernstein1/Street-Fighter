@@ -367,6 +367,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		PLAYER_ONE.RefreshArray();
 		PLAYER_TWO.RefreshArray();
 
+		/*
 		for (int i = 0; i < PLAYER_ONE.arrayList.size(); i++) {
 			add(PLAYER_ONE.arrayList.get(i));
 
@@ -375,6 +376,8 @@ public class GamePane extends GraphicsPane implements ActionListener {
 			add(PLAYER_TWO.arrayList.get(i));
 
 		}
+		*/
+		//add(PLAYER_ONE.getAnimation().getCurImg());
 		PLAYER_ONE.HandleMovement();
 		PLAYER_TWO.HandleMovement();
 		t.start();
