@@ -51,6 +51,7 @@ public class LevelSelectionPane extends GraphicsPane {
 		program.remove(back_Ground.getImage());
 		program.remove(arena1);
 		program.remove(arena2);
+		program.remove(arena3);
 		program.remove(backArrow);
 		program.remove(fight);
 		program.remove(highlight);
