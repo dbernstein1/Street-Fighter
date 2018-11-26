@@ -22,7 +22,7 @@ public class LevelSelectionPane extends GraphicsPane {
 		arena1.setSize(300, 200);
 		arena2=new GImage(IMAGES[1],700,100);
 		arena2.setSize(300, 200);
-		arena3=new GImage(IMAGES[4],100,400);
+		arena3=new GImage(IMAGES[4],100,320);
 		arena3.setSize(300, 200);
 		backArrow=new GImage(IMAGES[2],0,0);
 		backArrow.setSize(80,80);
@@ -51,6 +51,7 @@ public class LevelSelectionPane extends GraphicsPane {
 		program.remove(back_Ground.getImage());
 		program.remove(arena1);
 		program.remove(arena2);
+		program.remove(arena3);
 		program.remove(backArrow);
 		program.remove(fight);
 		program.remove(highlight);
