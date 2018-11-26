@@ -11,6 +11,8 @@ import acm.graphics.GObject;
 
 public class Animation{
 	private ArrayList<GImage> walk;
+	private ArrayList<GImage> jump;
+	private ArrayList<GImage> kick;
 	private int curFrame;
 	private static MainApplication program;
 	private int numTimes = 0;
@@ -49,7 +51,7 @@ public class Animation{
 		{
 			if(isWalking)
 			{
-				walk();
+				walkBackwards();
 			}
 		}
 		numTimes = (numTimes + 1) %2;
@@ -60,5 +62,20 @@ public class Animation{
 		program.remove(walk.get((curFrame == 0) ? (walk.size() - 1) : (curFrame - 1)));
 		walk.get(curFrame).setLocation(walk.get(curFrame).getX() + 20, 0);
 		program.add(walk.get(curFrame));
+	}
+	
+	public void walkBackwards()
+	{
+		curFrame--;
+		if(curFrame == -1)
+			curFrame = walk.size() - 1;
+		program.remove(walk.get((curFrame == 0) ? (walk.size() - 1) : (curFrame - 1)));
+		walk.get(curFrame).setLocation(walk.get(curFrame).getX() - 20, 0);
+		program.add(walk.get(curFrame));
+	}
+	
+	public void isWalking()
+	{
+		//return program.getGamePane();
 	}
 }
