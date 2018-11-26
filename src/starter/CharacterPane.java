@@ -34,7 +34,7 @@ public class CharacterPane extends GraphicsPane {
 		//Player fred = new Player(PlayerName.FRED,fredStats);
 		player1Img = new GImage("fred.jpg", program.getWidth() - 400,program.getHeight()-  program.getHeight()/2.5);
 		player1Img.setSize(200,200);
-		player2Img = new GImage("sprites/cody_selection.png", program.getWidth() - 600,program.getHeight() -  program.getHeight()/2.5);
+		player2Img = new GImage("sprites/Cody/cody_selection.png", program.getWidth() - 600,program.getHeight() -  program.getHeight()/2.5);
 		player2Img.setSize(200,200);
 		player3Img = new GImage("fred.jpg", program.getWidth() - 800,program.getHeight() -  program.getHeight()/2.5);
 		player3Img.setSize(200,200);

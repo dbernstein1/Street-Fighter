@@ -9,7 +9,7 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 	public static final int GROUND = 550;
 	public static final String MUSIC_FOLDER = "sounds";
 	private static final String[] SOUND_FILES = {"megalovania.mp3" , "r2d2.mp3", "somethinlikethis.mp3" };
-	private static final String IMAGES[]= {"sans.jpg","example_back.jpg","portMapMain.png"};
+	private static final String IMAGES[]= {"sans.jpg","example_back.jpg","portMapMain.png", "forestMap.jpg"};
 
 
 	private LevelSelectionPane levelPane;
@@ -29,6 +29,7 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 	public Background background,menu_Bg;
 	public Background backgroundPort;
 	public Background backgroundPort2;
+	public Background backgroundForest;
 	//private Background background;
 	
 	/*
@@ -59,6 +60,7 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 		background = new Background(IMAGES[1], WINDOW_WIDTH, WINDOW_HEIGHT);
 		backgroundPort = new Background(IMAGES[2], WINDOW_WIDTH, WINDOW_HEIGHT);
 		backgroundPort2 = new Background("portMapMain2.png", WINDOW_WIDTH, WINDOW_HEIGHT);
+		backgroundForest = new Background("forestMap.jpg", WINDOW_WIDTH, WINDOW_HEIGHT);
 		menu_Bg= new Background(IMAGES[0], WINDOW_WIDTH, WINDOW_HEIGHT);
 		menu = new MenuPane(this);
 		gamePane = new GamePane(this);

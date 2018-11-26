@@ -24,12 +24,12 @@ public class Animation{
 
 	public Animation(MainApplication app) {
 		Animation.program = app;
-		GImage one = new GImage("sprites/CodyWalk/walk1.png");
-		GImage two = new GImage("sprites/CodyWalk/walk2.png");
-		GImage three = new GImage("sprites/CodyWalk/walk3.png");
-		GImage four = new GImage("sprites/CodyWalk/walk4.png");
-		GImage five = new GImage("sprites/CodyWalk/walk5.png");
-		GImage six = new GImage("sprites/CodyWalk/walk6.png");
+		GImage one = new GImage("sprites/Cody/CodyWalk/walk1.png");
+		GImage two = new GImage("sprites/Cody/CodyWalk/walk2.png");
+		GImage three = new GImage("sprites/Cody/CodyWalk/walk3.png");
+		GImage four = new GImage("sprites/Cody/CodyWalk/walk4.png");
+		GImage five = new GImage("sprites/Cody/CodyWalk/walk5.png");
+		GImage six = new GImage("sprites/Cody/CodyWalk/walk6.png");
 		curFrame = 0;
 		walk = new ArrayList<GImage>();	
 		walk.add(one);
