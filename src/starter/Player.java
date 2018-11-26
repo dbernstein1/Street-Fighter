@@ -120,26 +120,50 @@ public class Player extends GraphicsProgram {
 	public void HandleMovement() {
 		
 			if(isForward){
-				if(speed<10)
+				if(speed<3)
+				{
+					
 					speed++;
+				}
+				if(isPunching||isKicking)
+				{
+					speed=0;
+				}
 				GamePane.playerMove(this, speed, 0);
 			}
 			if(!isForward){
-				if(speed>0){
+				if(speed>0)
+				{
+					
 					speed--;
-					GamePane.playerMove(this, speed, 0);
 				}
+				if(isPunching||isKicking)
+				{
+					speed=0;
+				}
+					GamePane.playerMove(this, speed, 0);
 			}
 			if(isBackward){
-				if(speed>-10)
+				if(speed>-3)
+				{
 					speed--;
+				}
+				if(isPunching||isKicking)
+				{
+					speed=0;
+				}
 				GamePane.playerMove(this, speed, 0);
 			}
 			if(!isBackward){
-				if(speed<0){
+				if(speed<0)
+				{
 					speed++;
-					GamePane.playerMove(this, speed, 0);
 				}
+				if(isPunching||isKicking)
+				{
+					speed=0;
+				}
+					GamePane.playerMove(this, speed, 0);
 			}
 			
 			if(isKicking){

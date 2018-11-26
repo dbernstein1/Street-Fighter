@@ -12,16 +12,20 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	private Background bgPort;
 	private Background bgPort2;
 	private Background background;
+	private Result disp_p1;
+	private boolean game_Over=false;
 	public Animation x;
+	private Result disp_p2;
 	public GamePane(MainApplication app)
 	{
 		super();
-		GamePane.program = app;
+		this.program = app;
 		background = program.background;
 		bgPort = program.backgroundPort;
 		bgPort2 = program.backgroundPort2;
 		t=new Timer(50,this);
-		
+		disp_p1=new Result(program,1);
+		disp_p2=new Result(program,2);
 		x = new Animation(program);
 	}
 
@@ -59,7 +63,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	public void set_Choice(Level l) {
 		level=l;
 	}
-	
+
 	public static void add(GObject something)
 	{
 		program.add(something);
@@ -72,17 +76,17 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	public static void playerMove(Player p, double horizontal, double vertical) { // need 2 remove static
 
 		if (p == null) return;
-		
+
 		if (p.body.getX()<0 || p.body.getX()>MainApplication.WINDOW_WIDTH-p.body.getWidth()) { 
 
-		moveBody(p, 4* -horizontal, vertical);
-		
-		return;
+			moveBody(p, 4* -horizontal, vertical);
+
+			return;
 		}		
 		moveBody(p, horizontal, vertical);
 
 		System.out.println("Movement: "+ p.body);
-		
+
 	}
 	private static void moveBody(Player p, double horizontal, double vertical) {
 		p.head.move(horizontal, vertical);
@@ -92,7 +96,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		p.punch.move(horizontal, vertical);
 		p.kick.move(horizontal, vertical);
 	}
-		
+
 	public void updateHealthPoints(Player p) {
 
 		if (p == null) return;
@@ -113,14 +117,14 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	public void remove(Background bgPort) {
 		program.remove(bgPort);
 	}
-	
+
 	public void actionPerformed(ActionEvent e)
 	{
 
 		numTimes ++;
 		if(level.get_Choice()==1)
 		{
-//			System.out.println(level.get_Choice());
+			//			System.out.println(level.get_Choice());
 			add(background.getImage());
 		}
 		if(level.get_Choice()==2)
@@ -208,6 +212,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		{
 			if(!PLAYER_ONE.isPunching && !PLAYER_ONE.isKicking)
 			{
+				disp_p1.addTotal_p();
 				PLAYER_ONE.hittime=0;
 				remove(PLAYER_ONE.arm);
 				PLAYER_ONE.isPunching=true;
@@ -217,15 +222,24 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		{
 			if(!PLAYER_TWO.isPunching && !PLAYER_TWO.isKicking)
 			{
-				PLAYER_TWO.hittime=0;
-				remove(PLAYER_TWO.arm);
-				PLAYER_TWO.isPunching=true;
+				if(game_Over)
+				{
+					program.switchToMenu();
+				}
+				else
+				{
+					disp_p2.addTotal_p();
+					PLAYER_TWO.hittime=0;
+					remove(PLAYER_TWO.arm);
+					PLAYER_TWO.isPunching=true;
+				}
 			}
 		}
 		if(e.getKeyCode()==KeyEvent.VK_CONTROL)
 		{
 			if(!PLAYER_TWO.isKicking && !PLAYER_TWO.isPunching)
 			{
+				disp_p2.addTotal_k();
 				PLAYER_TWO.hittime=0;
 				PLAYER_TWO.isKicking=true;
 			}
@@ -234,9 +248,14 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		{
 			if(!PLAYER_ONE.isKicking && !PLAYER_ONE.isPunching)
 			{
+				disp_p1.addTotal_k();
 				PLAYER_ONE.hittime=0;
 				PLAYER_ONE.isKicking=true;
 			}
+		}
+		if(e.getKeyCode()==KeyEvent.VK_ESCAPE)
+		{
+			
 		}
 	}
 
@@ -271,19 +290,20 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		}
 
 		if ((PLAYER_ONE.isKicking && intersection(PLAYER_ONE.kick, PLAYER_TWO.body)) || (PLAYER_ONE.isPunching && intersection(PLAYER_ONE.punch, PLAYER_TWO.body))) {
-
+			disp_p1.addTotal_h();
 			PLAYER_TWO.hp -= 3 * PLAYER_ONE.strength;
 			updateHealthPoints(PLAYER_TWO);
 
-			playerMove(PLAYER_TWO, 40, 0);
-
+			playerMove(PLAYER_TWO, 80, 0);
+			PLAYER_TWO.speed=0;
 		}
 		if ((PLAYER_TWO.isKicking && intersection(PLAYER_TWO.kick, PLAYER_ONE.body)) || (PLAYER_TWO.isPunching && intersection(PLAYER_TWO.punch, PLAYER_ONE.body))) {
-
+			disp_p2.addTotal_h();
 			PLAYER_ONE.hp -= 3 * PLAYER_TWO.strength;
 			updateHealthPoints(PLAYER_ONE);
 
-			playerMove(PLAYER_ONE, -40, 0);
+			playerMove(PLAYER_ONE, -80, 0);
+			PLAYER_ONE.speed=0;
 		}
 
 	}
@@ -299,40 +319,44 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		if (PLAYER_ONE.hp <= 0) {
 			System.out.println("player 2 wins");
 			// add slow motion
-
+			t.stop();
 			PLAYER_ONE.remove();
 			PLAYER_TWO.remove();
+			disp_p1.displayBox();
+			disp_p2.displayBox();
+			GParagraph winner = new GParagraph("Player 2 Wins!", 670, 140);
+			winner.setFont("Arial-24");
+			winner.setColor(Color.RED);
+			GParagraph loser = new GParagraph("Player 1 Loses!",220 , 140);
+			loser.setFont("Arial-24");
+			loser.setColor(Color.RED);
+			add(winner);
+			add(loser);
+			game_Over=true;
 
-			GImage img = new GImage("robot head.jpg", MainApplication.WINDOW_WIDTH / 2, MainApplication.WINDOW_HEIGHT / 2);
-			GParagraph para = new GParagraph("Player 1 Wins!", 150, 300);
-			para.setFont("Arial-24");
-			add(img);
-			add(para);
 
-			t.stop();
 
-			//	MainApplication.switchToMenu();
-
-			//	t.start();
 		}
 		else if (PLAYER_TWO.hp <= 0) {
 			System.out.println("player 1 wins");
 			// add slow motion
-
+			t.stop();
 			PLAYER_ONE.remove();
 			PLAYER_TWO.remove();
+			disp_p1.displayBox();
+			disp_p2.displayBox();
+			GParagraph winner = new GParagraph("Player 1 Wins!", 220, 140);
+			winner.setFont("Arial-24");
+			winner.setColor(Color.RED);
+			GParagraph loser = new GParagraph("Player 2 Loses!", 670, 140);
+			loser.setFont("Arial-24");
+			loser.setColor(Color.RED);
+			add(winner);
+			add(loser);
+			game_Over=true;
 
-			GImage img = new GImage("robot head.jpg", MainApplication.WINDOW_WIDTH / 2, MainApplication.WINDOW_HEIGHT / 2);
-			GParagraph para = new GParagraph("Player 1 Wins!", 150, 300);
-			para.setFont("Arial-24");
-			add(img);
-			add(para);
 
-			t.stop();
 
-			//		GraphicsApplication.switchToScreen(MainApplication.menu);
-
-			//t.start();
 		}
 	}
 

@@ -40,7 +40,7 @@ public class MenuPane extends GraphicsPane {
 		yes_button.setFillColor(Color.RED);
 		no_button = new GButton("NO",690, 320, 100, 50);
 		no_button.setFillColor(Color.RED);
-		quit_Prompt = new GParagraph("Do You Really Want to Quit\n  This Awesome Game?",450,250);
+		quit_Prompt = new GParagraph("Do You Really Want to Quit?",450,250);
 		quit_Prompt.setFont("Arial-24");
 		quit_Prompt.setColor(Color.RED);
 		Instruction = new GParagraph("Press Escape To Quit",470,600);
