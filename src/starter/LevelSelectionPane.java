@@ -39,6 +39,7 @@ public class LevelSelectionPane extends GraphicsPane {
 		program.add(back_Ground.getImage());
 		program.add(arena1);
 		program.add(arena2);
+		program.add(arena3);
 		program.add(backArrow);
 		program.add(fight);
 		program.add(highlight);
