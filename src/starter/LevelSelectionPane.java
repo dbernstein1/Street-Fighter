@@ -104,7 +104,7 @@ public class LevelSelectionPane extends GraphicsPane {
 			highlight=new GImage(IMAGES[3],80,300);
 			highlight.setSize(340 ,240);
 			program.add(highlight);
-			back_Ground=program.backgroundPort;
+			back_Ground=program.backgroundForest;
 			program.add(back_Ground.getImage());
 			showContents();
 		}
