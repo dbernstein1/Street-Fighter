@@ -24,17 +24,17 @@ public class Player extends GraphicsProgram {
 	public double hptotal = 100, hp = 100;
 	public boolean isJumping=false,isDucking=false;
 	public boolean isPunching=false,isKicking=false;
-	public boolean isForward;
-	public boolean isBackward;
+	public boolean isForward = false;
+	public boolean isBackward = false;
 	public GRect body,leg,arm,punch,kick;
 	public GRect hpbar, hpoutline, staminabar;
 	public GOval head;
 	public GImage chCody;
 	
 	public ArrayList<GObject> arrayList = new ArrayList<GObject>();
-	
+	private Animation animation;
 	Player(int player, String n, double MaxHealth, double StrengthMultiplier, double MaxStamina){
-		
+		this.animation = animation;
 		hptotal = MaxHealth;
 		hp = hptotal;
 		strength = StrengthMultiplier;
@@ -89,7 +89,7 @@ public class Player extends GraphicsProgram {
 		arrayList.add(body);
 		arrayList.add(leg);
 		arrayList.add(arm);
-		arrayList.add(chCody);
+		//arrayList.add(chCody);
 		arrayList.add(hpoutline);
 		arrayList.add(hpbar);
 		arrayList.add(staminabar);	
@@ -215,4 +215,8 @@ public class Player extends GraphicsProgram {
 			}
 		}
 	
+	public Animation getAnimation()
+	{
+		return animation;
+	}
 }

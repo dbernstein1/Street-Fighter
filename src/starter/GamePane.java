@@ -12,10 +12,14 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	private Background bgPort;
 	private Background bgPort2;
 	private Background background;
+
 	private Background bgForest;
+
+	private GImage gameBack;
+//>>>>>>> branch 'master' of https://github.com/comp55-fall18/group-project-if-pizza-coffee-team-win.git
 	private Result disp_p1;
 	private boolean game_Over=false;
-	public Animation x;
+	public Animation p1Animation;
 	private Result disp_p2;
 	public GamePane(MainApplication app)
 	{
@@ -28,7 +32,6 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		t=new Timer(50,this);
 		disp_p1=new Result(program,1);
 		disp_p2=new Result(program,2);
-		x = new Animation(program);
 	}
 
 
@@ -122,27 +125,21 @@ public class GamePane extends GraphicsPane implements ActionListener {
 
 	public void actionPerformed(ActionEvent e)
 	{
-
 		numTimes ++;
-		if(level.get_Choice()==1)
-		{
-			//			System.out.println(level.get_Choice());
-			add(background.getImage());
-		}
 		if(level.get_Choice()==2)
 		{
 			if (numTimes % 20 == 0) {
-				add(bgPort.getImage());
-				remove(bgPort2);
+				gameBack.setImage("portMapMain.png");
 			}
 			else if (numTimes % 20 == 10){
-				add(bgPort2.getImage());
-				remove(bgPort);
+				gameBack.setImage("portMapMain2.png");
 			}
 		}
-		showContents();
+		showUpdatedContents();
+		PLAYER_ONE.HandleMovement();
+		PLAYER_TWO.HandleMovement();
+		p1Animation.handleState();
 		handleCollision();
-		x.handleState();
 	}
 
 	@Override
@@ -153,7 +150,6 @@ public class GamePane extends GraphicsPane implements ActionListener {
 			if(!PLAYER_TWO.isBackward)
 			{
 				PLAYER_TWO.isForward=true;
-				x.setWalking(true);
 			}
 		}
 		if(e.getKeyCode()==KeyEvent.VK_LEFT)
@@ -161,7 +157,6 @@ public class GamePane extends GraphicsPane implements ActionListener {
 			if(!PLAYER_TWO.isForward)
 			{
 				PLAYER_TWO.isBackward=true;
-				x.setWalking(false);
 			}
 		}
 		if(e.getKeyCode()==KeyEvent.VK_D)
@@ -268,7 +263,6 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	{
 		if(e.getKeyCode()==KeyEvent.VK_RIGHT)
 		{
-			x.setWalking(false);
 			PLAYER_TWO.isForward=false;
 		}
 		if(e.getKeyCode()==KeyEvent.VK_LEFT)
@@ -364,11 +358,21 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		}
 	}
 
-	@Override
-	public void showContents() {	
+	public void showUpdatedContents()
+	{
 		PLAYER_ONE.RefreshArray();
 		PLAYER_TWO.RefreshArray();
+		for (int i = 0; i < PLAYER_ONE.arrayList.size(); i++) {
+			add(PLAYER_ONE.arrayList.get(i));
 
+		}
+		for (int i = 0; i < PLAYER_TWO.arrayList.size(); i++) {
+			add(PLAYER_TWO.arrayList.get(i));
+		}
+	}
+	
+	@Override
+	public void showContents() {
 		for (int i = 0; i < PLAYER_ONE.arrayList.size(); i++) {
 			add(PLAYER_ONE.arrayList.get(i));
 
@@ -377,10 +381,17 @@ public class GamePane extends GraphicsPane implements ActionListener {
 			add(PLAYER_TWO.arrayList.get(i));
 
 		}
-		PLAYER_ONE.HandleMovement();
-		PLAYER_TWO.HandleMovement();
+		gameBack = level.getLvl_Img();
+		if(level.get_Choice()==2)
+		{
+			gameBack.setImage("portMapMain.png");
+		}
+		gameBack.setLocation(0,0);
+		gameBack.setSize(1200, 600);
+		add(gameBack);
+		//add(PLAYER_ONE.getAnimation().getCurImg());
 		t.start();
-		return;
+		p1Animation = new Animation(program, PLAYER_ONE);
 	}
 
 
@@ -390,3 +401,5 @@ public class GamePane extends GraphicsPane implements ActionListener {
 
 	}
 }
+
+

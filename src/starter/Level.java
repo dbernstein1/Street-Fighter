@@ -10,6 +10,10 @@ import acm.program.GraphicsProgram;
 public class Level extends GraphicsProgram{
 	int choice;
 	GImage lvl_Img;
+	public GImage getLvl_Img() {
+		return lvl_Img;
+	}
+
 	Level(int l,GImage img)
 	{
 		choice=l;

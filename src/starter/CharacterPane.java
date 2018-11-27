@@ -203,7 +203,7 @@ public class CharacterPane extends GraphicsPane {
 		{
 			return new Player(player1 ? 1 : 2, "zack", 150, .8, 15);
 		}
-		else if(img.getX() == 390)
+		else if(img.getX() == 590)
 		{
 			return new Player(player1 ? 1 : 2, "bob", 80, 2, 25);
 		}

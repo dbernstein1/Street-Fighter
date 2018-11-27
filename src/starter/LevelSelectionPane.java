@@ -12,9 +12,9 @@ public class LevelSelectionPane extends GraphicsPane {
 	private GButton fight;
 	private Background back_Ground;
 	private int choice=1;
-	private Level LEVEL_DANIEL=new Level(1,arena1);
-	private Level LEVEL_MIGUEL=new Level(2,arena2);
-	private Level LEVEL_MIGUEL1=new Level(3,arena3);
+	private Level LEVEL_DANIEL;
+	private Level LEVEL_MIGUEL;
+	private Level LEVEL_MIGUEL1;
 	public LevelSelectionPane(MainApplication app )
 	{
 		this.program=app;
@@ -32,6 +32,9 @@ public class LevelSelectionPane extends GraphicsPane {
 		highlight.setSize(340 ,240);
 		choice=1;
 		back_Ground=program.background;	
+		LEVEL_DANIEL=new Level(1,arena1);
+		LEVEL_MIGUEL=new Level(2,arena2);
+		LEVEL_MIGUEL1=new Level(3,arena3);
 	}
 	
 	@Override
