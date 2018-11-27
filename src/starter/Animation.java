@@ -70,12 +70,12 @@ public class Animation{
 		}
 		if (frame % 2 == 1)
 		{
-			if(player.isForward)
+			if(player.isForward && curState != 3)
 			{
 				curState = 1;
 				walk();
 			}
-			else if(player.isBackward)
+			else if(player.isBackward && curState != 3)
 			{
 				curState = 2;
 				walkBackwards();
@@ -84,6 +84,9 @@ public class Animation{
 			{
 				curState = 3;
 				jump();
+			}
+			else if (!player.isJumping && curState == 3) {
+				drop();
 			}
 			else if(player.isKicking)
 			{
@@ -97,8 +100,8 @@ public class Animation{
 			}
 			else
 			{
-				curState = 0;
 				idle();
+				curState = 0;
 			}
 		}
 		if(curState != prevState)
@@ -112,12 +115,13 @@ public class Animation{
 	{
 		curImg.setImage("sprites/Cody/normStance.png");
 		curImg.setSize(111, 264);
+		
 	}
 	
 	public void walk()
 	{
 		curImg.setImage(filePrefixWalk + (frame % NUM_IMAGES_WALK + 1) + filePost);
-		curImg.setSize(111, 264);
+		curImg.setSize(166, 264);
 		//curFrame = (curFrame + 1) % (array.length);
 		//program.remove(walk.get((curFrame == 0) ? (array.length - 1) : (curFrame - 1)));
 		curImg.move(20, 0);
@@ -129,30 +133,37 @@ public class Animation{
 	public void walkBackwards()
 	{
 		curImg.setImage(filePrefixWalk + (frame % NUM_IMAGES_WALK + 1) + filePost);
-		curImg.setSize(111, 264);
+		curImg.setSize(166, 264);
 		curImg.move(-20, 0);
 	}
 	
 	public void jump()
 	{
 		curImg.setImage(filePrefixJump + (frame % NUM_IMAGES_JUMP + 1) + filePost);
-		curImg.setSize(111, 264);
-		if((frame % NUM_IMAGES_JUMP + 1) <=3)
-			curImg.move(0, 20);
-		else
+		curImg.setSize(166, 264);
 			curImg.move(0, -20);
+	}
+	
+	public void drop()
+	{
+		if (curImg.getLocation().getY() < 300)
+			curImg.move(0, 20);
+		else {
+			idle();
+			curState = 0;
+		}
 	}
 	
 	public void kick()
 	{
 		curImg.setImage(filePrefixKick + (frame % NUM_IMAGES_KICK + 1) + filePost);
-		curImg.setSize(111, 264);
+		curImg.setSize(166, 264);
 	}
 	
 	public void punch()
 	{
 		curImg.setImage(filePrefixPunch + (frame % NUM_IMAGES_PUNCH  + 1) + filePost);
-		curImg.setSize(111, 264);
+		curImg.setSize(166, 264);
 	}
 	
 	public GImage getCurImg()
