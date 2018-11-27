@@ -24,8 +24,8 @@ public class Player extends GraphicsProgram {
 	public double hptotal = 100, hp = 100;
 	public boolean isJumping=false,isDucking=false;
 	public boolean isPunching=false,isKicking=false;
-	public boolean isForward;
-	public boolean isBackward;
+	public boolean isForward = false;
+	public boolean isBackward = false;
 	public GRect body,leg,arm,punch,kick;
 	public GRect hpbar, hpoutline, staminabar;
 	public GOval head;
@@ -89,7 +89,7 @@ public class Player extends GraphicsProgram {
 		arrayList.add(body);
 		arrayList.add(leg);
 		arrayList.add(arm);
-		arrayList.add(chCody);
+		//arrayList.add(chCody);
 		arrayList.add(hpoutline);
 		arrayList.add(hpbar);
 		arrayList.add(staminabar);	
