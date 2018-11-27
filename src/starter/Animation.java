@@ -23,9 +23,7 @@ public class Animation{
 	private final int NUM_IMAGES_JUMP = 3;
 	private final int NUM_IMAGES_PUNCH = 2;
 	private final int NUM_IMAGES_KICK = 3;
-	private ArrayList<GImage> walk;
-	private ArrayList<GImage> jump;
-	private ArrayList<GImage> kick;
+
 	private int curFrame;
 	private static MainApplication program;
 	private int frame = 0;
@@ -102,7 +100,7 @@ public class Animation{
 			}
 		}
 		if(curState != prevState)
-			frame =0;
+			frame = 0;
 		prevState = curState;
 		frame++;
 		
@@ -118,11 +116,7 @@ public class Animation{
 	{
 		curImg.setImage(filePrefixWalk + (frame % NUM_IMAGES_WALK + 1) + filePost);
 		curImg.setSize(111, 264);
-		//curFrame = (curFrame + 1) % (array.length);
-		//program.remove(walk.get((curFrame == 0) ? (array.length - 1) : (curFrame - 1)));
 		curImg.move(20, 0);
-		//curImg.setImage(array[curFrame]);
-		//program.add(walk.get(curFrame));
 	}
 	
 	
@@ -137,10 +131,10 @@ public class Animation{
 	{
 		curImg.setImage(filePrefixJump + (frame % NUM_IMAGES_JUMP + 1) + filePost);
 		curImg.setSize(111, 264);
-		if((frame % NUM_IMAGES_JUMP + 1) <=3)
-			curImg.move(0, 20);
+		if((frame % NUM_IMAGES_JUMP + 1) == 1)
+			curImg.move(0, -100);
 		else
-			curImg.move(0, -20);
+			curImg.move(0, 50);
 	}
 	
 	public void kick()
