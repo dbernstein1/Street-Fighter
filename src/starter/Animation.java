@@ -18,12 +18,13 @@ public class Animation{
 	private String filePrefixJump = "sprites/Cody/CodyVertJump/stVertJump";
 	private String filePrefixKick = "sprites/Cody/CodyKick/kick";
 	private String filePrefixPunch = "sprites/Cody/CodyPunch/punch";
+	private String filePrefixKnockdown = "sprites/Cody/knockdown/knockdown";
 	private String filePost = ".png";
 	private final int NUM_IMAGES_WALK = 6;
 	private final int NUM_IMAGES_JUMP = 3;
 	private final int NUM_IMAGES_PUNCH = 2;
 	private final int NUM_IMAGES_KICK = 3;
-
+	private final int NUM_IMAGES_KNOCKDOWN = 2;
 	private int curFrame;
 	private static MainApplication program;
 	private int frame = 0;
@@ -33,12 +34,39 @@ public class Animation{
 		this.isWalking = isWalking;
 	}
 
+	public GImage flipImage(String image) {
+		GImage org = new GImage(image);
+		int[][] array = org.getPixelArray();
+		int width = array[0].length;
+		for (int i = 0; i < array.length; i++) {
+			for (int p1 = 0; p1 < width / 2; p1++) {
+				int p2 = width - p1 - 1;
+				int temp = array[i][p1];
+				array[i][p1] = array[i][p2];
+				array[i][p2] = temp;
+			}
+		}
+		return new GImage(array);
+	}
+	
 	public Animation(MainApplication app, Player player) {
 		Animation.program = app;
-		curImg = new GImage("sprites/Cody/CodyWalk/walk1.png");
-		curImg.setLocation(350, 280);
-		curFrame = 0;
-		this.player = player;
+		
+		switch (player.Id) {
+		case 1:
+			curImg = new GImage("sprites/Cody/CodyWalk/walk1.png");
+			curImg.setLocation(350, 280);
+			curFrame = 0;
+			this.player = player;
+			break;
+		case 2:
+			curImg = flipImage("sprites/Cody/CodyWalk/walk1.png");
+			curImg.setLocation(800, 280);
+			curFrame = 0;
+			this.player = player;
+			break;
+		}
+			
 		/*
 		GImage one = new GImage("sprites/Cody/CodyWalk/walk1.png");
 		GImage two = new GImage("sprites/Cody/CodyWalk/walk2.png");
@@ -93,6 +121,11 @@ public class Animation{
 				curState = 5;
 				punch();
 			}
+			else if(player.lost)
+			{
+				curState = -1;
+				knockDown();
+			}
 			else
 			{
 				curState = 0;
@@ -115,7 +148,7 @@ public class Animation{
 	public void walk()
 	{
 		curImg.setImage(filePrefixWalk + (frame % NUM_IMAGES_WALK + 1) + filePost);
-		curImg.setSize(111, 264);
+		curImg.setSize(166, 264);
 		curImg.move(20, 0);
 	}
 	
@@ -123,18 +156,29 @@ public class Animation{
 	public void walkBackwards()
 	{
 		curImg.setImage(filePrefixWalk + (frame % NUM_IMAGES_WALK + 1) + filePost);
-		curImg.setSize(111, 264);
+		curImg.setSize(166, 264);
 		curImg.move(-20, 0);
 	}
 	
 	public void jump()
 	{
-		curImg.setImage(filePrefixJump + (frame % NUM_IMAGES_JUMP + 1) + filePost);
-		curImg.setSize(111, 264);
-		if((frame % NUM_IMAGES_JUMP + 1) == 1)
-			curImg.move(0, -100);
-		else
-			curImg.move(0, 50);
+		curImg.setImage(filePrefixJump + 2 + filePost);
+		curImg.setSize(166, 264);
+		if (curImg.getLocation().getY() > 10)
+			curImg.move(player.isForward ? 20 : (player.isBackward ? -20 : 0), -20);
+	}
+	
+	public void drop()
+	{
+		if (curImg.getLocation().getY() < 280) {
+			curImg.move(player.isForward ? 20 : (player.isBackward ? -20 : 0), 20);
+			curImg.setImage(filePrefixJump + 3 + filePost);
+			curImg.setSize(166, 264);
+		}
+		else {
+			idle();
+			curState = 0;
+		}
 	}
 	
 	public void kick()
@@ -146,6 +190,15 @@ public class Animation{
 	public void punch()
 	{
 		curImg.setImage(filePrefixPunch + (frame % NUM_IMAGES_PUNCH  + 1) + filePost);
+		curImg.setSize(111, 264);
+	}
+	
+	public void knockDown()
+	{
+		if(frame < NUM_IMAGES_KNOCKDOWN)
+			curImg.setImage(filePrefixKnockdown + (frame + 1) + filePost);
+		if(frame > 15)
+			program.getGamePane().showStats();
 		curImg.setSize(111, 264);
 	}
 	

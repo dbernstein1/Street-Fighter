@@ -15,6 +15,7 @@ public class Player extends GraphicsProgram {
 
 	@SuppressWarnings("unused")
 	public String name = "";
+	public int Id;
 	
 	public int jump, duck, hittime;
 	public int jctr=1,dctr=1,speed=1;
@@ -26,6 +27,7 @@ public class Player extends GraphicsProgram {
 	public boolean isPunching=false,isKicking=false;
 	public boolean isForward = false;
 	public boolean isBackward = false;
+	public boolean lost = false;
 	public GRect body,leg,arm,punch,kick;
 	public GRect hpbar, hpoutline, staminabar;
 	public GOval head;
@@ -43,6 +45,7 @@ public class Player extends GraphicsProgram {
 		name = n;
 		switch (player) {
 		case 1:
+			Id = 1;
 			punch=new GRect(270,GROUND-80,30,10);
 			kick=new GRect(270,GROUND-50,30,10);
 			head=new GOval(210,GROUND-150,50,50);
@@ -63,6 +66,7 @@ public class Player extends GraphicsProgram {
 			
 			break;
 		case 2:
+			Id = 2;
 			punch=new GRect(770,GROUND-80,30,10);
 			kick=new GRect(770,GROUND-50,30,10);
 			head=new GOval(810,GROUND-150,50,50);

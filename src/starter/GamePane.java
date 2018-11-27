@@ -16,10 +16,10 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	private Background bgForest;
 
 	private GImage gameBack;
-//>>>>>>> branch 'master' of https://github.com/comp55-fall18/group-project-if-pizza-coffee-team-win.git
 	private Result disp_p1;
 	private boolean game_Over=false;
 	public Animation p1Animation;
+	public Animation p2Animation;
 	private Result disp_p2;
 	public GamePane(MainApplication app)
 	{
@@ -139,6 +139,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		PLAYER_ONE.HandleMovement();
 		PLAYER_TWO.HandleMovement();
 		p1Animation.handleState();
+		p2Animation.handleState();
 		handleCollision();
 	}
 
@@ -315,49 +316,33 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	public void gameOver()
 	{
 		if (PLAYER_ONE.hp <= 0) {
-			System.out.println("player 2 wins");
-			// add slow motion
-			t.stop();
-			PLAYER_ONE.remove();
-			PLAYER_TWO.remove();
-			disp_p1.displayBox();
-			disp_p2.displayBox();
-			GParagraph winner = new GParagraph("Player 2 Wins!", 670, 140);
-			winner.setFont("Arial-24");
-			winner.setColor(Color.RED);
-			GParagraph loser = new GParagraph("Player 1 Loses!",220 , 140);
-			loser.setFont("Arial-24");
-			loser.setColor(Color.RED);
-			add(winner);
-			add(loser);
-			game_Over=true;
-
-
-
+			System.out.println("player 2 wins");	
+			PLAYER_ONE.lost = true;
 		}
 		else if (PLAYER_TWO.hp <= 0) {
 			System.out.println("player 1 wins");
-			// add slow motion
-			t.stop();
-			PLAYER_ONE.remove();
-			PLAYER_TWO.remove();
-			disp_p1.displayBox();
-			disp_p2.displayBox();
-			GParagraph winner = new GParagraph("Player 1 Wins!", 220, 140);
-			winner.setFont("Arial-24");
-			winner.setColor(Color.RED);
-			GParagraph loser = new GParagraph("Player 2 Loses!", 670, 140);
-			loser.setFont("Arial-24");
-			loser.setColor(Color.RED);
-			add(winner);
-			add(loser);
-			game_Over=true;
-
-
-
+			PLAYER_TWO.lost = true;
 		}
 	}
 
+	public void showStats()
+	{
+		// add slow motion
+		t.stop();
+		PLAYER_ONE.remove();
+		PLAYER_TWO.remove();
+		disp_p1.displayBox();
+		disp_p2.displayBox();
+		GParagraph winner = new GParagraph(PLAYER_ONE.lost ? "Player 1 Wins!" : "Player 2 Wins!", 220, 140);
+		GParagraph loser = new GParagraph(PLAYER_ONE.lost ? "Player 2 Loses!" : "Player 2 Wins!", 670, 140);
+		winner.setFont("Arial-24");
+		winner.setColor(Color.RED);
+		loser.setFont("Arial-24");
+		loser.setColor(Color.RED);
+		add(winner);
+		add(loser);
+		game_Over=true;
+	}
 	public void showUpdatedContents()
 	{
 		PLAYER_ONE.RefreshArray();
@@ -392,6 +377,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		//add(PLAYER_ONE.getAnimation().getCurImg());
 		t.start();
 		p1Animation = new Animation(program, PLAYER_ONE);
+		p2Animation = new Animation(program, PLAYER_TWO);
 	}
 
 
