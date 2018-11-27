@@ -12,6 +12,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	private Background bgPort;
 	private Background bgPort2;
 	private Background background;
+	private Background bgForest;
 	private Result disp_p1;
 	private boolean game_Over=false;
 	public Animation x;
@@ -23,6 +24,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		background = program.background;
 		bgPort = program.backgroundPort;
 		bgPort2 = program.backgroundPort2;
+		bgForest = program.backgroundForest;
 		t=new Timer(50,this);
 		disp_p1=new Result(program,1);
 		disp_p2=new Result(program,2);
