@@ -16,6 +16,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	private Result disp_p1;
 	private boolean game_Over=false;
 	public Animation p1Animation;
+	public Animation p2Animation;
 	private Result disp_p2;
 	public GamePane(MainApplication app)
 	{
@@ -134,6 +135,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		PLAYER_ONE.HandleMovement();
 		PLAYER_TWO.HandleMovement();
 		p1Animation.handleState();
+		p2Animation.handleState();
 		handleCollision();
 	}
 
@@ -387,6 +389,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		//add(PLAYER_ONE.getAnimation().getCurImg());
 		t.start();
 		p1Animation = new Animation(program, PLAYER_ONE);
+		p2Animation = new Animation(program, PLAYER_TWO);
 	}
 
 
