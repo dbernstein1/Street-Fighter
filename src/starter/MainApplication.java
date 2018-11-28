@@ -9,7 +9,7 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 	public static final int GROUND = 550;
 	public static final String MUSIC_FOLDER = "sounds";
 	private static final String[] SOUND_FILES = {"megalovania.mp3" , "r2d2.mp3", "somethinlikethis.mp3" };
-	private static final String IMAGES[]= {"sans.jpg","example_back.jpg","portMapMain.png", "forestMap.jpg"};
+	private static final String IMAGES[]= {"sans.jpg","example_back.jpg","portMapMain.png", "forestMap.jpg","beachMapMain.png"};
 
 
 	private LevelSelectionPane levelPane;
@@ -30,6 +30,7 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 	public Background backgroundPort;
 	public Background backgroundPort2;
 	public Background backgroundForest;
+	public Background backgroundBeach, backgroundBeach2, backgroundBeach3;
 	//private Background background;
 	
 	/*
@@ -61,6 +62,9 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 		backgroundPort = new Background(IMAGES[2], WINDOW_WIDTH, WINDOW_HEIGHT);
 		backgroundPort2 = new Background("portMapMain2.png", WINDOW_WIDTH, WINDOW_HEIGHT);
 		backgroundForest = new Background("forestMap.jpg", WINDOW_WIDTH, WINDOW_HEIGHT);
+		backgroundBeach = new Background("maps/BeachMap/beachMapMain.png", WINDOW_WIDTH, WINDOW_HEIGHT);
+		backgroundBeach2 = new Background("maps/BeachMap/beachMap2.png", WINDOW_WIDTH, WINDOW_HEIGHT);
+		backgroundBeach3 = new Background("maps/BeachMap/beachMap3.png", WINDOW_WIDTH, WINDOW_HEIGHT);
 		menu_Bg= new Background(IMAGES[0], WINDOW_WIDTH, WINDOW_HEIGHT);
 		menu = new MenuPane(this);
 		gamePane = new GamePane(this);
@@ -131,6 +135,16 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	public void addBeach(Background bgBeach)
+	{
+		// TODO Auto-generated method stub
+	}
+	
+	public void removeBeach(Background bgBeach)
+	
+	{
+		//TODO Auto-generated method stub
+	}
 
 }

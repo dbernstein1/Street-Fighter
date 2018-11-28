@@ -12,7 +12,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	private Background bgPort;
 	private Background bgPort2;
 	private Background background;
-
+	private Background bgBeach, bgBeach2, bgBeach3;
 	private Background bgForest;
 
 	private GImage gameBack;
@@ -29,6 +29,9 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		bgPort = program.backgroundPort;
 		bgPort2 = program.backgroundPort2;
 		bgForest = program.backgroundForest;
+		bgBeach = program.backgroundBeach;
+		bgBeach2 = program.backgroundBeach2;
+		bgBeach3 = program.backgroundBeach3;
 		t=new Timer(50,this);
 		disp_p1=new Result(program,1);
 		disp_p2=new Result(program,2);
@@ -122,6 +125,17 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	public void remove(Background bgPort) {
 		program.remove(bgPort);
 	}
+	
+	public void addBeach(Background bgBeach) 
+	{
+		program.add(bgBeach);
+	}
+	
+	public void removeBeach(Background bgBeach)
+	{
+		program.remove(bgBeach);
+	}
+	
 
 	public void actionPerformed(ActionEvent e)
 	{
@@ -133,6 +147,21 @@ public class GamePane extends GraphicsPane implements ActionListener {
 			}
 			else if (numTimes % 20 == 10){
 				gameBack.setImage("portMapMain2.png");
+			}
+		}
+		else if (level.get_Choice() == 4)
+		{
+			if (numTimes % 18 == 0) 
+			{
+				gameBack.setImage("maps/BeachMap/beachMapMain.png");
+			}
+			else if (numTimes % 18 == 6)
+			{
+				gameBack.setImage("maps/BeachMap/beachMap2.png");
+			}
+			else if (numTimes % 18 == 12) 
+			{
+				gameBack.setImage("maps/BeachMap/beachMap3.png");
 			}
 		}
 		showUpdatedContents();
@@ -371,6 +400,10 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		{
 			gameBack.setImage("portMapMain.png");
 		}
+		else if (level.get_Choice() == 4)
+		{
+			gameBack.setImage("maps/BeachMap/beachMapMain.png");
+		}
 		gameBack.setLocation(0,0);
 		gameBack.setSize(1200, 600);
 		add(gameBack);
@@ -378,6 +411,28 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		t.start();
 		p1Animation = new Animation(program, PLAYER_ONE);
 		p2Animation = new Animation(program, PLAYER_TWO);
+		
+		
+		
+		
+//		
+//		gameBack = level.getLvl_Img();
+//		if(level.get_Choice()==4)
+//		{
+//			gameBack.setImage("maps/BeachMap/beachMapMain.png");
+//		}
+//		gameBack.setLocation(0,0);
+//		gameBack.setSize(1200, 600);
+//		add(gameBack);
+//		//add(PLAYER_ONE.getAnimation().getCurImg());
+//		t.start();
+//		p1Animation = new Animation(program, PLAYER_ONE);
+//		p2Animation = new Animation(program, PLAYER_TWO);
+//		
+		
+		
+		
+		
 	}
 
 

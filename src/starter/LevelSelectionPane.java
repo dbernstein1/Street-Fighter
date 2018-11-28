@@ -7,14 +7,15 @@ import acm.graphics.GObject;
 //level select
 public class LevelSelectionPane extends GraphicsPane {
 	private MainApplication program;
-	private static final String IMAGES[]= {"example_back.jpg","portMapMain.png", "menu_back_arrow.png","highlight.png", "forestMap.jpg"};
-	private GImage arena1,arena2,arena3,backArrow,highlight;
+	private static final String IMAGES[]= {"example_back.jpg","portMapMain.png", "menu_back_arrow.png","highlight.png", "forestMap.jpg", "maps/BeachMap/beachMapMain.png"};
+	private GImage arena1,arena2,arena3, arena4, backArrow,highlight;
 	private GButton fight;
 	private Background back_Ground;
 	private int choice=1;
 	private Level LEVEL_DANIEL;
 	private Level LEVEL_MIGUEL;
 	private Level LEVEL_MIGUEL1;
+	private Level LEVEL_MIGUEL2;
 	public LevelSelectionPane(MainApplication app )
 	{
 		this.program=app;
@@ -24,6 +25,8 @@ public class LevelSelectionPane extends GraphicsPane {
 		arena2.setSize(300, 200);
 		arena3=new GImage(IMAGES[4],100,320);
 		arena3.setSize(300, 200);
+		arena4 = new GImage(IMAGES[5], 700, 320);
+		arena4.setSize(300, 200);
 		backArrow=new GImage(IMAGES[2],0,0);
 		backArrow.setSize(80,80);
 		fight=new GButton("Fight",435,265,200,100);
@@ -35,6 +38,7 @@ public class LevelSelectionPane extends GraphicsPane {
 		LEVEL_DANIEL=new Level(1,arena1);
 		LEVEL_MIGUEL=new Level(2,arena2);
 		LEVEL_MIGUEL1=new Level(3,arena3);
+		LEVEL_MIGUEL2 = new Level(4, arena4);
 	}
 	
 	@Override
@@ -43,6 +47,7 @@ public class LevelSelectionPane extends GraphicsPane {
 		program.add(arena1);
 		program.add(arena2);
 		program.add(arena3);
+		program.add(arena4);
 		program.add(backArrow);
 		program.add(fight);
 		program.add(highlight);
@@ -55,6 +60,7 @@ public class LevelSelectionPane extends GraphicsPane {
 		program.remove(arena1);
 		program.remove(arena2);
 		program.remove(arena3);
+		program.remove(arena4);
 		program.remove(backArrow);
 		program.remove(fight);
 		program.remove(highlight);
@@ -108,6 +114,21 @@ public class LevelSelectionPane extends GraphicsPane {
 			program.add(back_Ground.getImage());
 			showContents();
 		}
+		
+		if(obj==arena4)
+		{
+			choice=4;
+			System.out.println(choice);
+			program.remove(back_Ground.getImage());
+			program.remove(highlight);
+		
+			highlight=new GImage(IMAGES[5],680,300);
+			highlight.setSize(340 ,240);
+			program.add(highlight);
+			back_Ground=program.backgroundBeach;
+			program.add(back_Ground.getImage());
+			showContents();
+		}
 		if(obj==fight)
 		{	
 			checkChoice();
@@ -130,6 +151,7 @@ public class LevelSelectionPane extends GraphicsPane {
 			program.switchToCharacterPane();
 			break;
 		case 4:
+			program.getGamePane().set_Choice(LEVEL_MIGUEL2);
 			program.switchToCharacterPane();
 			break;
 		}
