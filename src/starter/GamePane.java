@@ -15,7 +15,6 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	private Background bgBeach, bgBeach2, bgBeach3;
 	private Background bgForest;
 
-	private GImage gameBack;
 	private Result disp_p1;
 	private boolean game_Over=false;
 	public static Animation p1Animation;
@@ -150,26 +149,28 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		if(level.get_Choice()==2)
 		{
 			if (numTimes % 20 == 0) {
-				gameBack.setImage("portMapMain.png");
+				level.getLvl_Img().setImage("portMapMain.png");
 			}
 			else if (numTimes % 20 == 10){
-				gameBack.setImage("portMapMain2.png");
+				level.getLvl_Img().setImage("portMapMain2.png");
 			}
+			level.getLvl_Img().setSize(1200, 600);
 		}
 		else if (level.get_Choice() == 4)
 		{
 			if (numTimes % 18 == 0) 
 			{
-				gameBack.setImage("maps/BeachMap/beachMap01.png");
+				level.getLvl_Img().setImage("maps/BeachMap/beachMap01.png");
 			}
 			else if (numTimes % 18 == 6)
 			{
-				gameBack.setImage("maps/BeachMap/beachMap02.png");
+				level.getLvl_Img().setImage("maps/BeachMap/beachMap02.png");
 			}
 			else if (numTimes % 18 == 12) 
 			{
-				gameBack.setImage("maps/BeachMap/beachMap03.png");
+				level.getLvl_Img().setImage("maps/BeachMap/beachMap03.png");
 			}
+			level.getLvl_Img().setSize(1200, 600);
 		}
 		showUpdatedContents();
 		PLAYER_ONE.HandleMovement();
@@ -422,18 +423,9 @@ public class GamePane extends GraphicsPane implements ActionListener {
 			add(PLAYER_TWO.arrayList.get(i));
 
 		}
-		gameBack = level.getLvl_Img();
-		if(level.get_Choice()==2)
-		{
-			gameBack.setImage("portMapMain.png");
-		}
-		else if (level.get_Choice() == 4)
-		{
-			gameBack.setImage("maps/BeachMap/beachMap01.png");
-		}
-		gameBack.setLocation(0,0);
-		gameBack.setSize(1200, 600);
-		add(gameBack);
+		level.getLvl_Img().setLocation(0,0);
+		level.getLvl_Img().setSize(1200, 600);
+		add(level.getLvl_Img());
 		//add(PLAYER_ONE.getAnimation().getCurImg());
 		t.start();
 		p1Animation = new Animation(program, PLAYER_ONE);
