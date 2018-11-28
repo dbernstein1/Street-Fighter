@@ -135,6 +135,16 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	public void addBeach(Background bgBeach)
+	{
+		// TODO Auto-generated method stub
+	}
+	
+	public void removeBeach(Background bgBeach)
+	
+	{
+		//TODO Auto-generated method stub
+	}
 
 }
