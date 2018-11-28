@@ -14,19 +14,20 @@ public class Animation{
 	private int curState = 0;
 	
 	private GImage curImg;
-	private String filePrefixWalk = "sprites/Cody/CodyWalk/walk";
-	private String filePrefixJump = "sprites/Cody/CodyVertJump/stVertJump";
-	private String filePrefixJumpMove = "sprites/Cody/movJump/movJump";
-	private String filePrefixKick = "sprites/Cody/CodyKick/kick";
-	private String filePrefixPunch = "sprites/Cody/CodyPunch/punch";
-	private String filePrefixKnockdown = "sprites/Cody/knockdown/knockdown";
-	private String filePost = ".png";
-	private final int NUM_IMAGES_WALK = 6;
-	private final int NUM_IMAGES_JUMP = 3;
-	private final int NUM_IMAGES_JUMP_MOVE = 5;
-	private final int NUM_IMAGES_PUNCH = 2;
-	private final int NUM_IMAGES_KICK = 3;
-	private final int NUM_IMAGES_KNOCKDOWN = 2;
+	private String fileIdle;
+	private String filePrefixWalk;
+	private String filePrefixJump;
+	private String filePrefixJumpMove;
+	private String filePrefixKick;
+	private String filePrefixPunch;
+	private String filePrefixKnockdown;
+	private String filePost;
+	private int NUM_IMAGES_WALK;
+	private int NUM_IMAGES_JUMP;
+	private int NUM_IMAGES_JUMP_MOVE;
+	private int NUM_IMAGES_PUNCH;
+	private int NUM_IMAGES_KICK;
+	private int NUM_IMAGES_KNOCKDOWN;
 	private static MainApplication program;
 	private int frame = 0;
 	private Player player;
@@ -54,7 +55,47 @@ public class Animation{
 	public Animation(MainApplication app, Player player) {
 		Animation.program = app;
 		this.player = player;
-		curImg = new GImage("sprites/Cody/normStance.png");
+		
+		switch (player.number) {
+		case 1:
+			fileIdle = "sprites/Guy/normStance.png";
+			filePrefixWalk = "sprites/Guy/GuyWalk/walk";
+			filePrefixJump = "sprites/Guy/movJump/movJump";
+			filePrefixJumpMove = "sprites/Guy/movJump/movJump";
+			filePrefixKick = "sprites/Guy/GuyKick/kick";
+			filePrefixPunch = "sprites/Guy/GuyPunch/punch";
+			filePrefixKnockdown = "sprites/Guy/knockdown/knockdown";
+			filePost = ".png";
+			NUM_IMAGES_WALK = 6;
+			NUM_IMAGES_JUMP = 6;
+			NUM_IMAGES_JUMP_MOVE = 6;
+			NUM_IMAGES_PUNCH = 2;
+			NUM_IMAGES_KICK = 5;
+			NUM_IMAGES_KNOCKDOWN = 1;
+			break;
+		case 2:
+			fileIdle = "sprites/Cody/normStance.png";
+			filePrefixWalk = "sprites/Cody/CodyWalk/walk";
+			filePrefixJump = "sprites/Cody/CodyVertJump/stVertJump";
+			filePrefixJumpMove = "sprites/Cody/movJump/movJump";
+			filePrefixKick = "sprites/Cody/CodyKick/kick";
+			filePrefixPunch = "sprites/Cody/CodyPunch/punch";
+			filePrefixKnockdown = "sprites/Cody/knockdown/knockdown";
+			filePost = ".png";
+			NUM_IMAGES_WALK = 6;
+			NUM_IMAGES_JUMP = 3;
+			NUM_IMAGES_JUMP_MOVE = 5;
+			NUM_IMAGES_PUNCH = 2;
+			NUM_IMAGES_KICK = 3;
+			NUM_IMAGES_KNOCKDOWN = 2;
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		}
+		
+		curImg = new GImage(fileIdle);
 		switch (player.Id) {
 		case 1:
 			curImg.setLocation(350, 280);
@@ -124,6 +165,12 @@ public class Animation{
 				curState = 6;
 				punch();
 			}
+			else if(player.isDropping)
+			{
+				System.out.println("ergretgergerg");
+				curState = 7;
+				drop();
+			}
 			else if(player.lost)
 			{
 				curState = -1;
@@ -133,9 +180,6 @@ public class Animation{
 			{
 				curState = 0;
 				idle();
-			}
-			if (!player.isJumping) {
-				drop();
 			}
 		}
 		if(curState != prevState)
@@ -149,7 +193,7 @@ public class Animation{
 	
 	public void idle()
 	{
-		curImg.setImage("sprites/Cody/normStance.png");
+		curImg.setImage(fileIdle);
 		flipPlayerImage();
 		curImg.setSize(111, 264);
 	}
@@ -158,7 +202,10 @@ public class Animation{
 	{
 		curImg.setImage(filePrefixWalk + (frame % NUM_IMAGES_WALK + 1) + filePost);
 		flipPlayerImage();
-		curImg.setSize(166, 264);
+		if(player.number == 2)
+			curImg.setSize(166, 264);
+		else
+			curImg.setSize(111, 264);
 		curImg.move(20, 0);
 	}
 	
@@ -167,7 +214,10 @@ public class Animation{
 	{
 		curImg.setImage(filePrefixWalk + (frame % NUM_IMAGES_WALK + 1) + filePost);
 		flipPlayerImage();
-		curImg.setSize(166, 264);
+		if(player.number == 2)
+			curImg.setSize(166, 264);
+		else
+			curImg.setSize(111, 264);
 		curImg.move(-20, 0);
 	}
 	
@@ -185,6 +235,7 @@ public class Animation{
 		if (curImg.getLocation().getY() < 280) {
 			curImg.move(player.isForward ? 20 : (player.isBackward ? -20 : 0), 20);
 			curImg.setImage(filePrefixJump + 3 + filePost);
+			flipPlayerImage();
 			curImg.setSize(166, 264);
 		}
 		else {
@@ -204,7 +255,10 @@ public class Animation{
 	{
 		curImg.setImage(filePrefixPunch + (frame % NUM_IMAGES_PUNCH  + 1) + filePost);
 		flipPlayerImage();
-		curImg.setSize(111, 264);
+		if(player.number == 2)
+			curImg.setSize(166, 264);
+		else
+			curImg.setSize(111, 264);
 	}
 	
 	public void jumpMove()

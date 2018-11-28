@@ -26,6 +26,7 @@ public class Player extends GraphicsProgram {
 	public boolean isJumping=false,isDucking=false;
 	public boolean isPunching=false,isKicking=false;
 	public boolean isForward = false;
+	public boolean isDropping = false;
 	public boolean isBackward = false;
 	public boolean lost = false;
 	public GRect body,leg,arm,punch,kick;
@@ -35,8 +36,10 @@ public class Player extends GraphicsProgram {
 	
 	public ArrayList<GObject> arrayList = new ArrayList<GObject>();
 	private Animation animation;
-	Player(int player, String n, double MaxHealth, double StrengthMultiplier, double MaxStamina){
+	public int number;
+	Player(int player, int number, String n, double MaxHealth, double StrengthMultiplier, double MaxStamina){
 		this.animation = animation;
+		this.number = number;
 		hptotal = MaxHealth;
 		hp = hptotal;
 		strength = StrengthMultiplier;
@@ -214,8 +217,15 @@ public class Player extends GraphicsProgram {
 				updateStamina();
 				if(jump==11){
 					jump=-10;
+					isDropping = true;
 					isJumping=false;
 				}	
+			}
+			if(isDropping)
+			{
+				jump=-10;
+				if(jump <= 1)
+					isDropping = false;
 			}
 		}
 	
