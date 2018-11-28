@@ -27,10 +27,8 @@ public class Animation{
 	private final int NUM_IMAGES_PUNCH = 2;
 	private final int NUM_IMAGES_KICK = 3;
 	private final int NUM_IMAGES_KNOCKDOWN = 2;
-	private int curFrame;
 	private static MainApplication program;
 	private int frame = 0;
-	private boolean isWalking = true;
 	private Player player;
 
 	public void flipPlayerImage()
