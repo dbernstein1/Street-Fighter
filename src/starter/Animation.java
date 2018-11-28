@@ -134,13 +134,18 @@ public class Animation{
 				curState = 0;
 				idle();
 			}
+			if (!player.isJumping) {
+				drop();
+			}
 		}
 		if(curState != prevState)
 			frame = 0;
 		prevState = curState;
 		frame++;
 		
-	}
+		}
+		
+	
 	
 	public void idle()
 	{
