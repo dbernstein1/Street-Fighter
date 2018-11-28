@@ -18,8 +18,8 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	private GImage gameBack;
 	private Result disp_p1;
 	private boolean game_Over=false;
-	public Animation p1Animation;
-	public Animation p2Animation;
+	public static Animation p1Animation;
+	public static Animation p2Animation;
 	private Result disp_p2;
 	public GamePane(MainApplication app)
 	{
@@ -311,6 +311,16 @@ public class GamePane extends GraphicsPane implements ActionListener {
 
 	public void handleCollision()
 	{
+		int i = 0;
+		if (intersection(p1Animation.getCurImg(), p2Animation.getCurImg())) {
+			i += 10;
+			
+			p1Animation.getCurImg().move(-i, 0);
+			p2Animation.getCurImg().move(i, 0);
+		}
+		
+		
+		
 		if (intersection(PLAYER_ONE.body, PLAYER_TWO.body)) {
 			playerMove(PLAYER_TWO, 10, 0);
 
