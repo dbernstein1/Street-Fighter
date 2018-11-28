@@ -135,7 +135,7 @@ public class Animation{
 		}
 		if (frame % 2 == 1)
 		{
-			if((player.isBackward || player.isForward) && player.isJumping)
+			if((player.isBackward || player.isForward) && curState == 4)
 			{
 				curState = 7;
 				jumpMove();
@@ -176,6 +176,8 @@ public class Animation{
 				curState = -1;
 				knockDown();
 			}
+			else if (!player.isJumping && !player.isForward && !player.isBackward )
+				drop();
 			else
 			{
 				curState = 0;
@@ -206,7 +208,6 @@ public class Animation{
 			curImg.setSize(166, 264);
 		else
 			curImg.setSize(111, 264);
-		playerAnimationMoveWalk();
 	}
 	
 	
@@ -218,7 +219,6 @@ public class Animation{
 			curImg.setSize(166, 264);
 		else
 			curImg.setSize(111, 264);
-		playerAnimationMoveWalk();
 	}
 	
 	public void jump()
@@ -257,9 +257,9 @@ public class Animation{
 		curImg.setImage(filePrefixPunch + (frame % NUM_IMAGES_PUNCH  + 1) + filePost);
 		flipPlayerImage();
 		if(player.number == 2)
-			curImg.setSize(166, 264);
-		else
 			curImg.setSize(111, 264);
+		else
+			curImg.setSize(166, 264);
 	}
 	
 	public void jumpMove()

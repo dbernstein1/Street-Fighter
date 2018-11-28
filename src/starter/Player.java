@@ -54,6 +54,7 @@ public class Player extends GraphicsProgram {
 			kick=new GRect(270,GROUND-50,30,10);
 			head=new GOval(210,GROUND-150,50,50);
 			body=new GRect(200,GROUND-100,70,70);
+			body.setColor(new Color(255,255, 255, 0));
 			leg=new GRect(230,GROUND-30,10,30);
 			arm=new GRect(240,GROUND-80,10,40);
 			chCody = new GImage("sprites/Cody/normStance.png",350,GROUND-270);
@@ -141,7 +142,6 @@ public class Player extends GraphicsProgram {
 			if(!isForward){
 				if(speed>0)
 				{
-					
 					speed--;
 				}
 				if(isPunching||isKicking)
