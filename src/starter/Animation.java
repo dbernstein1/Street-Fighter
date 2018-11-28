@@ -135,9 +135,14 @@ public class Animation{
 		}
 		if (frame % 2 == 1)
 		{
-			if((player.isBackward || player.isForward) && curState == 4)
+			if(player.isJumpVert)
 			{
-				curState = 7;
+				curState = 4;
+				jump();
+			}
+			else if(player.isJumpMoving)
+			{
+				curState = 9;
 				jumpMove();
 			}
 			else if(player.isForward)
@@ -149,17 +154,6 @@ public class Animation{
 			{
 				curState = 2;
 				walkBackwards();
-			}
-			else if(player.isDropping)
-			{
-				System.out.println("ergretgergerg");
-				curState = 3;
-				drop();
-			}
-			else if(player.isJumping)
-			{
-				curState = 4;
-				jump();
 			}
 			else if(player.isKicking)
 			{
@@ -176,8 +170,6 @@ public class Animation{
 				curState = -1;
 				knockDown();
 			}
-			else if (!player.isJumping && !player.isForward && !player.isBackward )
-				drop();
 			else
 			{
 				curState = 0;
@@ -226,23 +218,9 @@ public class Animation{
 		curImg.setImage(filePrefixJump + 2 + filePost);
 		flipPlayerImage();
 		curImg.setSize(166, 264);
-		playerAnimationJump();
+		//playerAnimationJump();
 		//if (curImg.getLocation().getY() > 10)
 		//	curImg.move(player.isForward ? 20 : (player.isBackward ? -20 : 0), -20);
-	}
-	
-	public void drop()
-	{
-		if (curImg.getLocation().getY() < 280) {
-			curImg.move(player.isForward ? 20 : (player.isBackward ? -20 : 0), 20);
-			curImg.setImage(filePrefixJump + 3 + filePost);
-			flipPlayerImage();
-			curImg.setSize(166, 264);
-		}
-		else {
-			idle();
-			curState = 0;
-		}
 	}
 	
 	public void kick()
@@ -268,6 +246,7 @@ public class Animation{
 		flipPlayerImage();
 		curImg.setSize(111, 264);
 	}
+	
 	public void knockDown()
 	{
 		if(frame < NUM_IMAGES_KNOCKDOWN)
@@ -282,19 +261,5 @@ public class Animation{
 	{
 		return curImg;
 	}
-	
-	public void playerAnimationMoveWalk()
-	{
-		if(player.outOfBounds)
-			curImg.move(8* -player.speed, 0);
-		else
-			curImg.move(2 * player.speed, 0);
-	}
-	
-	public void playerAnimationJump()
-	{
-		curImg.move(0, 2 * player.jump);
-	}
-	
 	
 }

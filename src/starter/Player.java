@@ -23,10 +23,9 @@ public class Player extends GraphicsProgram {
 	public double strength = 1;
 	public double hpbarx, staminabarx;
 	public double hptotal = 100, hp = 100;
-	public boolean isJumping=false,isDucking=false;
+	public boolean isJumpVert =false, isDucking=false, isJumpMoving = false;
 	public boolean isPunching=false,isKicking=false;
 	public boolean isForward = false;
-	public boolean isDropping = false;
 	public boolean isBackward = false;
 	public boolean outOfBounds = false;
 	public boolean lost = false;
@@ -131,7 +130,6 @@ public class Player extends GraphicsProgram {
 			if(isForward){
 				if(speed<3)
 				{
-					
 					speed++;
 				}
 				if(isPunching||isKicking)
@@ -211,7 +209,7 @@ public class Player extends GraphicsProgram {
 					GamePane.add(leg);
 				}
 			}
-			if(isJumping){
+			if(isJumpVert){
 				GamePane.playerMove(this, 0, jump);
 				GamePane.remove(leg);
 				GamePane.remove(body);
@@ -222,21 +220,22 @@ public class Player extends GraphicsProgram {
 				updateStamina();
 				if(jump==11){
 					jump=-10;
-					isDropping = true;
-					isJumping=false;
+					isJumpVert=false;
 				}	
 			}
-			if(isDropping)
-			{
-				jump=-10;
-				if(jump <= 1)
-				{
-					isDropping = false;
-					if(isDropping==false)
-					{
-						GamePane.remove(jumpbox);
-					}
-				}
+			if(isJumpMoving){
+				GamePane.playerMove(this, 0, jump);
+				GamePane.remove(leg);
+				GamePane.remove(body);
+				GamePane.remove(head);
+				GamePane.add(jumpbox);
+				jump+=jctr;
+				stamina -= 0.1;
+				updateStamina();
+				if(jump==11){
+					jump=-10;
+					isJumpMoving=false;
+				}	
 			}
 		}
 	

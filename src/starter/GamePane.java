@@ -212,23 +212,33 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		}
 		if(e.getKeyCode()==KeyEvent.VK_UP)
 		{	
-			if(!PLAYER_TWO.isJumping  && !PLAYER_TWO.isDucking)
+			if(!PLAYER_TWO.isJumpMoving  && !PLAYER_TWO.isJumpVert  && !PLAYER_TWO.isDucking)
 			{
 				PLAYER_TWO.jump=-10;
-				PLAYER_TWO.isJumping=true;
+				if(PLAYER_TWO.isForward || PLAYER_TWO.isBackward)
+					PLAYER_TWO.isJumpMoving=true;
+				else
+					PLAYER_TWO.isJumpVert=true;
 			}
 		}
 		if(e.getKeyCode()==KeyEvent.VK_W)
 		{
-			if(!PLAYER_ONE.isJumping  && !PLAYER_ONE.isDucking)
+			if(!PLAYER_ONE.isJumpMoving  &&!PLAYER_ONE.isJumpVert  && !PLAYER_ONE.isDucking)
 			{
 				PLAYER_ONE.jump=-10;
-				PLAYER_ONE.isJumping=true;
+				if(PLAYER_ONE.isForward || PLAYER_ONE.isBackward)
+				{
+					PLAYER_ONE.isJumpMoving=true;
+				}
+				else
+				{
+					PLAYER_ONE.isJumpVert=true;
+				}
 			}
 		}
 		if(e.getKeyCode()==KeyEvent.VK_DOWN)
 		{	
-			if(!PLAYER_TWO.isDucking  && !PLAYER_TWO.isJumping)
+			if(!PLAYER_TWO.isDucking  && !PLAYER_TWO.isJumpVert)
 			{
 				PLAYER_TWO.duck=7;
 				PLAYER_TWO.isDucking=true;
@@ -236,7 +246,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		}
 		if(e.getKeyCode()==KeyEvent.VK_S)
 		{	
-			if(!PLAYER_ONE.isDucking && !PLAYER_ONE.isJumping)
+			if(!PLAYER_ONE.isDucking && !PLAYER_ONE.isJumpVert)
 			{
 				PLAYER_ONE.duck=7;
 				PLAYER_ONE.isDucking=true;
