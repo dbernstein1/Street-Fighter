@@ -1,7 +1,8 @@
 package starter;
-
+import java.nio.file.Files;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.Timer;
@@ -55,7 +56,8 @@ public class Animation{
 	public Animation(MainApplication app, Player player) {
 		Animation.program = app;
 		this.player = player;
-		
+		//System.out.println(new File("/sprites/Guy/GuyKick/kick").listFiles().length);
+		System.out.println((System.getProperty("user.dir")));
 		switch (player.number) {
 		case 1:
 			fileIdle = "sprites/Guy/normStance.png";
@@ -142,7 +144,7 @@ public class Animation{
 			}
 			else if(player.isJumpMoving)
 			{
-				curState = 9;
+				curState = 7;
 				jumpMove();
 			}
 			else if(player.isForward)
@@ -215,9 +217,11 @@ public class Animation{
 	
 	public void jump()
 	{
-		curImg.setImage(filePrefixJump + 2 + filePost);
+		//curImg.setImage(filePrefixJump + 2 + filePost);
+		curImg.setImage(filePrefixJump + (frame % NUM_IMAGES_JUMP + 1) + filePost);
 		flipPlayerImage();
-		curImg.setSize(166, 264);
+		curImg.setSize(111, 264);
+		//curImg.setSize(166, 264);
 		//playerAnimationJump();
 		//if (curImg.getLocation().getY() > 10)
 		//	curImg.move(player.isForward ? 20 : (player.isBackward ? -20 : 0), -20);

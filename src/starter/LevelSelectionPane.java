@@ -51,7 +51,6 @@ public class LevelSelectionPane extends GraphicsPane {
 		program.add(backArrow);
 		program.add(fight);
 		program.add(highlight);
-		
 	}
 
 	@Override
