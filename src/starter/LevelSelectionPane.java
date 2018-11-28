@@ -7,7 +7,7 @@ import acm.graphics.GObject;
 //level select
 public class LevelSelectionPane extends GraphicsPane {
 	private MainApplication program;
-	private static final String IMAGES[]= {"example_back.jpg","portMapMain.png", "menu_back_arrow.png","highlight.png", "forestMap.jpg", "beachMapMain.png"};
+	private static final String IMAGES[]= {"example_back.jpg","portMapMain.png", "menu_back_arrow.png","highlight.png", "forestMap.jpg", "maps/BeachMap/beachMapMain.png"};
 	private GImage arena1,arena2,arena3, arena4, backArrow,highlight;
 	private GButton fight;
 	private Background back_Ground;
