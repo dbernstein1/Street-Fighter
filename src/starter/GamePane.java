@@ -160,15 +160,15 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		{
 			if (numTimes % 18 == 0) 
 			{
-				gameBack.setImage("maps/BeachMap/beachMapMain.png");
+				gameBack.setImage("maps/BeachMap/beachMap01.png");
 			}
 			else if (numTimes % 18 == 6)
 			{
-				gameBack.setImage("maps/BeachMap/beachMap2.png");
+				gameBack.setImage("maps/BeachMap/beachMap02.png");
 			}
 			else if (numTimes % 18 == 12) 
 			{
-				gameBack.setImage("maps/BeachMap/beachMap3.png");
+				gameBack.setImage("maps/BeachMap/beachMap03.png");
 			}
 		}
 		showUpdatedContents();
@@ -429,7 +429,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		}
 		else if (level.get_Choice() == 4)
 		{
-			gameBack.setImage("maps/BeachMap/beachMapMain.png");
+			gameBack.setImage("maps/BeachMap/beachMap01.png");
 		}
 		gameBack.setLocation(0,0);
 		gameBack.setSize(1200, 600);
