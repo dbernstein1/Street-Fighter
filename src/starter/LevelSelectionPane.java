@@ -38,7 +38,7 @@ public class LevelSelectionPane extends GraphicsPane {
 		LEVEL_DANIEL=new Level(1,arena1);
 		LEVEL_MIGUEL=new Level(2,arena2);
 		LEVEL_MIGUEL1=new Level(3,arena3);
-		LEVEL_MIGUEL2 = new Level(4, arena4);
+		LEVEL_MIGUEL2 = new Level(4,arena4);
 	}
 	
 	@Override
