@@ -56,8 +56,6 @@ public class Animation{
 	public Animation(MainApplication app, Player player) {
 		Animation.program = app;
 		this.player = player;
-		//System.out.println(new File("/sprites/Guy/GuyKick/kick").listFiles().length);
-		System.out.println((System.getProperty("user.dir")));
 		switch (player.number) {
 		case 1:
 			fileIdle = "sprites/Guy/normStance.png";
