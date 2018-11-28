@@ -86,11 +86,13 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		if (p == null) return;
 
 		if (p.body.getX()<0 || p.body.getX()>MainApplication.WINDOW_WIDTH-p.body.getWidth()) { 
+			p.outOfBounds = true;
 
 			moveBody(p, 4* -horizontal, vertical);
 
 			return;
-		}		
+		}
+		p.outOfBounds = false;
 		moveBody(p, horizontal, vertical);
 
 		System.out.println("Movement: "+ p.body);

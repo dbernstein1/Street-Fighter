@@ -28,6 +28,7 @@ public class Player extends GraphicsProgram {
 	public boolean isForward = false;
 	public boolean isDropping = false;
 	public boolean isBackward = false;
+	public boolean outOfBounds = false;
 	public boolean lost = false;
 	public GRect body,leg,arm,punch,kick;
 	public GRect hpbar, hpoutline, staminabar;
@@ -91,12 +92,11 @@ public class Player extends GraphicsProgram {
 		}
 	}
 	
-	public void RefreshArray() { // 
+	public void RefreshArray() {  
 		arrayList.add(head);
 		arrayList.add(body);
 		arrayList.add(leg);
 		arrayList.add(arm);
-		//arrayList.add(chCody);
 		arrayList.add(hpoutline);
 		arrayList.add(hpbar);
 		arrayList.add(staminabar);	

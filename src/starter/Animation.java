@@ -12,7 +12,7 @@ import acm.graphics.GObject;
 public class Animation{
 	private int prevState = 0;
 	private int curState = 0;
-	
+	private int speed = 1;
 	private GImage curImg;
 	private String fileIdle;
 	private String filePrefixWalk;
@@ -137,7 +137,7 @@ public class Animation{
 		{
 			if((player.isBackward || player.isForward) && player.isJumping)
 			{
-				curState = 3;
+				curState = 7;
 				jumpMove();
 			}
 			else if(player.isForward)
@@ -149,6 +149,12 @@ public class Animation{
 			{
 				curState = 2;
 				walkBackwards();
+			}
+			else if(player.isDropping)
+			{
+				System.out.println("ergretgergerg");
+				curState = 3;
+				drop();
 			}
 			else if(player.isJumping)
 			{
@@ -164,12 +170,6 @@ public class Animation{
 			{
 				curState = 6;
 				punch();
-			}
-			else if(player.isDropping)
-			{
-				System.out.println("ergretgergerg");
-				curState = 7;
-				drop();
 			}
 			else if(player.lost)
 			{
@@ -206,7 +206,7 @@ public class Animation{
 			curImg.setSize(166, 264);
 		else
 			curImg.setSize(111, 264);
-		curImg.move(20, 0);
+		playerAnimationMoveWalk();
 	}
 	
 	
@@ -218,7 +218,7 @@ public class Animation{
 			curImg.setSize(166, 264);
 		else
 			curImg.setSize(111, 264);
-		curImg.move(-20, 0);
+		playerAnimationMoveWalk();
 	}
 	
 	public void jump()
@@ -226,8 +226,9 @@ public class Animation{
 		curImg.setImage(filePrefixJump + 2 + filePost);
 		flipPlayerImage();
 		curImg.setSize(166, 264);
-		if (curImg.getLocation().getY() > 10)
-			curImg.move(player.isForward ? 20 : (player.isBackward ? -20 : 0), -20);
+		playerAnimationJump();
+		//if (curImg.getLocation().getY() > 10)
+		//	curImg.move(player.isForward ? 20 : (player.isBackward ? -20 : 0), -20);
 	}
 	
 	public void drop()
@@ -281,4 +282,19 @@ public class Animation{
 	{
 		return curImg;
 	}
+	
+	public void playerAnimationMoveWalk()
+	{
+		if(player.outOfBounds)
+			curImg.move(8* -player.speed, 0);
+		else
+			curImg.move(2 * player.speed, 0);
+	}
+	
+	public void playerAnimationJump()
+	{
+		curImg.move(0, 2 * player.jump);
+	}
+	
+	
 }
