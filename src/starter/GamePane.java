@@ -100,6 +100,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	}
 	private static void moveBody(Player p, double horizontal, double vertical) {
 		p.head.move(horizontal, vertical);
+		p.jumpbox.move(horizontal, vertical);
 		p.body.move(horizontal, vertical);
 		p.leg.move(horizontal, vertical);
 		p.arm.move(horizontal, vertical);

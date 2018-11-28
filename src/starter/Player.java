@@ -30,7 +30,7 @@ public class Player extends GraphicsProgram {
 	public boolean isBackward = false;
 	public boolean outOfBounds = false;
 	public boolean lost = false;
-	public GRect body,leg,arm,punch,kick;
+	public GRect body,leg,arm,punch,kick,jumpbox;
 	public GRect hpbar, hpoutline, staminabar;
 	public GOval head;
 	public GImage chCody;
@@ -56,6 +56,7 @@ public class Player extends GraphicsProgram {
 			body=new GRect(200,GROUND-100,70,70);
 			body.setColor(new Color(255,255, 255, 0));
 			leg=new GRect(230,GROUND-30,10,30);
+			jumpbox= new GRect(800,GROUND-235,110,85);
 			arm=new GRect(240,GROUND-80,10,40);
 			chCody = new GImage("sprites/Cody/normStance.png",350,GROUND-270);
 			hpbarx = (MainApplication.WINDOW_WIDTH * 0.05);
@@ -74,10 +75,11 @@ public class Player extends GraphicsProgram {
 			Id = 2;
 			punch=new GRect(770,GROUND-80,30,10);
 			kick=new GRect(770,GROUND-50,30,10);
-			head=new GOval(810,GROUND-150,50,50);
-			body=new GRect(800,GROUND-100,70,70);
-			leg=new GRect(830,GROUND-30,10,30);
+			head=new GOval(840,GROUND-265,30,30);
+			body=new GRect(800,GROUND-235,110,85);
+			leg=new GRect(830,GROUND-150,60,150);
 			arm=new GRect(820,GROUND-80,10,40);
+			jumpbox= new GRect(800,GROUND-235,160,150);
 			chCody = new GImage("sprites/Cody/normStance.png",0,0);
 			hpbarx = (MainApplication.WINDOW_WIDTH * 0.5);
 			hpoutline = new GRect(hpbarx, 25, 500, 15);
@@ -97,7 +99,6 @@ public class Player extends GraphicsProgram {
 		arrayList.add(head);
 		arrayList.add(body);
 		arrayList.add(leg);
-		arrayList.add(arm);
 		arrayList.add(hpoutline);
 		arrayList.add(hpbar);
 		arrayList.add(staminabar);	
@@ -212,6 +213,10 @@ public class Player extends GraphicsProgram {
 			}
 			if(isJumping){
 				GamePane.playerMove(this, 0, jump);
+				GamePane.remove(leg);
+				GamePane.remove(body);
+				GamePane.remove(head);
+				GamePane.add(jumpbox);
 				jump+=jctr;
 				stamina -= 0.1;
 				updateStamina();
@@ -225,7 +230,13 @@ public class Player extends GraphicsProgram {
 			{
 				jump=-10;
 				if(jump <= 1)
+				{
 					isDropping = false;
+					if(isDropping==false)
+					{
+						GamePane.remove(jumpbox);
+					}
+				}
 			}
 		}
 	

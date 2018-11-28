@@ -122,7 +122,7 @@ public class LevelSelectionPane extends GraphicsPane {
 			program.remove(back_Ground.getImage());
 			program.remove(highlight);
 		
-			highlight=new GImage(IMAGES[5],680,300);
+			highlight=new GImage(IMAGES[3],680,300);
 			highlight.setSize(340 ,240);
 			program.add(highlight);
 			back_Ground=program.backgroundBeach;
