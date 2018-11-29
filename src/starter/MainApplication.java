@@ -76,7 +76,6 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 		pause=new PauseMenu(this);
 		switchToMenu();
 	}
-
 	private void testingGame() {
 		gamePane.setPLAYER_ONE(new Player(1, 2, "erik", 80, 2, 25));
 		gamePane.setPLAYER_TWO(new Player(2, 2,"erik", 80, 2, 25));
