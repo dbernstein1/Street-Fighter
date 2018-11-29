@@ -165,16 +165,6 @@ public class Animation{
 				curState = 8;
 				duck();
 			}
-			else if(player.isForward)
-			{
-				curState = 1;
-				walk();
-			}
-			else if(player.isBackward)
-			{
-				curState = 2;
-				walkBackwards();
-			}
 			else if(player.isKicking)
 			{
 				curState = 5;
@@ -184,6 +174,16 @@ public class Animation{
 			{
 				curState = 6;
 				punch();
+			}
+			else if(player.isForward)
+			{
+				curState = 1;
+				walk();
+			}
+			else if(player.isBackward)
+			{
+				curState = 2;
+				walkBackwards();
 			}
 			else if(player.lost)
 			{
