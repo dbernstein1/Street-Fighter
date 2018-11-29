@@ -332,7 +332,6 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		int i = 0;
 		if (intersection(p1Animation.getCurImg(), p2Animation.getCurImg())) {
 			i += 10;
-			
 			p1Animation.getCurImg().move(-i, 0);
 			p2Animation.getCurImg().move(i, 0);
 		}
