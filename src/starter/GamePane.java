@@ -345,7 +345,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 			playerMove(PLAYER_ONE, -10, 0);
 		}
 
-		if ((PLAYER_ONE.isKicking && intersection(PLAYER_ONE.kick, PLAYER_TWO.body)) || (PLAYER_ONE.isPunching && intersection(PLAYER_ONE.punch, PLAYER_TWO.body))) {
+		if ((PLAYER_ONE.isKicking && intersection(p1Animation.getCurImg(), p2Animation.getCurImg())) || (PLAYER_ONE.isPunching && intersection(p1Animation.getCurImg(), p2Animation.getCurImg()))) {
 			disp_p1.addTotal_h();
 			PLAYER_TWO.hp -= 3 * PLAYER_ONE.strength;
 			updateHealthPoints(PLAYER_TWO);
@@ -353,7 +353,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 			playerMove(PLAYER_TWO, 80, 0);
 			PLAYER_TWO.speed=0;
 		}
-		if ((PLAYER_TWO.isKicking && intersection(PLAYER_TWO.kick, PLAYER_ONE.body)) || (PLAYER_TWO.isPunching && intersection(PLAYER_TWO.punch, PLAYER_ONE.body))) {
+		if ((PLAYER_TWO.isKicking && intersection(p1Animation.getCurImg(), p2Animation.getCurImg())) || (PLAYER_TWO.isPunching && intersection(p1Animation.getCurImg(), p2Animation.getCurImg()))) {
 			disp_p2.addTotal_h();
 			PLAYER_ONE.hp -= 3 * PLAYER_TWO.strength;
 			updateHealthPoints(PLAYER_ONE);
