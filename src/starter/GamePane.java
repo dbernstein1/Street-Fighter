@@ -16,10 +16,26 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	private Background bgForest;
 
 	private Result disp_p1;
+	private int rd_time=0;
 	private boolean game_Over=false;
 	public static Animation p1Animation;
 	public static Animation p2Animation;
 	private Result disp_p2;
+	private ArrayList<GParagraph> Time;
+	private int tot;
+	
+	public void setrd_time(int ctr)
+	{
+		rd_time=ctr;
+		tot=rd_time;
+		for(int i=0;i<=rd_time;i++)
+		{
+			GParagraph tempTime = new GParagraph(" "+i,100,100);
+			tempTime.setFont("Arial-24");
+			Time.add(i,tempTime);
+		}
+	}
+	
 	public GamePane(MainApplication app)
 	{
 		super();
@@ -31,6 +47,18 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		bgBeach = program.backgroundBeach;
 		bgBeach2 = program.backgroundBeach2;
 		bgBeach3 = program.backgroundBeach3;
+		Time= new ArrayList<GParagraph>();
+		if(!isrd_timeset)
+		{
+			rd_time=60;
+			tot=rd_time;
+			for(int i=0;i<=rd_time;i++)
+			{
+				GParagraph tempTime = new GParagraph(" "+i,100,100);
+				tempTime.setFont("Arial-24");
+				Time.add(tempTime);
+			}
+		}
 		t=new Timer(50,this);
 		disp_p1=new Result(program,1);
 		disp_p2=new Result(program,2);
@@ -45,10 +73,11 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	public static final int GROUND = 550;
 	private Timer t;
 	private int numTimes = 0;
-	
+	private boolean isrd_timeset=false;;
+
 	//	backgroundPort = new Background("portMapMain.png", WINDOW_WIDTH, WINDOW_HEIGHT);
 	//  backgroundPort2 = new Background("portMapMain2.png", WINDOW_WIDTH, WINDOW_HEIGHT);
-	
+
 
 	public Player getPLAYER_ONE() {
 		return PLAYER_ONE;
@@ -95,7 +124,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		}
 		p.outOfBounds = false;
 		moveBody(p, horizontal, vertical);
-		
+
 		System.out.println("Movement: "+ p.body);
 
 	}
@@ -133,17 +162,17 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	public void remove(Background bgPort) {
 		program.remove(bgPort);
 	}
-	
+
 	public void addBeach(Background bgBeach) 
 	{
 		program.add(bgBeach);
 	}
-	
+
 	public void removeBeach(Background bgBeach)
 	{
 		program.remove(bgBeach);
 	}
-	
+
 
 	public void actionPerformed(ActionEvent e)
 	{
@@ -177,6 +206,21 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		if (intersection(p1Animation.getCurImg(), p2Animation.getCurImg())) {
 			p1Animation.getCurImg().move(-3, 0);
 			p2Animation.getCurImg().move(3, 0);
+		}
+
+
+		if(numTimes%20==0)
+		{
+			
+			program.add(Time.get(rd_time));
+			if(rd_time<tot)
+			{
+				program.remove(Time.get(rd_time+1));
+			}
+			if(rd_time>=0)
+			{
+				rd_time--;
+			}
 		}
 		showUpdatedContents();
 		PLAYER_ONE.HandleMovement();
@@ -283,7 +327,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 					PLAYER_TWO.hittime=0;
 					remove(PLAYER_TWO.arm);
 					PLAYER_TWO.isPunching=true;
-					
+
 				}
 			}
 		}
@@ -310,7 +354,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 			t.stop();
 			program.switchToPauseMenu();
 		}
-		
+
 	}
 
 	@Override
@@ -332,13 +376,13 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		{
 			PLAYER_ONE.isBackward=false;
 		}
-//		 
+		//		 
 	}
 
 	public void handleCollision()
 	{
 		int i = 0;
-		
+
 		if (intersection(PLAYER_ONE.body, PLAYER_TWO.body)) {
 			playerMove(PLAYER_TWO, 10, 0);
 
@@ -412,7 +456,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 			add(PLAYER_TWO.arrayList.get(i));
 		}
 	}
-	
+
 	@Override
 	public void showContents() {
 		for (int i = 0; i < PLAYER_ONE.arrayList.size(); i++) {
@@ -430,36 +474,43 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		t.start();
 		p1Animation = new Animation(program, PLAYER_ONE);
 		p2Animation = new Animation(program, PLAYER_TWO);
-		
-		
-		
-		
-//		
-//		gameBack = level.getLvl_Img();
-//		if(level.get_Choice()==4)
-//		{
-//			gameBack.setImage("maps/BeachMap/beachMapMain.png");
-//		}
-//		gameBack.setLocation(0,0);
-//		gameBack.setSize(1200, 600);
-//		add(gameBack);
-//		//add(PLAYER_ONE.getAnimation().getCurImg());
-//		t.start();
-//		p1Animation = new Animation(program, PLAYER_ONE);
-//		p2Animation = new Animation(program, PLAYER_TWO);
-//		
-		
-		
-		
-		
+
+
+
+
+		//		
+		//		gameBack = level.getLvl_Img();
+		//		if(level.get_Choice()==4)
+		//		{
+		//			gameBack.setImage("maps/BeachMap/beachMapMain.png");
+		//		}
+		//		gameBack.setLocation(0,0);
+		//		gameBack.setSize(1200, 600);
+		//		add(gameBack);
+		//		//add(PLAYER_ONE.getAnimation().getCurImg());
+		//		t.start();
+		//		p1Animation = new Animation(program, PLAYER_ONE);
+		//		p2Animation = new Animation(program, PLAYER_TWO);
+		//		
+
+
+
+
 	}
 
 
 	@Override
 	public void hideContents() {
-		// TODO Auto-generated method stub
+		
 
 	}
+
+	public void rd_timestate(boolean b) {
+		isrd_timeset=b;
+		
+	}
+	
+	
 }
 
 
