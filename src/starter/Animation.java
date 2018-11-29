@@ -19,9 +19,11 @@ public class Animation{
 	private String filePrefixWalk;
 	private String filePrefixJump;
 	private String filePrefixJumpMove;
+	private String filePrefixJumpKick;
 	private String filePrefixKick;
 	private String filePrefixPunch;
 	private String filePrefixKnockdown;
+	private String fileDuck;
 	private String filePost;
 	private int NUM_IMAGES_WALK;
 	private int NUM_IMAGES_JUMP;
@@ -29,6 +31,7 @@ public class Animation{
 	private int NUM_IMAGES_PUNCH;
 	private int NUM_IMAGES_KICK;
 	private int NUM_IMAGES_KNOCKDOWN;
+	private int NUM_IMAGES_DUCK;
 	private static MainApplication program;
 	private int frame = 0;
 	private Player player;
@@ -56,42 +59,54 @@ public class Animation{
 	public Animation(MainApplication app, Player player) {
 		Animation.program = app;
 		this.player = player;
+		fileIdle = "sprites/" + player.name + "/normStance.png";
+		fileDuck = "sprites/"  + player.name + "/duck.png";
+		filePrefixWalk = "sprites/" + player.name + "/" + player.name + "Walk/walk";
+		filePrefixJump = "sprites/"  + player.name + "/" + player.name + "Jump/" + "jump";
+		filePrefixJumpMove = "sprites/"  + player.name + "/movJump/movJump";
+		filePrefixKick = "sprites/"  + player.name + "/" + player.name + "Kick/kick";
+		filePrefixPunch = "sprites/"  + player.name + "/"  + player.name + "Punch/punch";
+		filePrefixKnockdown = "sprites/"  + player.name + "/knockdown/knockDown";
+		filePrefixJumpKick = "sprites/"  + player.name + "/"  + player.name + "JumpKick/jumpKick";
+		filePost = ".png";
 		switch (player.number) {
 		case 1:
-			fileIdle = "sprites/Guy/normStance.png";
-			filePrefixWalk = "sprites/Guy/GuyWalk/walk";
-			filePrefixJump = "sprites/Guy/movJump/movJump";
-			filePrefixJumpMove = "sprites/Guy/movJump/movJump";
-			filePrefixKick = "sprites/Guy/GuyKick/kick";
-			filePrefixPunch = "sprites/Guy/GuyPunch/punch";
-			filePrefixKnockdown = "sprites/Guy/knockdown/knockdown";
-			filePost = ".png";
+			filePrefixKnockdown = "sprites/"  + player.name + "/knockdown/knockdown";
+			filePrefixJumpKick = "sprites/"  + player.name + "/"  + player.name + "movJumpKick/jumpKick";
 			NUM_IMAGES_WALK = 6;
 			NUM_IMAGES_JUMP = 6;
 			NUM_IMAGES_JUMP_MOVE = 6;
 			NUM_IMAGES_PUNCH = 2;
 			NUM_IMAGES_KICK = 5;
 			NUM_IMAGES_KNOCKDOWN = 1;
+			NUM_IMAGES_DUCK = 1;
 			break;
 		case 2:
-			fileIdle = "sprites/Cody/normStance.png";
-			filePrefixWalk = "sprites/Cody/CodyWalk/walk";
-			filePrefixJump = "sprites/Cody/CodyVertJump/stVertJump";
-			filePrefixJumpMove = "sprites/Cody/movJump/movJump";
-			filePrefixKick = "sprites/Cody/CodyKick/kick";
-			filePrefixPunch = "sprites/Cody/CodyPunch/punch";
-			filePrefixKnockdown = "sprites/Cody/knockdown/knockdown";
-			filePost = ".png";
 			NUM_IMAGES_WALK = 6;
 			NUM_IMAGES_JUMP = 3;
 			NUM_IMAGES_JUMP_MOVE = 5;
 			NUM_IMAGES_PUNCH = 2;
 			NUM_IMAGES_KICK = 3;
 			NUM_IMAGES_KNOCKDOWN = 2;
+			NUM_IMAGES_DUCK = 1;
 			break;
 		case 3:
+			NUM_IMAGES_WALK = 6;
+			NUM_IMAGES_JUMP = 4;
+			NUM_IMAGES_JUMP_MOVE = 4;
+			NUM_IMAGES_PUNCH = 4;
+			NUM_IMAGES_KICK = 6;
+			NUM_IMAGES_KNOCKDOWN = 3;
+			NUM_IMAGES_DUCK = 1;
 			break;
 		case 4:
+			NUM_IMAGES_WALK = 7;
+			NUM_IMAGES_JUMP = 3;
+			NUM_IMAGES_JUMP_MOVE = 3;
+			NUM_IMAGES_PUNCH = 3;
+			NUM_IMAGES_KICK = 2;
+			NUM_IMAGES_KNOCKDOWN = 3;
+			NUM_IMAGES_DUCK = 1;
 			break;
 		}
 		
@@ -145,15 +160,10 @@ public class Animation{
 				curState = 7;
 				jumpMove();
 			}
-			else if(player.isForward)
+			else if(player.isDucking)
 			{
-				curState = 1;
-				walk();
-			}
-			else if(player.isBackward)
-			{
-				curState = 2;
-				walkBackwards();
+				curState = 8;
+				duck();
 			}
 			else if(player.isKicking)
 			{
@@ -164,6 +174,16 @@ public class Animation{
 			{
 				curState = 6;
 				punch();
+			}
+			else if(player.isForward)
+			{
+				curState = 1;
+				walk();
+			}
+			else if(player.isBackward)
+			{
+				curState = 2;
+				walkBackwards();
 			}
 			else if(player.lost)
 			{
@@ -217,6 +237,8 @@ public class Animation{
 	{
 		//curImg.setImage(filePrefixJump + 2 + filePost);
 		curImg.setImage(filePrefixJump + (frame % NUM_IMAGES_JUMP + 1) + filePost);
+		if(player.number == 2)
+			curImg.setImage(filePrefixJump + 2 + filePost);
 		flipPlayerImage();
 		curImg.setSize(111, 264);
 		//curImg.setSize(166, 264);
@@ -227,7 +249,7 @@ public class Animation{
 	
 	public void kick()
 	{
-		curImg.setImage(filePrefixKick + (frame % NUM_IMAGES_KICK + 1) + filePost);
+		curImg.setImage(fileDuck);
 		flipPlayerImage();
 		curImg.setSize(111, 264);
 	}
@@ -237,7 +259,9 @@ public class Animation{
 		curImg.setImage(filePrefixPunch + (frame % NUM_IMAGES_PUNCH  + 1) + filePost);
 		flipPlayerImage();
 		if(player.number == 2)
-			curImg.setSize(111, 264);
+		{
+			curImg.setSize(166, 264);
+		}
 		else
 			curImg.setSize(166, 264);
 	}
@@ -245,6 +269,13 @@ public class Animation{
 	public void jumpMove()
 	{
 		curImg.setImage(filePrefixJumpMove + (frame % NUM_IMAGES_JUMP_MOVE + 1) + filePost);
+		flipPlayerImage();
+		curImg.setSize(111, 264);
+	}
+	
+	public void duck()
+	{
+		curImg.setImage(fileDuck);
 		flipPlayerImage();
 		curImg.setSize(111, 264);
 	}

@@ -126,7 +126,20 @@ public class Player extends GraphicsProgram {
 
 	
 	public void HandleMovement() {
-		
+			if(isDucking){
+				isForward = false;
+				isBackward = false;
+				GamePane.playerMove(this, 0, duck);
+				GamePane.remove(leg);
+				stamina -= 0.1;
+				updateStamina();
+				duck-=dctr;
+				if (duck == -8){
+					duck=7;
+					isDucking=false;
+					GamePane.add(leg);
+				}
+			}
 			if(isForward){
 				if(speed<3)
 				{
@@ -195,18 +208,6 @@ public class Player extends GraphicsProgram {
 					GamePane.add(arm);
 					isPunching=false;
 					hittime=0;
-				}
-			}
-			if(isDucking){
-				GamePane.playerMove(this, 0, duck);
-				GamePane.remove(leg);
-				stamina -= 0.1;
-				updateStamina();
-				duck-=dctr;
-				if (duck == -8){
-					duck=7;
-					isDucking=false;
-					GamePane.add(leg);
 				}
 			}
 			if(isJumpVert){

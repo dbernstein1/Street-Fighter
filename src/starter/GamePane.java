@@ -45,8 +45,10 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	public static final int GROUND = 550;
 	private Timer t;
 	private int numTimes = 0;
+	
 	//	backgroundPort = new Background("portMapMain.png", WINDOW_WIDTH, WINDOW_HEIGHT);
 	//  backgroundPort2 = new Background("portMapMain2.png", WINDOW_WIDTH, WINDOW_HEIGHT);
+	
 
 	public Player getPLAYER_ONE() {
 		return PLAYER_ONE;
@@ -172,6 +174,10 @@ public class GamePane extends GraphicsPane implements ActionListener {
 			}
 			level.getLvl_Img().setSize(1200, 600);
 		}
+		if (intersection(p1Animation.getCurImg(), p2Animation.getCurImg())) {
+			p1Animation.getCurImg().move(-3, 0);
+			p2Animation.getCurImg().move(3, 0);
+		}
 		showUpdatedContents();
 		PLAYER_ONE.HandleMovement();
 		PLAYER_TWO.HandleMovement();
@@ -277,6 +283,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 					PLAYER_TWO.hittime=0;
 					remove(PLAYER_TWO.arm);
 					PLAYER_TWO.isPunching=true;
+					
 				}
 			}
 		}
@@ -325,19 +332,12 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		{
 			PLAYER_ONE.isBackward=false;
 		}
+//		 
 	}
 
 	public void handleCollision()
 	{
 		int i = 0;
-		if (intersection(p1Animation.getCurImg(), p2Animation.getCurImg())) {
-			i += 10;
-			
-			p1Animation.getCurImg().move(-i, 0);
-			p2Animation.getCurImg().move(i, 0);
-		}
-		
-		
 		
 		if (intersection(PLAYER_ONE.body, PLAYER_TWO.body)) {
 			playerMove(PLAYER_TWO, 10, 0);

@@ -140,7 +140,7 @@ public class MenuPane extends GraphicsPane {
 	}
 	public GOval makeCircle1() {
 		GOval temp = new GOval(SIZE1-(ctr*5), SIZE2-(ctr*5), RADIUS1+(ctr*10), RADIUS1+(ctr*10));
-		if(ctr%2==0)
+		if(ctr%2==1)
 		{
 			temp.setColor(Color.BLACK);
 		}
@@ -155,7 +155,7 @@ public class MenuPane extends GraphicsPane {
 	}
 	public GOval makeCircle2() {
 		GOval temp = new GOval(SIZE3-(ctr*5), SIZE2-(ctr*5), RADIUS1+(ctr*10), RADIUS1+(ctr*10));
-		if(ctr%2==0)
+		if(ctr%2==1)
 		{
 			temp.setColor(Color.BLACK);
 		}
@@ -170,7 +170,7 @@ public class MenuPane extends GraphicsPane {
 	}
 	public GOval makeOval() {
 		GOval temp = new GOval(SIZE1-(ctr*5), SIZE2-(ctr*5), RADIUS2+(ctr*10), RADIUS1+(ctr*10));
-		if(ctr%2==0)
+		if(ctr%2==1)
 		{
 			temp.setColor(Color.BLACK);
 		}

@@ -32,9 +32,9 @@ public class CharacterPane extends GraphicsPane {
 		img.setSize(program.getWidth(), program.getHeight());
 		Stats fredStats = new Stats(20,20,20,100);
 		//Player fred = new Player(PlayerName.FRED,fredStats);
-		player1Img = new GImage("fred.jpg", program.getWidth() - 400,program.getHeight()-  program.getHeight()/2.5);
+		player1Img = new GImage("sprites/Rick/Rick_Selection.jpg", program.getWidth() - 400,program.getHeight()-  program.getHeight()/2.5);
 		player1Img.setSize(200,200);
-		player2Img = new GImage("fred.jpg", program.getWidth() - 600,program.getHeight() -  program.getHeight()/2.5);
+		player2Img = new GImage("sprites/Trident/Trident_Selection.png", program.getWidth() - 600,program.getHeight() -  program.getHeight()/2.5);
 		player2Img.setSize(200,200);
 		player3Img = new GImage("sprites/Cody/cody_selection.png", program.getWidth() - 800,program.getHeight() -  program.getHeight()/2.5);
 		player3Img.setSize(200,200);
@@ -181,7 +181,7 @@ public class CharacterPane extends GraphicsPane {
 			{
 				program.getGamePane().setPLAYER_ONE(getWhichPlayer(highlight));
 				program.getGamePane().setPLAYER_TWO(getWhichPlayer(highlight2));
-				program.switchToGame();
+				program.switchToInstructionScreen();
 			}
 		}
 	}
@@ -197,17 +197,22 @@ public class CharacterPane extends GraphicsPane {
 		
 		if(img.getX() == 190)
 		{
+
 			return new Player(player1 ? 1 : 2, 1, "guy", 100, 2, 25);
+
+
 		}
 		else if(img.getX() == 390)
 		{
+
 			return new Player(player1 ? 1 : 2, 2, "cody", 100, .8, 15);
+
 		}
 		else if(img.getX() == 590)
 		{
-			return new Player(player1 ? 1 : 2, 3,"bob", 80, 2, 25);
+			return new Player(player1 ? 1 : 2, 3,"Trident", 80, 2, 25);
 		}
-		return new Player(player1 ? 1 : 2, 4,"fred", 150, .8, 15);
+		return new Player(player1 ? 1 : 2, 4,"Rick", 150, .8, 15);
 	}
 	
 }
