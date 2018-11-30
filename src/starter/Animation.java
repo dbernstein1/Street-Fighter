@@ -35,7 +35,6 @@ public class Animation{
 	private int NUM_IMAGES_DUCK;
 	private static MainApplication program;
 	private int frame = 0;
-	private boolean adjusted = true;
 	private Player player;
 
 	public void flipPlayerImage()
@@ -155,22 +154,22 @@ public class Animation{
 		{
 			if(player.isJumpVert)
 			{
-				curState = 4;
+				setCurState(4);
 				jump();
 			}
 			else if(player.isJumpMoving)
 			{
-				curState = 7;
+				setCurState(7);
 				jumpMove();
 			}
 			else if(player.isDucking)
 			{
-				curState = 8;
+				setCurState(8);
 				duck();
 			}
 			else if(player.isKicking)
 			{
-				curState = 5;
+				setCurState(5);
 				if(player.Id== 2)
 				{
 					numMoveOut += 10;
@@ -185,7 +184,7 @@ public class Animation{
 			}
 			else if(player.isPunching)
 			{
-				curState = 6;
+				setCurState(6);
 				if(player.Id== 2)
 				{
 					numMoveOut += 10;
@@ -200,28 +199,28 @@ public class Animation{
 			}
 			else if(player.isForward)
 			{
-				curState = 1;
+				setCurState(1);
 				walk();
 			}
 			else if(player.isBackward)
 			{
-				curState = 2;
+				setCurState(2);
 				walkBackwards();
 			}
 			else if(player.lost)
 			{
-				curState = -1;
-				if(curState != prevState)
+				setCurState(-1);
+				if(getCurState() != prevState)
 					frame = 0;
 				knockDown();
 			}
 			else
 			{
-				curState = 0;
+				setCurState(0);
 				idle();
 			}
 		}
-		if(curState != prevState)
+		if(getCurState() != prevState)
 		{
 			frame = 0;
 			if(prevState == 6)
@@ -235,7 +234,7 @@ public class Animation{
 				numMoveOut = 0;
 			}
 		}
-		prevState = curState;
+		prevState = getCurState();
 		frame++;
 		
 		}
@@ -322,6 +321,14 @@ public class Animation{
 	public GImage getCurImg()
 	{
 		return curImg;
+	}
+
+	public int getCurState() {
+		return curState;
+	}
+
+	public void setCurState(int curState) {
+		this.curState = curState;
 	}
 	
 }

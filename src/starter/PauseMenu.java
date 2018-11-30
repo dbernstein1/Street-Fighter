@@ -31,10 +31,18 @@ public class PauseMenu extends GraphicsPane{
 	@Override
 	public void showContents() {
 		// TODO Auto-generated method stub
+		program.add(program.getGamePane().getLevel().getLvl_Img());
+		program.add(program.getGamePane().p1Animation.getCurImg());
+		program.add(program.getGamePane().p2Animation.getCurImg());
+		program.add(program.getGamePane().PLAYER_ONE.hpoutline);
+		program.add(program.getGamePane().PLAYER_TWO.hpoutline);
+		program.add(program.getGamePane().PLAYER_ONE.hpbar);
+		program.add(program.getGamePane().PLAYER_TWO.hpbar);
 		program.add(rect);
 		program.add(resume);
 		program.add(menu);
 		program.add(pause);
+		program.getGamePane().resetPlayersState();
 	}
 
 	@Override
@@ -44,6 +52,14 @@ public class PauseMenu extends GraphicsPane{
 		program.remove(resume);
 		program.remove(menu);
 		program.remove(pause);
+		
+		program.remove(program.getGamePane().p1Animation.getCurImg());
+		program.remove(program.getGamePane().p2Animation.getCurImg());
+		program.remove(program.getGamePane().PLAYER_ONE.hpoutline);
+		program.remove(program.getGamePane().PLAYER_TWO.hpoutline);
+		program.remove(program.getGamePane().PLAYER_ONE.hpbar);
+		program.remove(program.getGamePane().PLAYER_TWO.hpbar);
+		program.remove(program.getGamePane().getLevel().getLvl_Img());
 	}
 	
 	@Override

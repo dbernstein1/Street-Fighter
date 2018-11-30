@@ -69,8 +69,8 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	}
 
 
-	private Player PLAYER_ONE;
-	private Player PLAYER_TWO;
+	public Player PLAYER_ONE;
+	public Player PLAYER_TWO;
 	private Level level; 
 
 	private static MainApplication program;
@@ -103,7 +103,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	}
 
 	public void set_Choice(Level l) {
-		level=l;
+		setLevel(l);
 	}
 
 	public static void add(GObject something)
@@ -179,31 +179,31 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	public void actionPerformed(ActionEvent e)
 	{
 		numTimes ++;
-		if(level.get_Choice()==2)
+		if(getLevel().get_Choice()==2)
 		{
 			if (numTimes % 20 == 0) {
-				level.getLvl_Img().setImage("portMapMain.png");
+				getLevel().getLvl_Img().setImage("portMapMain.png");
 			}
 			else if (numTimes % 20 == 10){
-				level.getLvl_Img().setImage("portMapMain2.png");
+				getLevel().getLvl_Img().setImage("portMapMain2.png");
 			}
-			level.getLvl_Img().setSize(1200, 600);
+			getLevel().getLvl_Img().setSize(1200, 600);
 		}
-		else if (level.get_Choice() == 4)
+		else if (getLevel().get_Choice() == 4)
 		{
 			if (numTimes % 18 == 0) 
 			{
-				level.getLvl_Img().setImage("maps/BeachMap/beachMap01.png");
+				getLevel().getLvl_Img().setImage("maps/BeachMap/beachMap01.png");
 			}
 			else if (numTimes % 18 == 6)
 			{
-				level.getLvl_Img().setImage("maps/BeachMap/beachMap02.png");
+				getLevel().getLvl_Img().setImage("maps/BeachMap/beachMap02.png");
 			}
 			else if (numTimes % 18 == 12) 
 			{
-				level.getLvl_Img().setImage("maps/BeachMap/beachMap03.png");
+				getLevel().getLvl_Img().setImage("maps/BeachMap/beachMap03.png");
 			}
-			level.getLvl_Img().setSize(1200, 600);
+			getLevel().getLvl_Img().setSize(1200, 600);
 		}
 		if (intersection(p1Animation.getCurImg(), p2Animation.getCurImg())) {
 			p1Animation.getCurImg().move(-3, 0);
@@ -237,6 +237,23 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		
 	}
 
+	public void resetPlayersState()
+	{
+		PLAYER_ONE.isBackward = false;
+		PLAYER_ONE.isForward = false;
+		PLAYER_ONE.isJumpMoving = false;
+		PLAYER_ONE.isJumpVert = false;
+		PLAYER_ONE.isDucking = false;
+		PLAYER_ONE.isKicking = false;
+		PLAYER_ONE.isPunching = false;
+		PLAYER_TWO.isBackward = false;
+		PLAYER_TWO.isForward = false;
+		PLAYER_TWO.isJumpMoving = false;
+		PLAYER_TWO.isJumpVert = false;
+		PLAYER_TWO.isDucking = false;
+		PLAYER_TWO.isKicking = false;
+		PLAYER_TWO.isPunching = false;
+	}
 	@Override
 	public void keyPressed(KeyEvent e)
 	{
@@ -443,9 +460,9 @@ public class GamePane extends GraphicsPane implements ActionListener {
 
 	@Override
 	public void showContents() {
-		level.getLvl_Img().setLocation(0,0);
-		level.getLvl_Img().setSize(1200, 600);
-		add(level.getLvl_Img());
+		getLevel().getLvl_Img().setLocation(0,0);
+		getLevel().getLvl_Img().setSize(1200, 600);
+		add(getLevel().getLvl_Img());
 		p1Animation = new Animation(program, PLAYER_ONE);
 		p2Animation = new Animation(program, PLAYER_TWO);
 		add(PLAYER_ONE.hpoutline);
@@ -482,12 +499,20 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		remove(PLAYER_TWO.hpoutline);
 		remove(PLAYER_ONE.hpbar);
 		remove(PLAYER_TWO.hpbar);
-		remove(level.getLvl_Img());
+		remove(getLevel().getLvl_Img());
 	}
 
 	public void rd_timestate(boolean b) {
 		isrd_timeset=b;
 		
+	}
+
+	public Level getLevel() {
+		return level;
+	}
+
+	public void setLevel(Level level) {
+		this.level = level;
 	}
 	
 	
