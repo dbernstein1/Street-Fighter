@@ -31,7 +31,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		tot=rd_time;
 		for(int i=0;i<=rd_time;i++)
 		{
-			GParagraph tempTime = new GParagraph(" "+i,50,50);
+			GParagraph tempTime = new GParagraph(" "+i,560,60);
 			tempTime.setFont("Arial-40");
 			Time.add(i,tempTime);
 		}
