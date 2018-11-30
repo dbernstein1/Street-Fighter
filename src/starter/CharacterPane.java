@@ -198,21 +198,21 @@ public class CharacterPane extends GraphicsPane {
 		if(img.getX() == 190)
 		{
 
-			return new Player(player1 ? 1 : 2, 1, "guy", 100, 2, 25);
+			return new Player(player1 ? 1 : 2, 1, "guy", 100, 2);
 
 
 		}
 		else if(img.getX() == 390)
 		{
 
-			return new Player(player1 ? 1 : 2, 2, "cody", 100, .8, 15);
+			return new Player(player1 ? 1 : 2, 2, "cody", 100, .8);
 
 		}
 		else if(img.getX() == 590)
 		{
-			return new Player(player1 ? 1 : 2, 3,"Trident", 80, 2, 25);
+			return new Player(player1 ? 1 : 2, 3,"Trident", 80, 2);
 		}
-		return new Player(player1 ? 1 : 2, 4,"Rick", 150, .8, 15);
+		return new Player(player1 ? 1 : 2, 4,"Rick", 150, .8);
 	}
 	
 }
