@@ -75,7 +75,6 @@ public class Animation{
 		filePost = ".png";
 		switch (player.number) {
 		case 1:
-			filePrefixKnockdown = "sprites/"  + player.name + "/knockdown/knockdown";
 			filePrefixJumpKick = "sprites/"  + player.name + "/"  + player.name + "movJumpKick/jumpKick";
 			NUM_IMAGES_WALK = 6;
 			NUM_IMAGES_JUMP = 6;
@@ -212,6 +211,8 @@ public class Animation{
 			else if(player.lost)
 			{
 				curState = -1;
+				if(curState != prevState)
+					frame = 0;
 				knockDown();
 			}
 			else
@@ -309,10 +310,12 @@ public class Animation{
 	public void knockDown()
 	{
 		if(frame < NUM_IMAGES_KNOCKDOWN)
+		{
 			curImg.setImage(filePrefixKnockdown + (frame + 1) + filePost);
+			flipPlayerImage();
+		}
 		if(frame > 15)
 			program.getGamePane().showStats();
-		flipPlayerImage();
 		curImg.setSize(111, 264);
 	}
 	
