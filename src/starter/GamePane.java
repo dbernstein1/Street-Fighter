@@ -18,6 +18,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	private Result disp_p1;
 	private int rd_time=0;
 	private boolean game_Over=false;
+	private GRect rect1;
 	public static Animation p1Animation;
 	public static Animation p2Animation;
 	private Result disp_p2;
@@ -30,8 +31,8 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		tot=rd_time;
 		for(int i=0;i<=rd_time;i++)
 		{
-			GParagraph tempTime = new GParagraph(" "+i,100,100);
-			tempTime.setFont("Arial-24");
+			GParagraph tempTime = new GParagraph(" "+i,50,50);
+			tempTime.setFont("Arial-40");
 			Time.add(i,tempTime);
 		}
 	}
@@ -47,6 +48,9 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		bgBeach = program.backgroundBeach;
 		bgBeach2 = program.backgroundBeach2;
 		bgBeach3 = program.backgroundBeach3;
+		rect1=new GRect(565,20,60,60);
+		rect1.setFillColor(Color.WHITE);
+		rect1.setFilled(true);
 		Time= new ArrayList<GParagraph>();
 		if(!isrd_timeset)
 		{
@@ -54,8 +58,8 @@ public class GamePane extends GraphicsPane implements ActionListener {
 			tot=rd_time;
 			for(int i=0;i<=rd_time;i++)
 			{
-				GParagraph tempTime = new GParagraph(" "+i,100,100);
-				tempTime.setFont("Arial-24");
+				GParagraph tempTime = new GParagraph(" "+i,560,60);
+				tempTime.setFont("Arial-40");
 				Time.add(tempTime);
 			}
 		}
@@ -209,9 +213,10 @@ public class GamePane extends GraphicsPane implements ActionListener {
 			p1Animation.getCurImg().move(-3, 0);
 			p2Animation.getCurImg().move(3, 0);
 		}
-
+		
 		if(numTimes%20==0)
 		{
+			program.add(rect1);
 			program.add(Time.get(rd_time));
 			if(rd_time<tot)
 			{
@@ -222,12 +227,18 @@ public class GamePane extends GraphicsPane implements ActionListener {
 				rd_time--;
 			}
 		}
+		if (intersection(PLAYER_ONE.body, PLAYER_TWO.body)) {
+			playerMove(PLAYER_TWO, 3, 0);
+
+			playerMove(PLAYER_ONE, -3, 0);
+		}
 		showUpdatedContents();
 		PLAYER_ONE.HandleMovement();
 		PLAYER_TWO.HandleMovement();
 		p1Animation.handleState();
 		p2Animation.handleState();
 		handleCollision();
+		
 	}
 
 	@Override
@@ -383,11 +394,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	{
 		int i = 0;
 
-		if (intersection(PLAYER_ONE.body, PLAYER_TWO.body)) {
-			playerMove(PLAYER_TWO, 10, 0);
-
-			playerMove(PLAYER_ONE, -10, 0);
-		}
+		
 
 		if ((PLAYER_ONE.isKicking && intersection(p1Animation.getCurImg(), p2Animation.getCurImg())) || (PLAYER_ONE.isPunching && intersection(p1Animation.getCurImg(), p2Animation.getCurImg()))) {
 			disp_p1.addTotal_h();
