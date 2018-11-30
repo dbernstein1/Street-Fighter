@@ -29,20 +29,40 @@ public class Player extends GraphicsProgram {
 	public boolean isBackward = false;
 	public boolean outOfBounds = false;
 	public boolean lost = false;
-	public GRect body,leg,arm,punch,kick,jumpbox;
-	public GRect hpbar, hpoutline; //staminabar;
-	public GOval head;
-	public GImage chCody;
-	
-	public ArrayList<GObject> arrayList = new ArrayList<GObject>();
-	private Animation animation;
+	public GRect hpoutline;
+	public GRect hpbar;
 	public int number;
 	Player(int player, int number, String n, double MaxHealth, double StrengthMultiplier){
-		this.animation = animation;
 		this.number = number;
+		name = n;
 		hptotal = MaxHealth;
 		hp = hptotal;
 		strength = StrengthMultiplier;
+		switch (player) {
+		case 1:
+			Id = 1;
+			hpbarx = (MainApplication.WINDOW_WIDTH * 0.025);
+			hpoutline = new GRect(hpbarx, 25, 500, 15);
+			hpoutline.setFilled(true);
+			hpbar = new GRect(hpbarx * (hp / hptotal), 25, 500, 15);
+			hpbar.setFillColor(new Color(0, 255, 0));
+			hpbar.setFilled(true);
+			break;
+		case 2:
+			Id = 2;
+			hpbarx = (MainApplication.WINDOW_WIDTH * 0.55);
+			hpoutline = new GRect(hpbarx, 25, 500, 15);
+			hpoutline.setFilled(true);
+			hpbar = new GRect(hpbarx * (hp / hptotal), 25, 500, 15);
+			hpbar.setFillColor(new Color(0, 255, 0));
+			hpbar.setFilled(true);
+//			staminabarx = hpbarx + 239;
+//			staminabar = new GRect(staminabarx * (stamina / staminatotal), 42, 260, 15);
+//			staminabar.setFillColor(new Color(0, 0, 255));
+//			staminabar.setFilled(true);
+			break;
+		}
+		/*
 //		staminatotal = MaxStamina;
 //		stamina = staminatotal;
 		name = n;
@@ -92,25 +112,10 @@ public class Player extends GraphicsProgram {
 //			staminabar.setFilled(true);
 			break;
 		}
+		*/
 	}
 	
-	public void RefreshArray() {  
-		arrayList.add(head);
-		arrayList.add(body);
-		arrayList.add(leg);
-		arrayList.add(hpoutline);
-		arrayList.add(hpbar);
-//		arrayList.add(staminabar);	
-	}
 	
-	public void remove() {
-		
-		for (int i = 0; i < arrayList.size(); i++) {
-			GamePane.remove(arrayList.get(i));
-		}
-		GamePane.remove(punch);
-		GamePane.remove(kick);
-	}
 	
 /*	public void updateStamina() { 
 		
@@ -130,14 +135,12 @@ public class Player extends GraphicsProgram {
 				isForward = false;
 				isBackward = false;
 				GamePane.playerMove(this, 0, duck);
-				GamePane.remove(leg);
 			//	stamina -= 0.1;
 			//	updateStamina();
 				duck-=dctr;
 				if (duck == -8){
 					duck=7;
 					isDucking=false;
-					GamePane.add(leg);
 				}
 			}
 			if(isForward){
@@ -186,36 +189,25 @@ public class Player extends GraphicsProgram {
 			}
 			
 			if(isKicking){
-				GamePane.add(kick);
-				GamePane.remove(leg);
 				hittime++;
 	//			stamina -= 0.05;
 	//			updateStamina();
 				if(hittime==10){
-					GamePane.remove(kick);
 					isKicking=false;
 					hittime=0;
 				}
 			}
 			if(isPunching){
-				GamePane.add(punch);
-				GamePane.remove(arm);
 				hittime++;
 	//			stamina -= 0.05;
 	//			updateStamina();
 				if(hittime==6){
-					GamePane.remove(punch);
-					GamePane.add(arm);
 					isPunching=false;
 					hittime=0;
 				}
 			}
 			if(isJumpVert){
 				GamePane.playerMove(this, 0, jump);
-				GamePane.remove(leg);
-				GamePane.remove(body);
-				GamePane.remove(head);
-				GamePane.add(jumpbox);
 				jump+=jctr;
 	//			stamina -= 0.1;
 	//			updateStamina();
@@ -226,10 +218,6 @@ public class Player extends GraphicsProgram {
 			}
 			if(isJumpMoving){
 				GamePane.playerMove(this, 0, jump);
-				GamePane.remove(leg);
-				GamePane.remove(body);
-				GamePane.remove(head);
-				GamePane.add(jumpbox);
 				jump+=jctr;
 	//			stamina -= 0.1;
 	//			updateStamina();
@@ -240,8 +228,4 @@ public class Player extends GraphicsProgram {
 			}
 		}
 	
-	public Animation getAnimation()
-	{
-		return animation;
-	}
 }
