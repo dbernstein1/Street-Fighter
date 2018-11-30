@@ -429,7 +429,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		t.stop();
 		disp_p1.displayBox();
 		disp_p2.displayBox();
-		GParagraph winner = new GParagraph(PLAYER_ONE.lost ? "Player 1 Wins!" : "Player 2 Wins!", 220, 140);
+		GParagraph winner = new GParagraph(PLAYER_ONE.lost ? "Player 1 Wins!" : "Player 2 Loses!", 220, 140);
 		GParagraph loser = new GParagraph(PLAYER_ONE.lost ? "Player 2 Loses!" : "Player 2 Wins!", 670, 140);
 		winner.setFont("Arial-24");
 		winner.setColor(Color.RED);
