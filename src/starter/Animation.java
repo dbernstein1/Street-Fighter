@@ -11,6 +11,7 @@ import acm.graphics.GImage;
 import acm.graphics.GObject;
 
 public class Animation{
+	private int numMoveOut = 0;
 	private int prevState = 0;
 	private int curState = 0;
 	private int speed = 1;
@@ -171,11 +172,31 @@ public class Animation{
 			else if(player.isKicking)
 			{
 				curState = 5;
+				if(player.Id== 2)
+				{
+					numMoveOut += 10;
+					curImg.move(-10, 0);
+				}
+				else
+				{
+					numMoveOut -= 10;
+					curImg.move(10, 0);
+				}
 				kick();
 			}
 			else if(player.isPunching)
 			{
 				curState = 6;
+				if(player.Id== 2)
+				{
+					numMoveOut += 10;
+					curImg.move(-10, 0);
+				}
+				else
+				{
+					numMoveOut -= 10;
+					curImg.move(10, 0);
+				}
 				punch();
 			}
 			else if(player.isForward)
@@ -200,7 +221,19 @@ public class Animation{
 			}
 		}
 		if(curState != prevState)
+		{
 			frame = 0;
+			if(prevState == 6)
+			{
+				curImg.move(numMoveOut, 0);
+				numMoveOut = 0;
+			}
+			if(prevState == 5)
+			{
+				curImg.move(numMoveOut, 0);
+				numMoveOut = 0;
+			}
+		}
 		prevState = curState;
 		frame++;
 		
