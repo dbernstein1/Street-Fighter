@@ -18,6 +18,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	private Result disp_p1;
 	private int rd_time=0;
 	private boolean game_Over=false;
+	private GRect rect1;
 	public static Animation p1Animation;
 	public static Animation p2Animation;
 	private Result disp_p2;
@@ -30,8 +31,8 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		tot=rd_time;
 		for(int i=0;i<=rd_time;i++)
 		{
-			GParagraph tempTime = new GParagraph(" "+i,100,100);
-			tempTime.setFont("Arial-24");
+			GParagraph tempTime = new GParagraph(" "+i,560,60);
+			tempTime.setFont("Arial-40");
 			Time.add(i,tempTime);
 		}
 	}
@@ -47,6 +48,9 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		bgBeach = program.backgroundBeach;
 		bgBeach2 = program.backgroundBeach2;
 		bgBeach3 = program.backgroundBeach3;
+		rect1=new GRect(565,20,60,60);
+		rect1.setFillColor(Color.WHITE);
+		rect1.setFilled(true);
 		Time= new ArrayList<GParagraph>();
 		if(!isrd_timeset)
 		{
@@ -54,8 +58,8 @@ public class GamePane extends GraphicsPane implements ActionListener {
 			tot=rd_time;
 			for(int i=0;i<=rd_time;i++)
 			{
-				GParagraph tempTime = new GParagraph(" "+i,100,100);
-				tempTime.setFont("Arial-24");
+				GParagraph tempTime = new GParagraph(" "+i,560,60);
+				tempTime.setFont("Arial-40");
 				Time.add(tempTime);
 			}
 		}
@@ -115,6 +119,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 
 		if (p == null) return;
 
+/*
 		if (p.body.getX()<0 || p.body.getX()>MainApplication.WINDOW_WIDTH-p.body.getWidth()) { 
 			p.outOfBounds = true;
 
@@ -122,18 +127,13 @@ public class GamePane extends GraphicsPane implements ActionListener {
 
 			return;
 		}
+		
+		*/
 		p.outOfBounds = false;
 		moveBody(p, horizontal, vertical);
 
 	}
 	private static void moveBody(Player p, double horizontal, double vertical) {
-		p.head.move(horizontal, vertical);
-		p.jumpbox.move(horizontal, vertical);
-		p.body.move(horizontal, vertical);
-		p.leg.move(horizontal, vertical);
-		p.arm.move(horizontal, vertical);
-		p.punch.move(horizontal, vertical);
-		p.kick.move(horizontal, vertical);
 		if(p.Id == 1)
 		{
 			p1Animation.getCurImg().move(horizontal, vertical);
@@ -209,25 +209,32 @@ public class GamePane extends GraphicsPane implements ActionListener {
 			p1Animation.getCurImg().move(-3, 0);
 			p2Animation.getCurImg().move(3, 0);
 		}
-
+		
 		if(numTimes%20==0)
 		{
+			program.add(rect1);
 			program.add(Time.get(rd_time));
 			if(rd_time<tot)
 			{
 				program.remove(Time.get(rd_time+1));
+			}
+			if(rd_time==0)
+			{
+				t.stop();
+				showStats();
 			}
 			if(rd_time>=0)
 			{
 				rd_time--;
 			}
 		}
-		showUpdatedContents();
+				
 		PLAYER_ONE.HandleMovement();
 		PLAYER_TWO.HandleMovement();
 		p1Animation.handleState();
 		p2Animation.handleState();
 		handleCollision();
+		
 	}
 
 	@Override
@@ -309,7 +316,6 @@ public class GamePane extends GraphicsPane implements ActionListener {
 			{
 				disp_p1.addTotal_p();
 				PLAYER_ONE.hittime=0;
-				remove(PLAYER_ONE.arm);
 				PLAYER_ONE.isPunching=true;
 			}
 		}
@@ -325,7 +331,6 @@ public class GamePane extends GraphicsPane implements ActionListener {
 				{
 					disp_p2.addTotal_p();
 					PLAYER_TWO.hittime=0;
-					remove(PLAYER_TWO.arm);
 					PLAYER_TWO.isPunching=true;
 
 				}
@@ -381,14 +386,6 @@ public class GamePane extends GraphicsPane implements ActionListener {
 
 	public void handleCollision()
 	{
-		int i = 0;
-
-		if (intersection(PLAYER_ONE.body, PLAYER_TWO.body)) {
-			playerMove(PLAYER_TWO, 10, 0);
-
-			playerMove(PLAYER_ONE, -10, 0);
-		}
-
 		if ((PLAYER_ONE.isKicking && intersection(p1Animation.getCurImg(), p2Animation.getCurImg())) || (PLAYER_ONE.isPunching && intersection(p1Animation.getCurImg(), p2Animation.getCurImg()))) {
 			disp_p1.addTotal_h();
 			PLAYER_TWO.hp -= 3 * PLAYER_ONE.strength;
@@ -430,11 +427,9 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	{
 		// add slow motion
 		t.stop();
-		PLAYER_ONE.remove();
-		PLAYER_TWO.remove();
 		disp_p1.displayBox();
 		disp_p2.displayBox();
-		GParagraph winner = new GParagraph(PLAYER_ONE.lost ? "Player 1 Wins!" : "Player 2 Wins!", 220, 140);
+		GParagraph winner = new GParagraph(PLAYER_ONE.lost ? "Player 1 Wins!" : "Player 2 Loses!", 220, 140);
 		GParagraph loser = new GParagraph(PLAYER_ONE.lost ? "Player 2 Loses!" : "Player 2 Wins!", 670, 140);
 		winner.setFont("Arial-24");
 		winner.setColor(Color.RED);
@@ -444,40 +439,20 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		add(loser);
 		game_Over=true;
 	}
-	public void showUpdatedContents()
-	{
-		PLAYER_ONE.RefreshArray();
-		PLAYER_TWO.RefreshArray();
-		for (int i = 0; i < PLAYER_ONE.arrayList.size(); i++) {
-			add(PLAYER_ONE.arrayList.get(i));
 
-		}
-		for (int i = 0; i < PLAYER_TWO.arrayList.size(); i++) {
-			add(PLAYER_TWO.arrayList.get(i));
-		}
-	}
 
 	@Override
 	public void showContents() {
-		for (int i = 0; i < PLAYER_ONE.arrayList.size(); i++) {
-			add(PLAYER_ONE.arrayList.get(i));
-
-		}
-		for (int i = 0; i < PLAYER_TWO.arrayList.size(); i++) {
-			add(PLAYER_TWO.arrayList.get(i));
-
-		}
 		level.getLvl_Img().setLocation(0,0);
 		level.getLvl_Img().setSize(1200, 600);
 		add(level.getLvl_Img());
-		//add(PLAYER_ONE.getAnimation().getCurImg());
-		t.start();
 		p1Animation = new Animation(program, PLAYER_ONE);
 		p2Animation = new Animation(program, PLAYER_TWO);
-
-
-
-
+		add(PLAYER_ONE.hpoutline);
+		add(PLAYER_TWO.hpoutline);
+		add(PLAYER_ONE.hpbar);
+		add(PLAYER_TWO.hpbar);
+		t.start();
 		//		
 		//		gameBack = level.getLvl_Img();
 		//		if(level.get_Choice()==4)
@@ -501,8 +476,13 @@ public class GamePane extends GraphicsPane implements ActionListener {
 
 	@Override
 	public void hideContents() {
-		
-
+		remove(p1Animation.getCurImg());
+		remove(p2Animation.getCurImg());
+		remove(PLAYER_ONE.hpoutline);
+		remove(PLAYER_TWO.hpoutline);
+		remove(PLAYER_ONE.hpbar);
+		remove(PLAYER_TWO.hpbar);
+		remove(level.getLvl_Img());
 	}
 
 	public void rd_timestate(boolean b) {

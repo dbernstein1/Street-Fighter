@@ -182,6 +182,8 @@ public class CharacterPane extends GraphicsPane {
 				program.getGamePane().setPLAYER_ONE(getWhichPlayer(highlight));
 				program.getGamePane().setPLAYER_TWO(getWhichPlayer(highlight2));
 				program.switchToInstructionScreen();
+				p1selected = false;
+				p2selected = false;
 			}
 		}
 	}
