@@ -222,6 +222,11 @@ public class GamePane extends GraphicsPane implements ActionListener {
 			{
 				program.remove(Time.get(rd_time+1));
 			}
+			if(rd_time==0)
+			{
+				t.stop();
+				showStats();
+			}
 			if(rd_time>=0)
 			{
 				rd_time--;
