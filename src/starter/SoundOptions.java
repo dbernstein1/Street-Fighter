@@ -54,7 +54,13 @@ public class SoundOptions extends GraphicsPane{
 	public void hideContents() {
 		program.remove(background.getImage());
 		program.remove(backArrow);
-
+		for(int i=0;i<cnt;i++)
+		{
+			program.remove(volume_bars.get(i));
+		}
+		program.remove(s_Increase);
+		program.remove(s_Decrease);
+		program.remove(s_Instruction);
 	}
 
 	@Override
@@ -93,7 +99,6 @@ public class SoundOptions extends GraphicsPane{
 		GRect vol= new GRect(385,295-(cnt*30),60,20);
 		vol.setColor(Color.GREEN);
 		vol.setFilled(true);
-		add(vol);
 		volume_bars.add(cnt,vol);
 	}
 	

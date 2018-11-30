@@ -12,6 +12,7 @@ public class TimeOptions extends GraphicsPane{
 	private MainApplication program;
 	private MenuPane menu;
 	private Background background;
+	private GamePane game;
 	
 	private ArrayList<GObject> ovals;
 	private GButton Timer1;
@@ -22,6 +23,7 @@ public class TimeOptions extends GraphicsPane{
 	{
 		super();
 		menu= new MenuPane(app);
+		game=new GamePane(app);
 		this.program=app;
 		background=program.menu_Bg;
 		Timer1= new GButton("60",365, 235, 100, 50);
@@ -83,6 +85,8 @@ public class TimeOptions extends GraphicsPane{
 			Timer1.setFillColor(Color.RED);
 			program.add(Timer1);
 			program.add(Timer2);
+			program.getGamePane().setrd_time(60);
+			program.getGamePane().rd_timestate(true);
 		}
 		if(obj==Timer2)
 		{
@@ -91,6 +95,8 @@ public class TimeOptions extends GraphicsPane{
 			Timer2.setFillColor(Color.RED);
 			program.add(Timer1);
 			program.add(Timer2);
+			program.getGamePane().setrd_time(120);
+			program.getGamePane().rd_timestate(true);
 		}
 		if(obj==backArrow)
 		{

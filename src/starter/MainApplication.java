@@ -31,6 +31,7 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 	public Background backgroundPort2;
 	public Background backgroundForest;
 	public Background backgroundBeach, backgroundBeach2, backgroundBeach3;
+	private InstructionScreen inst;
 	//private Background background;
 	
 	/*
@@ -74,6 +75,7 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 		t_Opt=new TimeOptions(this);
 		s_Opt=new SoundOptions(this);
 		pause=new PauseMenu(this);
+		inst=new InstructionScreen(this);
 		switchToMenu();
 	}
 	private void testingGame() {
@@ -115,6 +117,11 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 	
 	public void switchToSoundOptions(){
 		switchToScreen(s_Opt);
+	}
+	
+	public void switchToInstructionScreen()
+	{
+		switchToScreen(inst);
 	}
 	private void playSound() {
 		AudioPlayer audio = AudioPlayer.getInstance();
