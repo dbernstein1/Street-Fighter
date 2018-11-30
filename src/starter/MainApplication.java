@@ -33,13 +33,6 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 	public Background backgroundBeach, backgroundBeach2, backgroundBeach3;
 	public Timer rndTimer;
 	private InstructionScreen inst;
-	//private Background background;
-	
-	/*
-	public Background getBackground(){
-		return background;
-	}
-	*/
 	
 	public GamePane getGamePane() {
 		return gamePane;

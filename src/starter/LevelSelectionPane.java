@@ -41,8 +41,20 @@ public class LevelSelectionPane extends GraphicsPane {
 		LEVEL_MIGUEL2 = new Level(4,arena4);
 	}
 	
+	public void resetArena()
+	{
+		arena1.setLocation(100,100);
+		arena1.setSize(300, 200);
+		arena2.setLocation(700, 100);
+		arena2.setSize(300, 200);
+		arena3.setLocation(100, 320);
+		arena3.setSize(300, 200);
+		arena4.setSize(300, 200);
+		arena4.setLocation(700,320);
+	}
 	@Override
 	public void showContents() {
+		resetArena();
 		program.add(back_Ground.getImage());
 		program.add(arena1);
 		program.add(arena2);
