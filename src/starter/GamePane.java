@@ -435,14 +435,13 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		level.getLvl_Img().setLocation(0,0);
 		level.getLvl_Img().setSize(1200, 600);
 		add(level.getLvl_Img());
-		//add(PLAYER_ONE.getAnimation().getCurImg());
-		t.start();
 		p1Animation = new Animation(program, PLAYER_ONE);
 		p2Animation = new Animation(program, PLAYER_TWO);
 		add(PLAYER_ONE.hpoutline);
 		add(PLAYER_TWO.hpoutline);
 		add(PLAYER_ONE.hpbar);
 		add(PLAYER_TWO.hpbar);
+		t.start();
 		//		
 		//		gameBack = level.getLvl_Img();
 		//		if(level.get_Choice()==4)
@@ -472,6 +471,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		remove(PLAYER_TWO.hpoutline);
 		remove(PLAYER_ONE.hpbar);
 		remove(PLAYER_TWO.hpbar);
+		remove(level.getLvl_Img());
 	}
 
 	public void rd_timestate(boolean b) {
