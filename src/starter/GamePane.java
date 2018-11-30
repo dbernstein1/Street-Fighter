@@ -94,7 +94,6 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		p.outOfBounds = false;
 		moveBody(p, horizontal, vertical);
 		
-		System.out.println("Movement: "+ p.body);
 
 	}
 	private static void moveBody(Player p, double horizontal, double vertical) {
@@ -106,9 +105,13 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		p.punch.move(horizontal, vertical);
 		p.kick.move(horizontal, vertical);
 		if(p.Id == 1)
+		{
 			p1Animation.getCurImg().move(horizontal, vertical);
+		}
 		else
+		{
 			p2Animation.getCurImg().move(horizontal, vertical);
+		}
 	}
 
 	public void updateHealthPoints(Player p) {

@@ -34,12 +34,15 @@ public class Animation{
 	private int NUM_IMAGES_DUCK;
 	private static MainApplication program;
 	private int frame = 0;
+	private boolean adjusted = true;
 	private Player player;
 
 	public void flipPlayerImage()
 	{
 		if(player.Id == 2)
+		{
 			curImg.setImage(flipImage(curImg).getImage());
+		}
 	}
 	
 	public GImage flipImage(GImage org) {
@@ -235,21 +238,16 @@ public class Animation{
 	
 	public void jump()
 	{
-		//curImg.setImage(filePrefixJump + 2 + filePost);
 		curImg.setImage(filePrefixJump + (frame % NUM_IMAGES_JUMP + 1) + filePost);
 		if(player.number == 2)
 			curImg.setImage(filePrefixJump + 2 + filePost);
 		flipPlayerImage();
 		curImg.setSize(111, 264);
-		//curImg.setSize(166, 264);
-		//playerAnimationJump();
-		//if (curImg.getLocation().getY() > 10)
-		//	curImg.move(player.isForward ? 20 : (player.isBackward ? -20 : 0), -20);
 	}
 	
 	public void kick()
 	{
-		curImg.setImage(fileDuck);
+		curImg.setImage(filePrefixKick + (frame % NUM_IMAGES_KICK + 1) + filePost);
 		flipPlayerImage();
 		curImg.setSize(111, 264);
 	}
@@ -258,10 +256,7 @@ public class Animation{
 	{
 		curImg.setImage(filePrefixPunch + (frame % NUM_IMAGES_PUNCH  + 1) + filePost);
 		flipPlayerImage();
-		if(player.number == 2)
-			curImg.setSize(111, 264);
-		else
-			curImg.setSize(166, 264);
+		curImg.setSize(111, 264);
 	}
 	
 	public void jumpMove()
