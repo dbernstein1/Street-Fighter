@@ -31,6 +31,7 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 	public Background backgroundPort2;
 	public Background backgroundForest;
 	public Background backgroundBeach, backgroundBeach2, backgroundBeach3;
+	public Timer rndTimer;
 	private InstructionScreen inst;
 	//private Background background;
 	
@@ -67,6 +68,7 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 		backgroundBeach2 = new Background("maps/BeachMap/beachMap02.png", WINDOW_WIDTH, WINDOW_HEIGHT);
 		backgroundBeach3 = new Background("maps/BeachMap/beachMap03.png", WINDOW_WIDTH, WINDOW_HEIGHT);
 		menu_Bg= new Background(IMAGES[0], WINDOW_WIDTH, WINDOW_HEIGHT);
+	//	rndTimer = new Timer(T_IMAGES[10], );
 		menu = new MenuPane(this);
 		gamePane = new GamePane(this);
 		characterPane = new CharacterPane(this);
