@@ -252,10 +252,7 @@ public class Animation{
 	{
 		curImg.setImage(filePrefixWalk + (frame % NUM_IMAGES_WALK + 1) + filePost);
 		flipPlayerImage();
-		if(player.number == 2)
-			curImg.setSize(166, 264);
-		else
-			curImg.setSize(111, 264);
+		curImg.setSize(111, 264);
 	}
 	
 	
@@ -263,10 +260,7 @@ public class Animation{
 	{
 		curImg.setImage(filePrefixWalk + (frame % NUM_IMAGES_WALK + 1) + filePost);
 		flipPlayerImage();
-		if(player.number == 2)
-			curImg.setSize(166, 264);
-		else
-			curImg.setSize(111, 264);
+		curImg.setSize(111, 264);
 	}
 	
 	public void jump()
