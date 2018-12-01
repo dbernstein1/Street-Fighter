@@ -10,7 +10,6 @@ public class PauseMenu extends GraphicsPane{
 	private GRect rect;
 	private GButton resume;
 	private GButton menu;
-	private GamePane game;
 	private GParagraph pause;
 	
 	PauseMenu(MainApplication app)
@@ -73,6 +72,7 @@ public class PauseMenu extends GraphicsPane{
 		}
 		if(obj==menu)
 		{
+			program.getGamePane().resetTime();
 			program.switchToMenu();
 		}
 	}

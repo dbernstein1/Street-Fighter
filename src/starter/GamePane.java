@@ -77,7 +77,9 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	public static final int GROUND = 550;
 	private Timer t;
 	private int numTimes = 0;
-	private boolean isrd_timeset=false;;
+	private boolean isrd_timeset=false;
+	private boolean rdEnd=false;
+	private boolean isDraw=false;
 
 	//	backgroundPort = new Background("portMapMain.png", WINDOW_WIDTH, WINDOW_HEIGHT);
 	//  backgroundPort2 = new Background("portMapMain2.png", WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -157,23 +159,23 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		gameOver();
 	}
 
-	public void add(Background bgPort) {
-		program.add(bgPort);
-	}
-
-	public void remove(Background bgPort) {
-		program.remove(bgPort);
-	}
-
-	public void addBeach(Background bgBeach) 
-	{
-		program.add(bgBeach);
-	}
-
-	public void removeBeach(Background bgBeach)
-	{
-		program.remove(bgBeach);
-	}
+//	public void add(Background bgPort) {
+//		program.add(bgPort);
+//	}
+//
+//	public void remove(Background bgPort) {
+//		program.remove(bgPort);
+//	}
+//
+//	public void addBeach(Background bgBeach) 
+//	{
+//		program.add(bgBeach);
+//	}
+//
+//	public void removeBeach(Background bgBeach)
+//	{
+//		program.remove(bgBeach);
+//	}
 
 
 	public void actionPerformed(ActionEvent e)
@@ -221,6 +223,8 @@ public class GamePane extends GraphicsPane implements ActionListener {
 			if(rd_time==0)
 			{
 				t.stop();
+				rdEnd=true;
+				gameOver();
 				showStats();
 			}
 			if(rd_time>=0)
@@ -228,7 +232,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 				rd_time--;
 			}
 		}
-				
+		
 		PLAYER_ONE.HandleMovement();
 		PLAYER_TWO.HandleMovement();
 		p1Animation.handleState();
@@ -438,6 +442,21 @@ public class GamePane extends GraphicsPane implements ActionListener {
 			System.out.println("player 1 wins");
 			PLAYER_TWO.lost = true;
 		}
+		if(rdEnd)
+		{
+			if(PLAYER_ONE.hp<PLAYER_TWO.hp)
+			{
+				PLAYER_ONE.lost = true;
+			}
+			else if(PLAYER_TWO.hp<PLAYER_ONE.hp)
+			{
+				PLAYER_TWO.lost = true;
+			}
+			else
+			{
+				isDraw=true;
+			}
+		}
 	}
 
 	public void showStats()
@@ -446,14 +465,32 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		t.stop();
 		disp_p1.displayBox();
 		disp_p2.displayBox();
-		GParagraph winner = new GParagraph(PLAYER_ONE.lost ? "Player 1 Wins!" : "Player 2 Loses!", 220, 140);
-		GParagraph loser = new GParagraph(PLAYER_ONE.lost ? "Player 2 Loses!" : "Player 2 Wins!", 670, 140);
+		if(isDraw)
+		{
+			GParagraph winner = new GParagraph("Round Draw", 220, 140);
+			winner.setFont("Arial-24");
+			winner.setColor(Color.RED);
+			GParagraph loser = new GParagraph("Round Draw", 670, 140);
+			loser.setFont("Arial-24");
+			loser.setColor(Color.RED);
+			add(winner);
+			add(loser);
+		}
+		else
+		{
+		GParagraph winner = new GParagraph(PLAYER_ONE.lost ? "Player 1 Loses!" : "Player 1 Wins!", 220, 140);
+		GParagraph loser = new GParagraph(PLAYER_ONE.lost ? "Player 2 Wins!" : "Player 2 Loses!", 670, 140);
 		winner.setFont("Arial-24");
 		winner.setColor(Color.RED);
 		loser.setFont("Arial-24");
 		loser.setColor(Color.RED);
 		add(winner);
 		add(loser);
+		}
+		GParagraph next = new GParagraph("Press Space Bar To Go Back To Menu", 350, 440);
+		next.setFont("Arial-24");
+		next.setColor(Color.BLACK);
+		add(next);
 		game_Over=true;
 	}
 
@@ -470,24 +507,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		add(PLAYER_ONE.hpbar);
 		add(PLAYER_TWO.hpbar);
 		t.start();
-		//		
-		//		gameBack = level.getLvl_Img();
-		//		if(level.get_Choice()==4)
-		//		{
-		//			gameBack.setImage("maps/BeachMap/beachMapMain.png");
-		//		}
-		//		gameBack.setLocation(0,0);
-		//		gameBack.setSize(1200, 600);
-		//		add(gameBack);
-		//		//add(PLAYER_ONE.getAnimation().getCurImg());
-		//		t.start();
-		//		p1Animation = new Animation(program, PLAYER_ONE);
-		//		p2Animation = new Animation(program, PLAYER_TWO);
-		//		
-
-
-
-
+	
 	}
 
 
@@ -500,6 +520,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		remove(PLAYER_ONE.hpbar);
 		remove(PLAYER_TWO.hpbar);
 		remove(getLevel().getLvl_Img());
+		remove(rect1);
 	}
 
 	public void rd_timestate(boolean b) {
@@ -514,7 +535,10 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	public void setLevel(Level level) {
 		this.level = level;
 	}
-	
+	public void resetTime()
+	{
+		rd_time=tot;
+	}
 	
 }
 
