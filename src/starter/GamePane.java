@@ -37,13 +37,6 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	{
 		super();
 		this.program = app;
-//		background = program.background;
-//		bgPort = program.backgroundPort;
-//		bgPort2 = program.backgroundPort2;
-//		bgForest = program.backgroundForest;
-//		bgBeach = program.backgroundBeach;
-//		bgBeach2 = program.backgroundBeach2;
-//		bgBeach3 = program.backgroundBeach3;
 		rect1=new GRect(565,20,60,60);
 		rect1.setFillColor(Color.WHITE);
 		rect1.setFilled(true);
@@ -117,17 +110,6 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	public static void playerMove(Player p, double horizontal, double vertical) { // need 2 remove static
 
 		if (p == null) return;
-
-/*
-		if (p.body.getX()<0 || p.body.getX()>MainApplication.WINDOW_WIDTH-p.body.getWidth()) { 
-			p.outOfBounds = true;
-
-			moveBody(p, 4* -horizontal, vertical);
-
-			return;
-		}
-		
-		*/
 		if (p1Animation.getCurImg().getX()<0 || p1Animation.getCurImg().getX()>MainApplication.WINDOW_WIDTH-p1Animation.getCurImg().getWidth()) { 
 			p.outOfBounds = true;
 
@@ -168,25 +150,6 @@ public class GamePane extends GraphicsPane implements ActionListener {
 
 		gameOver();
 	}
-
-//	public void add(Background bgPort) {
-//		program.add(bgPort);
-//	}
-//
-//	public void remove(Background bgPort) {
-//		program.remove(bgPort);
-//	}
-//
-//	public void addBeach(Background bgBeach) 
-//	{
-//		program.add(bgBeach);
-//	}
-//
-//	public void removeBeach(Background bgBeach)
-//	{
-//		program.remove(bgBeach);
-//	}
-
 
 	public void actionPerformed(ActionEvent e)
 	{
