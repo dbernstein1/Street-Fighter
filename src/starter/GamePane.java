@@ -520,6 +520,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		remove(PLAYER_TWO.hpbar);
 		remove(getLevel().getLvl_Img());
 		remove(rect1);
+		remove(Time.get(rd_time+1));
 	}
 
 	public void rd_timestate(boolean b) {
