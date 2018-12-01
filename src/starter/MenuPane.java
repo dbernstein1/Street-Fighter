@@ -59,12 +59,7 @@ public class MenuPane extends GraphicsPane {
 			add(oval);
 			ovals.add(oval);
 		}
-		/*for(int i=0;i<13;i++)  //Used to add oval
-		{
-			GOval oval=makeOval();
-			add(oval);
-			ovals.add(oval);
-		}*/
+		
 		background=program.menu_Bg;
 	}
 

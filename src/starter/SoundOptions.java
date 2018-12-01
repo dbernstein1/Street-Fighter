@@ -13,7 +13,6 @@ public class SoundOptions extends GraphicsPane{
 	private MainApplication program;
 	private Background background;
 
-	private int cnt=3;
 	private GImage backArrow;
 	private GButton play;
 	private GButton pause;

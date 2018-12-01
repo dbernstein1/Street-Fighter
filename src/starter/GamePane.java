@@ -9,11 +9,7 @@ import javax.swing.*;
 import acm.graphics.*;
 
 public class GamePane extends GraphicsPane implements ActionListener {
-	private Background bgPort;
-	private Background bgPort2;
-	private Background background;
-	private Background bgBeach, bgBeach2, bgBeach3;
-	private Background bgForest;
+	
 
 	private Result disp_p1;
 	private int rd_time=0;
@@ -41,13 +37,13 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	{
 		super();
 		this.program = app;
-		background = program.background;
-		bgPort = program.backgroundPort;
-		bgPort2 = program.backgroundPort2;
-		bgForest = program.backgroundForest;
-		bgBeach = program.backgroundBeach;
-		bgBeach2 = program.backgroundBeach2;
-		bgBeach3 = program.backgroundBeach3;
+//		background = program.background;
+//		bgPort = program.backgroundPort;
+//		bgPort2 = program.backgroundPort2;
+//		bgForest = program.backgroundForest;
+//		bgBeach = program.backgroundBeach;
+//		bgBeach2 = program.backgroundBeach2;
+//		bgBeach3 = program.backgroundBeach3;
 		rect1=new GRect(565,20,60,60);
 		rect1.setFillColor(Color.WHITE);
 		rect1.setFilled(true);
@@ -66,6 +62,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		t=new Timer(50,this);
 		disp_p1=new Result(program,1);
 		disp_p2=new Result(program,2);
+		
 	}
 
 
@@ -346,6 +343,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 			{
 				if(game_Over)
 				{
+					sound(true);
 					program.switchToMenu();
 				}
 				else
@@ -506,6 +504,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		add(PLAYER_TWO.hpoutline);
 		add(PLAYER_ONE.hpbar);
 		add(PLAYER_TWO.hpbar);
+		sound(false);
 		t.start();
 	
 	}
@@ -539,7 +538,10 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	{
 		rd_time=tot;
 	}
-	
+	public void sound(boolean isPlaying)
+	{
+		program.levelSound(level.get_Choice(), isPlaying);
+	}
 }
 
 

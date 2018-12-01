@@ -72,6 +72,7 @@ public class PauseMenu extends GraphicsPane{
 		}
 		if(obj==menu)
 		{
+			program.getGamePane().sound(true);
 			program.getGamePane().resetTime();
 			program.switchToMenu();
 		}

@@ -8,7 +8,7 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 	public static final int WINDOW_HEIGHT = 600;
 	public static final int GROUND = 550;
 	public static final String MUSIC_FOLDER = "sounds";
-	private static final String[] SOUND_FILES = {"megalovania.mp3" , "r2d2.mp3", "somethinlikethis.mp3" };
+	private static final String[] SOUND_FILES = {"megalovania.mp3" , "deathbyglamour.mp3", "ghostfight.mp3" };
 	private static final String IMAGES[]= {"sans.jpg","example_back.jpg","portMapMain.png", "forestMap.jpg","beachMap01.png"};
 
 
@@ -33,11 +33,11 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 	public Background backgroundBeach, backgroundBeach2, backgroundBeach3;
 	public Timer rndTimer;
 	private InstructionScreen inst;
-	
+
 	public GamePane getGamePane() {
 		return gamePane;
 	}
-	
+
 	public LevelSelectionPane getLevelPane() {
 		return level;
 	}
@@ -50,7 +50,7 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);	
 		requestFocus();
 	}
-	
+
 
 	public void run() {
 		background = new Background(IMAGES[1], WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -61,7 +61,7 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 		backgroundBeach2 = new Background("maps/BeachMap/beachMap02.png", WINDOW_WIDTH, WINDOW_HEIGHT);
 		backgroundBeach3 = new Background("maps/BeachMap/beachMap03.png", WINDOW_WIDTH, WINDOW_HEIGHT);
 		menu_Bg= new Background(IMAGES[0], WINDOW_WIDTH, WINDOW_HEIGHT);
-	//	rndTimer = new Timer(T_IMAGES[10], );
+		//	rndTimer = new Timer(T_IMAGES[10], );
 		menu = new MenuPane(this);
 		gamePane = new GamePane(this);
 		characterPane = new CharacterPane(this);
@@ -88,45 +88,83 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 	public void switchToOptions() {
 		switchToScreen(options);
 	}
-	
+
 	public void switchToLevel() {
 		switchToScreen(levelPane);
 	}
-	
+
 	public void switchToGame() {
-		stopSound();
 		switchToScreen(gamePane);
 	}
 
 	public void switchToCharacterPane() {
 		switchToScreen(characterPane);
 	}
-	
+
 	public void switchToTimeOptions() {
 		switchToScreen(t_Opt);
 	}
-	
+
 	public void switchToPauseMenu() {
 		switchToScreen(pause);
 	}
-	
+
 	public void switchToSoundOptions(){
 		switchToScreen(s_Opt);
 	}
-	
+
 	public void switchToInstructionScreen()
 	{
+		stopSound();
 		switchToScreen(inst);
 	}
 	public void playSound() {
 		AudioPlayer audio = AudioPlayer.getInstance();
-		audio.playSound(MUSIC_FOLDER, SOUND_FILES[0],true);
+		audio.playSound(MUSIC_FOLDER, SOUND_FILES[2],true);
 	}
 	public void stopSound() {
 		AudioPlayer audio = AudioPlayer.getInstance();
-		audio.stopSound(MUSIC_FOLDER, SOUND_FILES[0]);
+		audio.stopSound(MUSIC_FOLDER, SOUND_FILES[2]);
+	}
+	public void levelSound(int level,boolean isPlaying)
+	{
+		AudioPlayer audio = AudioPlayer.getInstance();
+		switch(level)
+		{
+		case 1:
+			if(!isPlaying)
+			{
+				audio.playSound(MUSIC_FOLDER, SOUND_FILES[0],true);
+				break;
+			}
+			audio.stopSound(MUSIC_FOLDER, SOUND_FILES[0]);
+			break;
+		case 2:
+			if(!isPlaying)
+			{
+				audio.playSound(MUSIC_FOLDER, SOUND_FILES[1],true);
+				break;
+			}
+			audio.stopSound(MUSIC_FOLDER, SOUND_FILES[1]);
+			break;
+		case 3:
+			if(!isPlaying)
+			{
+				audio.playSound(MUSIC_FOLDER, SOUND_FILES[0],true);
+				break;
+			}
+			audio.stopSound(MUSIC_FOLDER, SOUND_FILES[0]);
+			break;
+		case 4:
+			if(!isPlaying)
+			{
+				audio.playSound(MUSIC_FOLDER, SOUND_FILES[0],true);
+				break;
+			}
+			audio.stopSound(MUSIC_FOLDER, SOUND_FILES[0]);
+			break;
+		}
 	}
 
-	
 
 }
