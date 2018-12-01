@@ -8,7 +8,7 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 	public static final int WINDOW_HEIGHT = 600;
 	public static final int GROUND = 550;
 	public static final String MUSIC_FOLDER = "sounds";
-	private static final String[] SOUND_FILES = {"megalovania.mp3" , "deathbyglamour.mp3", "ghostfight.mp3","spiderdance.mp3" };
+	private static final String[] SOUND_FILES = {"megalovania.mp3" , "deathbyglamour.mp3", "ghostfight.mp3","spiderdance.mp3","spearofjustice.mp3" };
 	private static final String IMAGES[]= {"sans.jpg","example_back.jpg","portMapMain.png", "forestMap.jpg","beachMap01.png"};
 
 
@@ -73,12 +73,7 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 		inst=new InstructionScreen(this);
 		switchToMenu();
 	}
-	private void testingGame() {
-		gamePane.setPLAYER_ONE(new Player(1, 2, "erik", 80, 2));
-		gamePane.setPLAYER_TWO(new Player(2, 2,"erik", 80, 2));
-		gamePane.set_Choice(new Level(1, new GImage("example_back.jpg")));
-		switchToGame();
-	}
+	
 	public void switchToMenu() {
 		playSound();
 		count++;
@@ -150,18 +145,18 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 		case 3:
 			if(!isPlaying)
 			{
-				audio.playSound(MUSIC_FOLDER, SOUND_FILES[0],true);
+				audio.playSound(MUSIC_FOLDER, SOUND_FILES[3],true);
 				break;
 			}
-			audio.stopSound(MUSIC_FOLDER, SOUND_FILES[0]);
+			audio.stopSound(MUSIC_FOLDER, SOUND_FILES[3]);
 			break;
 		case 4:
 			if(!isPlaying)
 			{
-				audio.playSound(MUSIC_FOLDER, SOUND_FILES[0],true);
+				audio.playSound(MUSIC_FOLDER, SOUND_FILES[4],true);
 				break;
 			}
-			audio.stopSound(MUSIC_FOLDER, SOUND_FILES[0]);
+			audio.stopSound(MUSIC_FOLDER, SOUND_FILES[4]);
 			break;
 		}
 	}
