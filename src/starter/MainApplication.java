@@ -8,7 +8,7 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 	public static final int WINDOW_HEIGHT = 600;
 	public static final int GROUND = 550;
 	public static final String MUSIC_FOLDER = "sounds";
-	private static final String[] SOUND_FILES = {"megalovania.mp3" , "deathbyglamour.mp3", "ghostfight.mp3" };
+	private static final String[] SOUND_FILES = {"megalovania.mp3" , "deathbyglamour.mp3", "ghostfight.mp3","spiderdance.mp3" };
 	private static final String IMAGES[]= {"sans.jpg","example_back.jpg","portMapMain.png", "forestMap.jpg","beachMap01.png"};
 
 
