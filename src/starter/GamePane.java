@@ -37,7 +37,7 @@ public class GamePane extends GraphicsPane implements ActionListener {
 	{
 		super();
 		this.program = app;
-		rect1=new GRect(565,20,60,60);
+		rect1=new GRect(565,20,80,60);
 		rect1.setFillColor(Color.WHITE);
 		rect1.setFilled(true);
 		Time= new ArrayList<GParagraph>();
