@@ -107,7 +107,6 @@ public class CharacterPane extends GraphicsPane {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
-		System.out.println(obj);
 		if(obj == r1) {
 			if(p1selected == false)
 			{

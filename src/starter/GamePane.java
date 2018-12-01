@@ -128,6 +128,19 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		}
 		
 		*/
+		if (p1Animation.getCurImg().getX()<0 || p1Animation.getCurImg().getX()>MainApplication.WINDOW_WIDTH-p1Animation.getCurImg().getWidth()) { 
+			p.outOfBounds = true;
+
+			moveBody(p,7* -horizontal, vertical);
+			return;
+		}
+		else if (p2Animation.getCurImg().getX()<0 || p2Animation.getCurImg().getX()>MainApplication.WINDOW_WIDTH-p2Animation.getCurImg().getWidth()) { 
+			p.outOfBounds = true;
+
+			moveBody(p, 7* -horizontal, vertical);
+
+			return;
+		}
 		p.outOfBounds = false;
 		moveBody(p, horizontal, vertical);
 
@@ -544,5 +557,6 @@ public class GamePane extends GraphicsPane implements ActionListener {
 		program.levelSound(level.get_Choice(), isPlaying);
 	}
 }
+
 
 
