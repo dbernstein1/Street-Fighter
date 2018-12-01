@@ -80,7 +80,7 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 		switchToGame();
 	}
 	public void switchToMenu() {
-		//playSound();
+		playSound();
 		count++;
 		switchToScreen(menu);
 	}
@@ -118,11 +118,11 @@ public class MainApplication extends GraphicsApplication /*implements ActionList
 	{
 		switchToScreen(inst);
 	}
-	private void playSound() {
+	public void playSound() {
 		AudioPlayer audio = AudioPlayer.getInstance();
 		audio.playSound(MUSIC_FOLDER, SOUND_FILES[0],true);
 	}
-	private void stopSound() {
+	public void stopSound() {
 		AudioPlayer audio = AudioPlayer.getInstance();
 		audio.stopSound(MUSIC_FOLDER, SOUND_FILES[0]);
 	}
