@@ -36,7 +36,7 @@ public class Options extends GraphicsPane {
 		s_Instruction = new GParagraph("Time Options:\nLets you choose\ntime one round lasts",100,250);
 		s_Instruction.setFont("Arial-24");
 		s_Instruction.setColor(Color.WHITE);
-		t_Instruction = new GParagraph("Sound Options:\nLets you set\nVolume And choose\nBackground Music",900,250);
+		t_Instruction = new GParagraph("Sound Options:\nLets you \nPause And Play\nBackground Music",900,250);
 		t_Instruction.setFont("Arial-24");
 		t_Instruction.setColor(Color.WHITE);
 		ovals = new ArrayList<GObject>();	
